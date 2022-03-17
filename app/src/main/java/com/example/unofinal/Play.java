@@ -24,12 +24,21 @@ public class Play extends AppCompatActivity {
     ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        gameInit();
         cardImplementation();
+    }
+
+    private void gameInit(){
+        for(int i = 0; i < 2; i++){
+            game.add(i, new ArrayList<>());
+        }
     }
 
     public void backBtnClick(View view){
@@ -47,10 +56,10 @@ public class Play extends AppCompatActivity {
 
         buildDeck(deck);
         shuffleDeck(deck);
-        //setUpGame(deck, drawPile, game);
-        //discard.push(drawPile.pop());
-        //MainCard topOfDiscard = discard.peek();
-        //ArrayList<MainCard> currentHand = game.get(0);
+        setUpGame(deck, drawPile, game);
+        discard.push(drawPile.pop());
+        MainCard topOfDiscard = discard.peek();
+        ArrayList<MainCard> currentHand = game.get(0);
 
         /*
         int next = 1;
@@ -105,7 +114,7 @@ public class Play extends AppCompatActivity {
                 card = MainCard.Color.GREEN;
                 startSequence = 38;
             } else {
-                card = MainCard.Color.YELLOw;
+                card = MainCard.Color.YELLOW;
                 startSequence = 57;
             }
             arr[startSequence] = new MainCard(card, MainCard.Numbers.ZERO);
@@ -167,11 +176,20 @@ public class Play extends AppCompatActivity {
         for (int i = 0; i < 108; i ++) {
             draw.push(arr[i]);
         }
+
+
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 7; j++) {
                 hands.get(i).add(draw.pop());
             }
         }
+
+
+
+
+
+
     }
 
     public static void drawCards(int amount, ArrayList<MainCard> recipient, Stack<MainCard> drawPile) {

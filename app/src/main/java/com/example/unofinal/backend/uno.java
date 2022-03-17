@@ -67,7 +67,7 @@ public class uno {
     			card = MainCard.Color.GREEN;
     			startSequence = 38;
     		} else {
-    			card = MainCard.Color.YELLOw;
+    			card = MainCard.Color.YELLOW;
     			startSequence = 57;
     		}
         	arr[startSequence] = new MainCard(card, MainCard.Numbers.ZERO);

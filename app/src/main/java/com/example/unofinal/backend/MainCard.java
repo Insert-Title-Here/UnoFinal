@@ -31,7 +31,7 @@ public class MainCard {
 	}
 
 	public enum Color {
-		RED, GREEN, BLUE, YELLOw, NONE
+		RED, GREEN, BLUE, YELLOW, NONE
 	}
 
 	public enum Numbers {
