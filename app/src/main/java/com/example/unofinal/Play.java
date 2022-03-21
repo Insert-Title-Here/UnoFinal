@@ -9,8 +9,11 @@ import android.view.View;
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.MainCard;
+import com.example.unofinal.CardActivity;
+
 
 import java.util.*;
+
 
 
 
@@ -31,7 +34,6 @@ public class Play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        gameInit();
         cardImplementation();
     }
 
@@ -56,6 +58,7 @@ public class Play extends AppCompatActivity {
 
         buildDeck(deck);
         shuffleDeck(deck);
+        gameInit();
         setUpGame(deck, drawPile, game);
         discard.push(drawPile.pop());
         MainCard topOfDiscard = discard.peek();
