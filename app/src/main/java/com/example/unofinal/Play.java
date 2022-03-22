@@ -2,8 +2,10 @@ package com.example.unofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.unofinal.backend.ActionCardColored;
@@ -12,6 +14,12 @@ import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.CardActivity;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.util.*;
 
 
@@ -19,13 +27,12 @@ import java.util.*;
 
 
 
-public class Play extends AppCompatActivity {
+public class Play  extends AppCompatActivity {
 
     Stack<MainCard> drawPile = new  Stack<>();
     Stack<MainCard> discard = new Stack<>();
     MainCard[] deck = new MainCard[108];
     ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
-
 
 
     @Override
@@ -35,6 +42,25 @@ public class Play extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         cardImplementation();
+        writeToFile(this);
+    }
+
+
+    private void writeToFile(Context context) {
+        String data = "Hello";
+        try {
+            FileOutputStream outputStreamWriter = openFileOutput("data.txt", MODE_PRIVATE);
+            //outputStreamWriter.write("Draw Pile");
+            outputStreamWriter.write(data.getBytes());
+
+
+            outputStreamWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     private void gameInit(){
