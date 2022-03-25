@@ -42,11 +42,11 @@ public class Play  extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         cardImplementation();
-        writeToFile(this);
+        //writeToFile(this);
     }
 
 
-    private void writeToFile(Context context) {
+    /*private void writeToFile(Context context) {
         String data = "Hello";
         try {
             FileOutputStream outputStreamWriter = openFileOutput("data.txt", MODE_PRIVATE);
@@ -62,6 +62,8 @@ public class Play  extends AppCompatActivity {
         }
 
     }
+
+     */
 
     private void gameInit(){
         for(int i = 0; i < 2; i++){
