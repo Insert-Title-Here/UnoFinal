@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
+import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.CardActivity;
 
@@ -29,10 +30,11 @@ import java.util.*;
 
 public class Play  extends AppCompatActivity {
 
-    Stack<MainCard> drawPile = new  Stack<>();
-    Stack<MainCard> discard = new Stack<>();
-    MainCard[] deck = new MainCard[108];
-    ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
+    //Stack<MainCard> drawPile = new  Stack<>();
+    //Stack<MainCard> discard = new Stack<>();
+    //MainCard[] deck = new MainCard[108];
+    //ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
+    Data data = new Data();
 
 
     @Override
@@ -67,7 +69,7 @@ public class Play  extends AppCompatActivity {
 
     private void gameInit(){
         for(int i = 0; i < 2; i++){
-            game.add(i, new ArrayList<>());
+            data.game.add(i, new ArrayList<>());
         }
     }
 
@@ -84,13 +86,13 @@ public class Play  extends AppCompatActivity {
 
     private void cardImplementation() {
 
-        buildDeck(deck);
-        shuffleDeck(deck);
+        buildDeck(data.deck);
+        shuffleDeck(data.deck);
         gameInit();
-        setUpGame(deck, drawPile, game);
-        discard.push(drawPile.pop());
-        MainCard topOfDiscard = discard.peek();
-        ArrayList<MainCard> currentHand = game.get(0);
+        setUpGame(data.deck, data.drawPile, data.game);
+        data.discard.push(data.drawPile.pop());
+        MainCard topOfDiscard = data.discard.peek();
+        ArrayList<MainCard> currentHand = data.game.get(0);
 
         /*
         int next = 1;

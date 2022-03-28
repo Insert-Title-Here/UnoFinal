@@ -4,10 +4,17 @@ import java.util.*;
 
 public class player {
 	private ArrayList<MainCard> hand = new ArrayList<>();
+	Data data = new Data();
 	
 	public player(Stack<MainCard> drawPile) {
 		for (int i = 0; i < 7; i++) {
 			hand.add(drawPile.pop());
+		}
+	}
+
+	public player(){
+		for(int i = 0; i < 7; i++){
+			hand.add(data.drawPile.pop());
 		}
 	}
 	
