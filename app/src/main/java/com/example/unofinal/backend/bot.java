@@ -9,6 +9,10 @@ public class bot  extends player {
 	public bot (Stack<MainCard> drawPile) {
 		super(drawPile);
 	}
+
+	public bot(){
+		super();
+	}
 	
 	// make a move method
 	// check size of other people hands

@@ -13,6 +13,7 @@ import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.CardActivity;
+import com.example.unofinal.backend.bot;
 import com.example.unofinal.backend.player;
 
 
@@ -31,10 +32,7 @@ import java.util.*;
 
 public class Play  extends AppCompatActivity {
 
-    //Stack<MainCard> drawPile = new  Stack<>();
-    //Stack<MainCard> discard = new Stack<>();
-    //MainCard[] deck = new MainCard[108];
-    //ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
+
     Data data = new Data();
 
 
@@ -110,6 +108,8 @@ public class Play  extends AppCompatActivity {
         for(int i = 0; i < 2; i++){
             data.gameTest.add(new player());
         }
+
+        data.gameTest.add(new bot());
     }
 
     /*public static void newSetUpGame(MainCard[] arr, Stack<MainCard> draw, ArrayList<ArrayList<MainCard>> hands) {
