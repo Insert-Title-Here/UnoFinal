@@ -13,6 +13,7 @@ import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.CardActivity;
+import com.example.unofinal.backend.player;
 
 
 import java.io.File;
@@ -43,7 +44,13 @@ public class Play  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        cardImplementation();
+        //System.out.println("sldkfjldf");
+
+        //cardImplementation();
+
+        newCardImplementation();
+
+
         //writeToFile(this);
     }
 
@@ -83,8 +90,45 @@ public class Play  extends AppCompatActivity {
 
     }
 
+    private void newCardImplementation() {
+        buildDeck(data.deck);
+        shuffleDeck(data.deck);
+        newGameInit();
+        //setUpGame(data.deck, data.drawPile, data.game);
+        data.discard.push(data.drawPile.pop());
+        //MainCard topOfDiscard = data.discard.peek();
+        //ArrayList<MainCard> currentHand = data.game.get(0);
+
+    }
+
+    private void newGameInit(){
+        for (int i = 0; i < 108; i ++) {
+            data.drawPile.push(data.deck[i]);
+        }
+
+
+        for(int i = 0; i < 2; i++){
+            data.gameTest.add(new player());
+        }
+    }
+
+    /*public static void newSetUpGame(MainCard[] arr, Stack<MainCard> draw, ArrayList<ArrayList<MainCard>> hands) {
+
+
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 7; j++) {
+                hands.get(i).add(draw.pop());
+            }
+        }
+    }
+
+     */
+
+
 
     private void cardImplementation() {
+
 
         buildDeck(data.deck);
         shuffleDeck(data.deck);

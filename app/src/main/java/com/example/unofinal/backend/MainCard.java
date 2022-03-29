@@ -32,6 +32,10 @@ public class MainCard {
 	}
 	
 	public String toString() {
+
+		if(color == null && num == null){
+			return "null";
+		}
 		return(color.name() + " " + num.name());
 	}
 	

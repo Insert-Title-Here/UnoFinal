@@ -47,4 +47,22 @@ public class player {
     	discard.push(card);
     }
 
+	public void printHand(){
+		for(MainCard i: hand){
+			System.out.println(i.toString());
+		}
+	}
+
+	public MainCard getIndex(int i){
+		return hand.get(i);
+	}
+
+	public void remove(int i){
+		hand.remove(i);
+	}
+
+	public int size(){
+		return hand.size();
+	}
+
 }

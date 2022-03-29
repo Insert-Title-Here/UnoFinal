@@ -11,6 +11,8 @@ public class Data {
     public static ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
     public static MainCard currentCard = new MainCard();
 
+    public static ArrayList<player> gameTest = new ArrayList<>();
+
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game){
         this.drawPile = drawPile;
