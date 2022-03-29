@@ -38,11 +38,7 @@ public class ActionCardColored extends MainCard {
     }
     
     public boolean actionMatch(ActionCardColored other) {
-    	if (ability == other.getAbility()) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+    	return true;
     }
 
 	public enum Action {
