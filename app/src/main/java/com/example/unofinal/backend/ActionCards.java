@@ -3,6 +3,7 @@ package com.example.unofinal.backend;
 
 public class ActionCards extends MainCard {
 	private Special action;
+	private Color color;
 	
 	public ActionCards(Special action) {
 		super(Color.NONE, Numbers.NONE);
@@ -19,6 +20,10 @@ public class ActionCards extends MainCard {
 	
 	public boolean matches(MainCard other) {
 		return true;
+	}
+
+	public void changeColor(Color color) {
+		this.color = color;
 	}
 
 	public enum Special {
