@@ -4,7 +4,7 @@ import java.util.*;
 
 public class player {
 	private ArrayList<MainCard> hand = new ArrayList<>();
-	private boolean autonomous;
+	private int playerNumber;
 	Data data = new Data();
 	
 	public player(Stack<MainCard> drawPile) {
@@ -19,15 +19,12 @@ public class player {
 		}
 	}
 
-	public player(Stack<MainCard> drawPile, boolean botOrNot) {
-		for (int i = 0; i < 7; i++) {
-			hand.add(drawPile.pop());
+	public player(int number){
+		for(int i = 0; i < 7; i++){
+			hand.add(data.drawPile.pop());
 		}
-		autonomous = botOrNot;
-	}
 
-	public boolean getAutomated() {
-		return autonomous;
+		playerNumber = number;
 	}
 	
 	

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
@@ -34,6 +35,9 @@ public class Play  extends AppCompatActivity {
 
 
     Data data = new Data();
+    TextView playerView;
+
+
 
 
     @Override
@@ -46,10 +50,35 @@ public class Play  extends AppCompatActivity {
 
         //cardImplementation();
 
+        Intent intent = getIntent();
+        data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
+
+        if(data.players > 5){
+            data.players = 5;
+        }
+
+        if(data.players < 1){
+            data.players = 1;
+        }
+
+        playerView = findViewById(R.id.player);
+
+
         newCardImplementation();
 
 
+        //System.out.println(data.gameTest);
+
+
         //writeToFile(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerView.setText("" + data.currentPlayer);
+
+
     }
 
 
@@ -93,7 +122,9 @@ public class Play  extends AppCompatActivity {
         shuffleDeck(data.deck);
         newGameInit();
         //setUpGame(data.deck, data.drawPile, data.game);
-        data.discard.push(data.drawPile.pop());
+
+        //TODO: ask Connor what this is for
+        //data.discard.push(data.drawPile.pop());
         //MainCard topOfDiscard = data.discard.peek();
         //ArrayList<MainCard> currentHand = data.game.get(0);
 
@@ -105,11 +136,14 @@ public class Play  extends AppCompatActivity {
         }
 
 
-        for(int i = 0; i < 2; i++){
-            data.gameTest.add(new player());
+        for(int i = 0; i < data.players; i++){
+            data.gameTest.add(new player(i + 1));
         }
 
-        data.gameTest.add(new bot());
+        if(data.players == 1){
+            data.gameTest.add(new bot());
+        }
+
     }
 
     /*public static void newSetUpGame(MainCard[] arr, Stack<MainCard> draw, ArrayList<ArrayList<MainCard>> hands) {

@@ -33,8 +33,8 @@ public class CardActivity extends AppCompatActivity {
         //List<MainCard> cardList = new ArrayList<>();
 
 
-        for(int i = 0; i < data.gameTest.get(0).size(); i++){
-            list.add(data.gameTest.get(0).getIndex(i).toString());
+        for(int i = 0; i < data.gameTest.get(data.currentPlayer - 1).size(); i++){
+            list.add(data.gameTest.get(data.currentPlayer - 1).getIndex(i).toString());
             //cardList.add(data.game.get(0).get(i));
         }
 
@@ -57,6 +57,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void backToPlay(View view){
+        data.switchPlayer();
         finish();
     }
 
@@ -100,8 +101,8 @@ public class CardActivity extends AppCompatActivity {
 
                 }
 
-                data.currentCard = data.gameTest.get(0).getIndex(position);
-                data.gameTest.get(0).remove(position);
+                data.currentCard = data.gameTest.get(data.currentPlayer - 1).getIndex(position);
+                data.gameTest.get(data.currentPlayer - 1).remove(position);
             }
         });
     }

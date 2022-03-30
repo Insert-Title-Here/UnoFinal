@@ -29,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
         //Button button = findViewById(R.id.playButton);
         EditText players = findViewById(R.id.playerNumber);
 
+        String amtPlayers = players.getText().toString();
+
 
 
 
         if(!(players.getText().toString().isEmpty())) {
             Intent intent = new Intent(MainActivity.this, Play.class);
+            intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
         }else{
             //players.setHint("Please enter the number of players");
