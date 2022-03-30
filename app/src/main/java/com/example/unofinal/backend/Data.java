@@ -13,17 +13,12 @@ public class Data {
 
     public static ArrayList<player> gameTest = new ArrayList<>();
 
-    public static int players;
-    public static int currentPlayer;
-
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game){
         this.drawPile = drawPile;
         this.discard = discard;
         this.deck = deck;
         this.game = game;
-
-        currentPlayer = 1;
 
     }
 
@@ -41,11 +36,6 @@ public class Data {
             game = new ArrayList<ArrayList<MainCard>>();
         }
 
-        if(currentPlayer == 0) {
-            currentPlayer = 1;
-        }
-
-
 
     }
 
@@ -53,17 +43,6 @@ public class Data {
     public void printDeck(){
         for(MainCard i: deck){
             System.out.println(i.toString());
-        }
-    }
-
-    public void switchPlayer(){
-        //System.out.println("CurrentPlayer" + currentPlayer);
-        //System.out.println("Players" + players);
-
-        if(!(currentPlayer + 1 > players)){
-            currentPlayer += 1;
-        }else{
-            currentPlayer = 1;
         }
     }
 

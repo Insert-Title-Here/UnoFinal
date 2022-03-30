@@ -7,7 +7,7 @@ public class bot  extends player {
 	private ArrayList<MainCard> hand;
 	
 	public bot (Stack<MainCard> drawPile) {
-		super(drawPile);
+		super(drawPile, true);
 	}
 
 	public bot(){
