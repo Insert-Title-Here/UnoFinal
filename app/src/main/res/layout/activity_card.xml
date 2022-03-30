@@ -11,6 +11,23 @@
         android:id="@+id/cardList"
         android:layout_width="409dp"
         android:layout_height="702dp"
-        android:listSelector="#0f0" />
+        android:listSelector="#0f0" >
+
+    </ListView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/backPlayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="backToPlay"
+            android:text="Play"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

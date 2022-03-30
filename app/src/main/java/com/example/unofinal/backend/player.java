@@ -4,11 +4,27 @@ import java.util.*;
 
 public class player {
 	private ArrayList<MainCard> hand = new ArrayList<>();
+	private int playerNumber;
+	Data data = new Data();
 	
 	public player(Stack<MainCard> drawPile) {
 		for (int i = 0; i < 7; i++) {
 			hand.add(drawPile.pop());
 		}
+	}
+
+	public player(){
+		for(int i = 0; i < 7; i++){
+			hand.add(data.drawPile.pop());
+		}
+	}
+
+	public player(int number){
+		for(int i = 0; i < 7; i++){
+			hand.add(data.drawPile.pop());
+		}
+
+		playerNumber = number;
 	}
 	
 	
@@ -39,5 +55,23 @@ public class player {
     	}
     	discard.push(card);
     }
+
+	public void printHand(){
+		for(MainCard i: hand){
+			System.out.println(i.toString());
+		}
+	}
+
+	public MainCard getIndex(int i){
+		return hand.get(i);
+	}
+
+	public void remove(int i){
+		hand.remove(i);
+	}
+
+	public int size(){
+		return hand.size();
+	}
 
 }

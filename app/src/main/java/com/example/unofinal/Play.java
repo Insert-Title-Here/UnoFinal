@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
+import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.CardActivity;
+import com.example.unofinal.backend.bot;
+import com.example.unofinal.backend.player;
 
 
 import java.io.File;
@@ -29,10 +33,11 @@ import java.util.*;
 
 public class Play  extends AppCompatActivity {
 
-    Stack<MainCard> drawPile = new  Stack<>();
-    Stack<MainCard> discard = new Stack<>();
-    MainCard[] deck = new MainCard[108];
-    ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
+
+    Data data = new Data();
+    TextView playerView;
+
+
 
 
     @Override
@@ -41,12 +46,43 @@ public class Play  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        cardImplementation();
-        writeToFile(this);
+        //System.out.println("sldkfjldf");
+
+        //cardImplementation();
+
+        Intent intent = getIntent();
+        data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
+
+        if(data.players > 5){
+            data.players = 5;
+        }
+
+        if(data.players < 1){
+            data.players = 1;
+        }
+
+        playerView = findViewById(R.id.player);
+
+
+        newCardImplementation();
+
+
+        //System.out.println(data.gameTest);
+
+
+        //writeToFile(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerView.setText("" + data.currentPlayer);
+
+
     }
 
 
-    private void writeToFile(Context context) {
+    /*private void writeToFile(Context context) {
         String data = "Hello";
         try {
             FileOutputStream outputStreamWriter = openFileOutput("data.txt", MODE_PRIVATE);
@@ -63,9 +99,11 @@ public class Play  extends AppCompatActivity {
 
     }
 
+     */
+
     private void gameInit(){
         for(int i = 0; i < 2; i++){
-            game.add(i, new ArrayList<>());
+            data.game.add(i, new ArrayList<>());
         }
     }
 
@@ -79,16 +117,60 @@ public class Play  extends AppCompatActivity {
 
     }
 
+    private void newCardImplementation() {
+        buildDeck(data.deck);
+        shuffleDeck(data.deck);
+        newGameInit();
+        //setUpGame(data.deck, data.drawPile, data.game);
+
+        //TODO: ask Connor what this is for
+        //data.discard.push(data.drawPile.pop());
+        //MainCard topOfDiscard = data.discard.peek();
+        //ArrayList<MainCard> currentHand = data.game.get(0);
+
+    }
+
+    private void newGameInit(){
+        for (int i = 0; i < 108; i ++) {
+            data.drawPile.push(data.deck[i]);
+        }
+
+
+        for(int i = 0; i < data.players; i++){
+            data.gameTest.add(new player(i + 1));
+        }
+
+        if(data.players == 1){
+            data.gameTest.add(new bot());
+        }
+
+    }
+
+    /*public static void newSetUpGame(MainCard[] arr, Stack<MainCard> draw, ArrayList<ArrayList<MainCard>> hands) {
+
+
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 7; j++) {
+                hands.get(i).add(draw.pop());
+            }
+        }
+    }
+
+     */
+
+
 
     private void cardImplementation() {
 
-        buildDeck(deck);
-        shuffleDeck(deck);
+
+        buildDeck(data.deck);
+        shuffleDeck(data.deck);
         gameInit();
-        setUpGame(deck, drawPile, game);
-        discard.push(drawPile.pop());
-        MainCard topOfDiscard = discard.peek();
-        ArrayList<MainCard> currentHand = game.get(0);
+        setUpGame(data.deck, data.drawPile, data.game);
+        data.discard.push(data.drawPile.pop());
+        MainCard topOfDiscard = data.discard.peek();
+        ArrayList<MainCard> currentHand = data.game.get(0);
 
         /*
         int next = 1;

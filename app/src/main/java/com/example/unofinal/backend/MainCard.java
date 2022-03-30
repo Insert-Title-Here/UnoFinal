@@ -9,6 +9,19 @@ public class MainCard {
 		this.color = color;
 		this.num = num;
 	}
+
+	public MainCard(){
+		color = null;
+		num = null;
+	}
+
+	public void setColor(Color color){
+		this.color = color;
+	}
+
+	public void setNum(Numbers num){
+		this.num = num;
+	}
 	
 	public Color getColor() {
 		return color;
@@ -19,6 +32,10 @@ public class MainCard {
 	}
 	
 	public String toString() {
+
+		if(color == null && num == null){
+			return "null";
+		}
 		return(color.name() + " " + num.name());
 	}
 	
