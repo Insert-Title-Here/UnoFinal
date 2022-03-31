@@ -14,9 +14,13 @@ public class ActionCardColored extends MainCard {
     
 
     
-    public Action getAbility() {
-    	return ability;
-    }
+    //public Action getAbility() {
+    	//return ability;
+    //}
+
+	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
+		return ability;
+	}
     
     public String toString() {
     	return(color.name() + " " + ability.name());
@@ -39,6 +43,11 @@ public class ActionCardColored extends MainCard {
     public boolean actionMatch(ActionCardColored other) {
     	return true;
     }
+
+	public boolean hasAction(){
+		return true;
+	}
+
 
 	public enum Action {
 		DRAW2, SKIP, REVERSE, NONE

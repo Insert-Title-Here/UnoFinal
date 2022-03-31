@@ -63,7 +63,7 @@ public class CardActivity extends AppCompatActivity {
 
         data.currentCard = data.gameTest.get(data.currentPlayer - 1).getIndex(listPosition);
 
-        if(data.previousCard.matches(data.currentCard)) {
+        if(data.previousCard.matches(data.currentCard) || actionMatches()) {
 
             list.remove(listPosition);
 
@@ -76,9 +76,9 @@ public class CardActivity extends AppCompatActivity {
 
             data.gameTest.get(data.currentPlayer - 1).remove(listPosition);
             data.previousCard = data.currentCard;
+
             switchScreens();
         }
-
 
     }
 
@@ -132,6 +132,16 @@ public class CardActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public boolean actionMatches(){
+        if(data.previousCard.hasAction() && data.currentCard.hasAction()){
+            if(data.previousCard.getAbility() == data.currentCard.getAbility()){
+                return true;
+            }
+        }
+        return false;
     }
 
 

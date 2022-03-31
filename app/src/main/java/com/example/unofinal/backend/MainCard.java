@@ -56,6 +56,16 @@ public class MainCard {
 		}
 	}
 
+	public boolean hasAction(){
+		return false;
+	}
+
+	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
+		return ActionCardColored.Action.NONE;
+	}
+
+
+
 	public enum Color {
 		RED, GREEN, BLUE, YELLOW, NONE
 	}
