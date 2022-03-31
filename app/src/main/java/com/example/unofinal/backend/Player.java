@@ -2,23 +2,24 @@ package com.example.unofinal.backend;
 
 import java.util.*;
 
-public class player {
+public class Player {
 	private ArrayList<MainCard> hand = new ArrayList<>();
-	private int playerNumber;
+	//private int playerNumber;
 	Data data = new Data();
 	
-	public player(Stack<MainCard> drawPile) {
+	public Player(Stack<MainCard> drawPile) {
 		for (int i = 0; i < 7; i++) {
 			hand.add(drawPile.pop());
 		}
 	}
 
-	public player(){
+	public Player(){
 		for(int i = 0; i < 7; i++){
 			hand.add(data.drawPile.pop());
 		}
 	}
 
+	/*
 	public player(int number){
 		for(int i = 0; i < 7; i++){
 			hand.add(data.drawPile.pop());
@@ -26,6 +27,8 @@ public class player {
 
 		playerNumber = number;
 	}
+
+	 */
 	
 	
 	public int handSize() {
@@ -67,6 +70,7 @@ public class player {
 	}
 
 	public void remove(int i){
+		System.out.println(hand.get(i));
 		hand.remove(i);
 	}
 

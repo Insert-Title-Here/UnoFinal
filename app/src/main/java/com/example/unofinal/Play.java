@@ -2,10 +2,8 @@ package com.example.unofinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,17 +11,10 @@ import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
-import com.example.unofinal.CardActivity;
-import com.example.unofinal.backend.bot;
-import com.example.unofinal.backend.player;
+import com.example.unofinal.backend.Bot;
+import com.example.unofinal.backend.Player;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.util.*;
 
 
@@ -123,9 +114,15 @@ public class Play  extends AppCompatActivity {
         newGameInit();
         //setUpGame(data.deck, data.drawPile, data.game);
 
-        //TODO: ask Connor what this is for
-        //data.discard.push(data.drawPile.pop());
+        //First Card
+        data.previousCard = data.discard.push(data.drawPile.pop());
+
+        while(data.previousCard.getNum() == MainCard.Numbers.NONE){
+            data.previousCard = data.discard.push(data.drawPile.pop());
+
+        }
         //MainCard topOfDiscard = data.discard.peek();
+        System.out.println(data.previousCard);
         //ArrayList<MainCard> currentHand = data.game.get(0);
 
     }
@@ -137,11 +134,11 @@ public class Play  extends AppCompatActivity {
 
 
         for(int i = 0; i < data.players; i++){
-            data.gameTest.add(new player(i + 1));
+            data.gameTest.add(new Player());
         }
 
         if(data.players == 1){
-            data.gameTest.add(new bot());
+            data.gameTest.add(new Bot());
         }
 
     }

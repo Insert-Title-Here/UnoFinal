@@ -12,10 +12,7 @@ public class ActionCardColored extends MainCard {
     	this.ability = ability;
     }
     
-    public ActionCardColored(MainCard other) {
-    	super(other.getColor(), other.getNum());
-    	this.color = other.getColor();
-    }
+
     
     public Action getAbility() {
     	return ability;
@@ -25,7 +22,7 @@ public class ActionCardColored extends MainCard {
     	return(color.name() + " " + ability.name());
     }
     
-    public boolean matches(MainCard other) {
+    /*public boolean matches(MainCard other) {
     	ActionCardColored temp = new ActionCardColored(other);
     	if (temp.getColor() != color) {
     		return false;
@@ -36,6 +33,8 @@ public class ActionCardColored extends MainCard {
     	}
     	
     }
+
+     */
     
     public boolean actionMatch(ActionCardColored other) {
     	return true;

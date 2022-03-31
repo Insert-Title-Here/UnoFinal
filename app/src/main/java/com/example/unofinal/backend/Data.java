@@ -10,8 +10,10 @@ public class Data {
     public static MainCard[] deck = new MainCard[108];
     public static ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
     public static MainCard currentCard = new MainCard();
+    public static MainCard previousCard = new MainCard();
 
-    public static ArrayList<player> gameTest = new ArrayList<>();
+
+    public static ArrayList<Player> gameTest = new ArrayList<>();
 
     public static int players;
     public static int currentPlayer;

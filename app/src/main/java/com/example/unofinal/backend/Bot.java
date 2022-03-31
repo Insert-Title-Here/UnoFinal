@@ -3,14 +3,14 @@ package com.example.unofinal.backend;
 
 import java.util.*;
 
-public class bot  extends player {
+public class Bot extends Player {
 	private ArrayList<MainCard> hand;
 	
-	public bot (Stack<MainCard> drawPile) {
+	public Bot(Stack<MainCard> drawPile) {
 		super(drawPile);
 	}
 
-	public bot(){
+	public Bot(){
 		super();
 	}
 	

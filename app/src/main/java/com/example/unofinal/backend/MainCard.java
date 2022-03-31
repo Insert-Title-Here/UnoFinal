@@ -40,9 +40,18 @@ public class MainCard {
 	}
 	
 	public boolean matches(MainCard other) {
-		if (other.getColor() == color || other.getNum() == num) {
+
+		if(other.getColor() == Color.NONE){
+			System.out.println("Also true");
 			return true;
+		}
+
+		if (other.getColor() == color || other.getNum() == num) {
+			System.out.println("true");
+			return true;
+
 		} else {
+			System.out.println("false");
 			return false;
 		}
 	}

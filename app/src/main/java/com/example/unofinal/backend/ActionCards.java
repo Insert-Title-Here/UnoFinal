@@ -9,6 +9,13 @@ public class ActionCards extends MainCard {
 		super(Color.NONE, Numbers.NONE);
 		this.action = action;
 	}
+
+	public ActionCards(MainCard other) {
+		super(other.getColor(), other.getNum());
+		this.color = other.getColor();
+	}
+
+
 	
 	public Special getAction() {
 		return action;
@@ -18,9 +25,11 @@ public class ActionCards extends MainCard {
 		return(action.name());
 	}
 	
-	public boolean matches(MainCard other) {
+	/*public boolean matches(MainCard other) {
 		return true;
 	}
+
+	 */
 
 	public void changeColor(Color color) {
 		this.color = color;

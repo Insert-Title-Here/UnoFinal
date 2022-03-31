@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 
@@ -19,7 +20,8 @@ public class CardActivity extends AppCompatActivity {
 
 
     Data data = new Data();
-
+    List<String> list;
+    int listPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class CardActivity extends AppCompatActivity {
         ListView lv = findViewById(R.id.cardList);
         //TextView tv = findViewById(R.id.listText);
 
-        List<String> list = new ArrayList<>();
+        list = new ArrayList<>();
         //List<MainCard> cardList = new ArrayList<>();
 
 
@@ -38,7 +40,7 @@ public class CardActivity extends AppCompatActivity {
             //cardList.add(data.game.get(0).get(i));
         }
 
-        System.out.println("lskdjflskdjf");
+
 
 
 
@@ -57,6 +59,30 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void backToPlay(View view){
+
+
+        data.currentCard = data.gameTest.get(data.currentPlayer - 1).getIndex(listPosition);
+
+        if(data.previousCard.matches(data.currentCard)) {
+
+            list.remove(listPosition);
+
+            if(list.size() == 0){
+                System.out.println("You win!!!");
+            }
+
+            
+
+
+            data.gameTest.get(data.currentPlayer - 1).remove(listPosition);
+            data.previousCard = data.currentCard;
+            switchScreens();
+        }
+
+
+    }
+
+    private void switchScreens(){
         data.switchPlayer();
         finish();
     }
@@ -101,8 +127,9 @@ public class CardActivity extends AppCompatActivity {
 
                 }
 
-                data.currentCard = data.gameTest.get(data.currentPlayer - 1).getIndex(position);
-                data.gameTest.get(data.currentPlayer - 1).remove(position);
+                listPosition = position;
+
+
             }
         });
     }
