@@ -17,6 +17,7 @@ public class Data {
 
     public static int players;
     public static int currentPlayer;
+    public static boolean reverse;
 
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game){
@@ -26,6 +27,7 @@ public class Data {
         this.game = game;
 
         currentPlayer = 1;
+        reverse = false;
 
     }
 
@@ -58,14 +60,25 @@ public class Data {
         }
     }
 
-    public void switchPlayer(){
-        //System.out.println("CurrentPlayer" + currentPlayer);
-        //System.out.println("Players" + players);
+    public void skip(){
+        switchPlayer();
+        switchPlayer();
+    }
 
-        if(!(currentPlayer + 1 > players)){
-            currentPlayer += 1;
+    public void switchPlayer(){
+
+        if(!reverse) {
+            if (!(currentPlayer + 1 > players)) {
+                currentPlayer += 1;
+            } else {
+                currentPlayer = 1;
+            }
         }else{
-            currentPlayer = 1;
+            if(currentPlayer - 1 > 0){
+                currentPlayer -= 0;
+            }else{
+                currentPlayer = players;
+            }
         }
     }
 

@@ -64,6 +64,14 @@ public class MainCard {
 		return ActionCardColored.Action.NONE;
 	}
 
+	public ActionCards.Special getAction(){
+		return ActionCards.Special.NONE;
+	}
+
+
+
+
+
 
 
 	public enum Color {

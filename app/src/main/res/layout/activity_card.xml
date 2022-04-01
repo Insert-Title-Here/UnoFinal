@@ -17,7 +17,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/backPlayButton"
@@ -26,8 +26,19 @@
             android:onClick="backToPlay"
             android:text="Play"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/draw"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="draw"
+            android:text="Draw a Card"
+            app:layout_constraintBottom_toBottomOf="@+id/backPlayButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backPlayButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

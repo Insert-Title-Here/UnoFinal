@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
@@ -58,6 +59,12 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
+    public void draw(View view){
+        data.gameTest.get(data.currentPlayer - 1).drawCards(1);
+        switchScreens();
+
+    }
+
     public void backToPlay(View view){
 
 
@@ -71,11 +78,15 @@ public class CardActivity extends AppCompatActivity {
                 System.out.println("You win!!!");
             }
 
-            
+            if(data.currentCard.hasAction()){
+                completeAction();
+            }
 
 
             data.gameTest.get(data.currentPlayer - 1).remove(listPosition);
             data.previousCard = data.currentCard;
+
+
 
             switchScreens();
         }
@@ -83,7 +94,14 @@ public class CardActivity extends AppCompatActivity {
     }
 
     private void switchScreens(){
-        data.switchPlayer();
+        //Handling the Skip Action
+        if(!(data.previousCard.getAction() == ActionCards.Special.DRAW4)) {
+            if (data.previousCard.getAbility() == ActionCardColored.Action.SKIP) {
+                data.skip();
+            } else {
+                data.switchPlayer();
+            }
+        }
         finish();
     }
 
@@ -142,6 +160,24 @@ public class CardActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    public void completeAction(){
+        if(data.currentCard.getAbility() == ActionCardColored.Action.DRAW2){
+            data.gameTest.get(data.currentPlayer).drawCards(2);
+
+        }else if(data.currentCard.getAbility() == ActionCardColored.Action.REVERSE){
+            data.reverse = true;
+
+        }else if(data.currentCard.getAction() == ActionCards.Special.DRAW4){
+            data.gameTest.get(data.currentPlayer).drawCards(4);
+            data.currentCard = new MainCard(MainCard.Color.GREEN, null);
+
+        }else if(data.currentCard.getAction() == ActionCards.Special.PICKCOLOR){
+            data.currentCard = new MainCard(MainCard.Color.YELLOW, null);
+
+        }
+
     }
 
 

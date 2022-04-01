@@ -75,7 +75,7 @@ public class Bot extends Player {
 									}
 								}
 							} else {
-								DrawCards(1, drawPile);
+								drawCards(1);
 							}
 							// what should the bot do if they can't play a blue num card or action card or play a card num blue to change the color to blue
 							// draw cards? or special?

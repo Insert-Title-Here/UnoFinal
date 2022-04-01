@@ -16,9 +16,19 @@ public class ActionCards extends MainCard {
 	}
 
 
+
+
 	
 	public Special getAction() {
 		return action;
+	}
+
+	public boolean hasAction(){
+		return true;
+	}
+
+	public ActionCardColored.Action getAbility(){
+		return ActionCardColored.Action.NONE;
 	}
 	
 	public String toString() {
@@ -36,6 +46,6 @@ public class ActionCards extends MainCard {
 	}
 
 	public enum Special {
-		DRAW4, PICKCOLOR
+		DRAW4, PICKCOLOR, NONE
 	}
 }

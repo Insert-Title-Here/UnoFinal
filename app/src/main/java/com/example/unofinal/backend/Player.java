@@ -35,9 +35,9 @@ public class Player {
 		return hand.size();
 	}
 	
-	public void DrawCards(int num, Stack<MainCard> drawPile) {
+	public void drawCards(int num) {
 		for (int i = 0; i < num; i++) {
-			hand.add(drawPile.pop());
+			hand.add(data.drawPile.pop());
 		}
 	}
 	

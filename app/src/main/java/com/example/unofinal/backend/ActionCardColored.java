@@ -21,6 +21,10 @@ public class ActionCardColored extends MainCard {
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
 		return ability;
 	}
+
+	public ActionCards.Special getAction(){
+		return ActionCards.Special.NONE;
+	}
     
     public String toString() {
     	return(color.name() + " " + ability.name());
@@ -43,6 +47,8 @@ public class ActionCardColored extends MainCard {
     public boolean actionMatch(ActionCardColored other) {
     	return true;
     }
+
+
 
 	public boolean hasAction(){
 		return true;
