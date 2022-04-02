@@ -24,6 +24,9 @@
         android:theme="@style/Theme.UnoFinal"
         tools:targetApi="31">
         <activity
+            android:name=".ColorChange"
+            android:exported="false" />
+        <activity
             android:name=".Leaderboard"
             android:exported="false" />
         <activity

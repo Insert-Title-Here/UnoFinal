@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.DragAndDropPermissions;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,11 +34,11 @@ public class CardActivity extends AppCompatActivity {
         //TextView tv = findViewById(R.id.listText);
 
         list = new ArrayList<>();
-        //List<MainCard> cardList = new ArrayList<>();
+        //List<MainCard> cardList = new ArrayList<>(haha it's too god);
 
 
-        for(int i = 0; i < data.gameTest.get(data.currentPlayer - 1).size(); i++){
-            list.add(data.gameTest.get(data.currentPlayer - 1).getIndex(i).toString());
+        for(int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++){
+            list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
             //cardList.add(data.game.get(0).get(i));
         }
 
@@ -52,7 +53,6 @@ public class CardActivity extends AppCompatActivity {
 
         listButtonListener(lv, list);
 
-        //System.out.println("sldflskfj");
 
 
 
@@ -60,7 +60,7 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void draw(View view){
-        data.gameTest.get(data.currentPlayer - 1).drawCards(1);
+        data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
         switchScreens();
 
     }
@@ -68,7 +68,7 @@ public class CardActivity extends AppCompatActivity {
     public void backToPlay(View view){
 
 
-        data.currentCard = data.gameTest.get(data.currentPlayer - 1).getIndex(listPosition);
+        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(listPosition);
 
         if(data.previousCard.matches(data.currentCard) || actionMatches()) {
 
@@ -76,6 +76,8 @@ public class CardActivity extends AppCompatActivity {
 
             if(list.size() == 0){
                 System.out.println("You win!!!");
+                Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                startActivity(intent);
             }
 
             if(data.currentCard.hasAction()){
@@ -83,7 +85,7 @@ public class CardActivity extends AppCompatActivity {
             }
 
 
-            data.gameTest.get(data.currentPlayer - 1).remove(listPosition);
+            data.gameTest.get(data.getCurrentPlayer()).remove(listPosition);
             data.previousCard = data.currentCard;
 
 
@@ -96,7 +98,7 @@ public class CardActivity extends AppCompatActivity {
     private void switchScreens(){
         //Handling the Skip Action
         if(!(data.previousCard.getAction() == ActionCards.Special.DRAW4)) {
-            if (data.previousCard.getAbility() == ActionCardColored.Action.SKIP) {
+            if (data.previousCard.getAbility() == ActionCardColored.Action.SKIP || data.previousCard.getAbility() == ActionCardColored.Action.DRAW2) {
                 data.skip();
             } else {
                 data.switchPlayer();
@@ -163,15 +165,22 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void completeAction(){
+
+
+
         if(data.currentCard.getAbility() == ActionCardColored.Action.DRAW2){
-            data.gameTest.get(data.currentPlayer).drawCards(2);
+
+
+            data.gameTest.get(data.getNextPlayer()).drawCards(2);
 
         }else if(data.currentCard.getAbility() == ActionCardColored.Action.REVERSE){
             data.reverse = true;
 
         }else if(data.currentCard.getAction() == ActionCards.Special.DRAW4){
-            data.gameTest.get(data.currentPlayer).drawCards(4);
-            data.currentCard = new MainCard(MainCard.Color.GREEN, null);
+            data.gameTest.get(data.getNextPlayer()).drawCards(4);
+            Intent intent = new Intent(CardActivity.this, ColorChange.class);
+            startActivity(intent);
+
 
         }else if(data.currentCard.getAction() == ActionCards.Special.PICKCOLOR){
             data.currentCard = new MainCard(MainCard.Color.YELLOW, null);

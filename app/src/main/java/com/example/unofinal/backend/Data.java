@@ -20,7 +20,7 @@ public class Data {
     public static boolean reverse;
 
 
-    public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game){
+    public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {
         this.drawPile = drawPile;
         this.discard = discard;
         this.deck = deck;
@@ -31,55 +31,74 @@ public class Data {
 
     }
 
-    public Data(){
-        if(drawPile == null){
+    public Data() {
+        if (drawPile == null) {
             drawPile = new Stack<>();
         }
-        if(discard == null){
+        if (discard == null) {
             discard = new Stack<>();
         }
-        if(deck == null){
+        if (deck == null) {
             deck = new MainCard[108];
         }
-        if(game == null){
+        if (game == null) {
             game = new ArrayList<ArrayList<MainCard>>();
         }
 
-        if(currentPlayer == 0) {
+        if (currentPlayer == 0) {
             currentPlayer = 1;
         }
 
 
-
     }
 
 
-    public void printDeck(){
-        for(MainCard i: deck){
+    public void printDeck() {
+        for (MainCard i : deck) {
             System.out.println(i.toString());
         }
     }
 
-    public void skip(){
+    public void skip() {
         switchPlayer();
         switchPlayer();
     }
 
-    public void switchPlayer(){
+    public void switchPlayer() {
 
-        if(!reverse) {
+        if (!reverse) {
             if (!(currentPlayer + 1 > players)) {
                 currentPlayer += 1;
             } else {
                 currentPlayer = 1;
             }
-        }else{
-            if(currentPlayer - 1 > 0){
-                currentPlayer -= 0;
-            }else{
+        } else {
+            if (currentPlayer - 1 > 0) {
+                currentPlayer -= 1;
+            } else {
                 currentPlayer = players;
             }
         }
+    }
+
+    public int getNextPlayer() {
+        if (!reverse) {
+            if (!(currentPlayer + 1 > players)) {
+                return currentPlayer;
+            } else {
+                return 0;
+            }
+        } else {
+            if (currentPlayer - 1 > 0) {
+                return currentPlayer - 2;
+            } else {
+                return players - 1;
+            }
+        }
+    }
+
+    public int getCurrentPlayer(){
+        return currentPlayer - 1;
     }
 
 
