@@ -60,8 +60,14 @@ public class CardActivity extends AppCompatActivity {
     }
 
     public void draw(View view){
-        data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
-        switchScreens();
+        if(data.reloadAmt == 0) {
+            data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
+            finish();
+            startActivity(getIntent());
+            data.reloadAmt++;
+        }
+
+        //switchScreens();
 
     }
 
@@ -104,6 +110,8 @@ public class CardActivity extends AppCompatActivity {
                 data.switchPlayer();
             }
         }
+
+        data.reloadAmt = 0;
         finish();
     }
 
@@ -183,7 +191,8 @@ public class CardActivity extends AppCompatActivity {
 
 
         }else if(data.currentCard.getAction() == ActionCards.Special.PICKCOLOR){
-            data.currentCard = new MainCard(MainCard.Color.YELLOW, null);
+            Intent intent = new Intent(CardActivity.this, ColorChange.class);
+            startActivity(intent);
 
         }
 

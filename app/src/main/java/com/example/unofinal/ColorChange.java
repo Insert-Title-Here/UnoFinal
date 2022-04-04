@@ -25,7 +25,7 @@ public class ColorChange extends AppCompatActivity {
         setContentView(R.layout.activity_color_change);
 
 
-        ListView lv = findViewById(R.id.cardList);
+        ListView lv = findViewById(R.id.color);
         //TextView tv = findViewById(R.id.listText);
 
         list = new ArrayList<>();
@@ -50,24 +50,24 @@ public class ColorChange extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(position == 0){
-                    data.currentCard = new MainCard(MainCard.Color.YELLOW, null);
+                    data.previousCard = new MainCard(MainCard.Color.YELLOW, null);
 
                     //tv.setText(list.get(0));
 
                 }else if(position == 1){
-                    data.currentCard = new MainCard(MainCard.Color.GREEN, null);
+                    data.previousCard = new MainCard(MainCard.Color.GREEN, null);
 
                     //tv.setText(list.get(1));
 
 
                 }else if(position == 2){
-                    data.currentCard = new MainCard(MainCard.Color.RED, null);
+                    data.previousCard = new MainCard(MainCard.Color.RED, null);
 
                     //tv.setText(list.get(2));
 
 
                 }else {
-                    data.currentCard = new MainCard(MainCard.Color.BLUE, null);
+                    data.previousCard = new MainCard(MainCard.Color.BLUE, null);
 
                     //tv.setText(list.get(3));
                 }

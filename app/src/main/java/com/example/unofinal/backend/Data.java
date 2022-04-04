@@ -18,6 +18,7 @@ public class Data {
     public static int players;
     public static int currentPlayer;
     public static boolean reverse;
+    public static int reloadAmt;
 
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {
@@ -28,6 +29,7 @@ public class Data {
 
         currentPlayer = 1;
         reverse = false;
+        reloadAmt = 0;
 
     }
 
