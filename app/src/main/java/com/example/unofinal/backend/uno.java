@@ -37,6 +37,7 @@ public class uno {
 
     }
 
+    // using a amazing triple nested for-loop to set up the uno deck
     public static void buildDeck(MainCard[] arr) {
     	// every color has 1 0 and 2 of each number 1-9
     	// every color has two of each action card (6)
@@ -116,7 +117,9 @@ public class uno {
     	}
     	
     }
-    
+
+
+    // takes a deck and shuffles it "randomnly"
     public static void shuffleDeck(MainCard[] arr) {
     	
     	List<MainCard> temp = Arrays.asList(arr);
@@ -124,7 +127,8 @@ public class uno {
     	temp.toArray(arr);
     	
     }
-    
+
+    // adds all the cards into a draw pile and sets up hands
     public static void setUpGame(MainCard[] arr, Stack<MainCard> draw, ArrayList<ArrayList<MainCard>> hands) {
     	for (int i = 0; i < 108; i ++) {
     		draw.push(arr[i]);
@@ -135,13 +139,15 @@ public class uno {
     		}
     	}
     }
-    
+
+    // redundant method
     public static void drawCards(int amount, ArrayList<MainCard> recipient, Stack<MainCard> drawPile) {
     	for (int i = 0; i < amount; i++) {
     		recipient.add(drawPile.pop());
     	}
     }
-    
+
+    // obsolete
     public static boolean gameOver(ArrayList<ArrayList<MainCard>> arr) {
     	for (ArrayList<MainCard> a : arr) {
     		if (a.size() == 0) {
@@ -150,7 +156,8 @@ public class uno {
     	}
     	return false;
     }
-    
+
+    // redundant and useless
     public static boolean canPlayCard(ArrayList<MainCard> hand, MainCard topOfDiscard) {
     	for (MainCard c : hand) {
     		if (c.matches(topOfDiscard)) {
@@ -159,7 +166,8 @@ public class uno {
     	}
     	return false;
     }
-    
+
+    // redudant and useless
     public static void playCard(ArrayList<MainCard> hand, MainCard card, Stack<MainCard> discard) {
     	for (int i = 0; i < hand.size(); i++) {
     		if (hand.get(i) == card) {

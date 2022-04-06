@@ -15,18 +15,22 @@ public class MainCard {
 		num = null;
 	}
 
+	// setter for color of the card
 	public void setColor(Color color){
 		this.color = color;
 	}
 
+	// setter for the cards number
 	public void setNum(Numbers num){
 		this.num = num;
 	}
-	
+
+	// getter for the cards color
 	public Color getColor() {
 		return color;
 	}
-	
+
+	// getters for the cards number
 	public Numbers getNum() {
 		return num;
 	}
@@ -38,7 +42,8 @@ public class MainCard {
 		}
 		return(color.name() + " " + num.name());
 	}
-	
+
+	// checks if the card matches another either in color or number matching
 	public boolean matches(MainCard other) {
 
 		if(other.getColor() == Color.NONE){
@@ -56,6 +61,7 @@ public class MainCard {
 		}
 	}
 
+	// this method is to distingush between cards with subclass parking
 	public boolean hasAction(){
 		return false;
 	}
