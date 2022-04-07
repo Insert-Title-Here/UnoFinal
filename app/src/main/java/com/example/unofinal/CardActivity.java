@@ -93,6 +93,7 @@ public class CardActivity extends AppCompatActivity {
 
 
         data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(listPosition);
+        System.out.println("currentCard: " + data.currentCard);
 
         if(data.previousCard.matches(data.currentCard) || actionMatches()) {
 
@@ -114,8 +115,9 @@ public class CardActivity extends AppCompatActivity {
             data.currentCard = null;
 
 
-
-            switchScreens();
+            if(data.previousCard.getAbility() != ActionCardColored.Action.REVERSE) {
+                switchScreens();
+            }
         }
 
     }
@@ -201,13 +203,16 @@ public class CardActivity extends AppCompatActivity {
             data.gameTest.get(data.getNextPlayer()).drawCards(2);
 
         }else if(data.currentCard.getAbility() == ActionCardColored.Action.REVERSE){
-            if(data.players != 2){
-                data.reverse = true;
-
-            }else{
+            if(data.players == 2){
+                System.out.println("getting here");
                 data.skip();
                 data.reloadAmt = 0;
                 finish();
+
+            }else{
+
+                data.reverse = true;
+
             }
 
         }else if(data.currentCard.getAction() == ActionCards.Special.DRAW4){
