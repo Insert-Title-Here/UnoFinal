@@ -36,6 +36,10 @@ public class MainCard {
 		if(color == null && num == null){
 			return "null";
 		}
+
+		if(num == null){
+			return(color.name() + "");
+		}
 		return(color.name() + " " + num.name());
 	}
 	

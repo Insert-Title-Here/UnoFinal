@@ -8,6 +8,7 @@ import android.view.DragAndDropPermissions;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class CardActivity extends AppCompatActivity {
     Data data = new Data();
     List<String> list;
     int listPosition;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,9 @@ public class CardActivity extends AppCompatActivity {
         ListView lv = findViewById(R.id.cardList);
         //TextView tv = findViewById(R.id.listText);
 
+        button = findViewById(R.id.draw);
         list = new ArrayList<>();
+
         //List<MainCard> cardList = new ArrayList<>(haha it's too god);
 
 
@@ -59,12 +63,26 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(data.reloadAmt == 1){
+            button.setText("Next Player");
+        }
+
+
+
+
+    }
+
     public void draw(View view){
         if(data.reloadAmt == 0) {
             data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
             finish();
             startActivity(getIntent());
             data.reloadAmt++;
+        }else{
+            switchScreens();
         }
 
         //switchScreens();
@@ -93,6 +111,7 @@ public class CardActivity extends AppCompatActivity {
 
             data.gameTest.get(data.getCurrentPlayer()).remove(listPosition);
             data.previousCard = data.currentCard;
+            data.currentCard = null;
 
 
 
@@ -182,7 +201,14 @@ public class CardActivity extends AppCompatActivity {
             data.gameTest.get(data.getNextPlayer()).drawCards(2);
 
         }else if(data.currentCard.getAbility() == ActionCardColored.Action.REVERSE){
-            data.reverse = true;
+            if(data.players != 2){
+                data.reverse = true;
+
+            }else{
+                data.skip();
+                data.reloadAmt = 0;
+                finish();
+            }
 
         }else if(data.currentCard.getAction() == ActionCards.Special.DRAW4){
             data.gameTest.get(data.getNextPlayer()).drawCards(4);

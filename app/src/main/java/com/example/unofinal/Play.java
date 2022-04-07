@@ -27,6 +27,7 @@ public class Play  extends AppCompatActivity {
 
     Data data = new Data();
     TextView playerView;
+    TextView card;
 
 
 
@@ -53,6 +54,7 @@ public class Play  extends AppCompatActivity {
         }
 
         playerView = findViewById(R.id.player);
+        card = findViewById(R.id.Card);
 
 
         newCardImplementation();
@@ -68,6 +70,8 @@ public class Play  extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         playerView.setText("" + data.currentPlayer);
+        card.setText(data.previousCard.toString());
+
 
 
     }

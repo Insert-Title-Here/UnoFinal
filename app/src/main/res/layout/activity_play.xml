@@ -46,7 +46,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Player"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playText" />
+
+    <TextView
+        android:id="@+id/Card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playText" />

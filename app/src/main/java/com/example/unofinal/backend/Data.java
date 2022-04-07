@@ -63,10 +63,13 @@ public class Data {
 
     public void skip() {
         switchPlayer();
+        System.out.println(1);
         switchPlayer();
+        System.out.println(2);
     }
 
     public void switchPlayer() {
+        System.out.print(currentPlayer + " to ");
 
         if (!reverse) {
             if (!(currentPlayer + 1 > players)) {
@@ -81,6 +84,8 @@ public class Data {
                 currentPlayer = players;
             }
         }
+
+        System.out.println(currentPlayer);
     }
 
     public int getNextPlayer() {

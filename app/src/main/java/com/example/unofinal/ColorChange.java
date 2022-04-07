@@ -73,6 +73,9 @@ public class ColorChange extends AppCompatActivity {
                 }
 
 
+                System.out.println("Stuff");
+
+
                 finish();
 
 
