@@ -18,14 +18,16 @@ public class ActionCards extends MainCard {
 
 
 
-	
+	// can be played regardless of color
 	public Special getAction() {
 		return action;
 	}
 
+	// helps with distiniction between card types with respect to subclass parking
 	public boolean hasAction(){
 		return true;
 	}
+
 
 	public ActionCardColored.Action getAbility(){
 		return ActionCardColored.Action.NONE;
@@ -41,6 +43,7 @@ public class ActionCards extends MainCard {
 
 	 */
 
+	// use for changing the current viable color during the game
 	public void changeColor(Color color) {
 		this.color = color;
 	}

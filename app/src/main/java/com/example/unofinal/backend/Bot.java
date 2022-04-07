@@ -19,31 +19,32 @@ public class Bot extends Player {
 	// look at their most recent played cards
 	// prioritize getting rid of cards
 	public void move(MainCard.Color color, MainCard mostRecent, Stack<MainCard> drawPile, Stack<MainCard> discard) {
-		int regBlue = cardAmount(MainCard.Color.BLUE);
-		int regRed = cardAmount(MainCard.Color.RED);
-		int regGreen = cardAmount(MainCard.Color.GREEN);
-		int regYellow = cardAmount(MainCard.Color.YELLOW);
-		int special = cardAmount(MainCard.Color.NONE);
-		if (canMove(color, mostRecent)) {
+		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
+		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
+		int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
+		int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
+		int special = cardAmount(MainCard.Color.NONE); // number of special cards
+		if (canMove(color, mostRecent)) { // checks if a move is possible first
 			// decision making
-			if (regBlue > regRed && regBlue > regGreen && regBlue > regYellow) {
-				if (color == MainCard.Color.BLUE) {
-					int preSize = hand.size();
-					for (int i = 0; i < hand.size(); i++) {
+			if (regBlue > regRed && regBlue > regGreen && regBlue > regYellow) { // largest amount of cards in hand are blue
+				if (color == MainCard.Color.BLUE) { // checks if the most recent card played is blue
+					int preSize = hand.size(); // useful to see if hand changed
+					for (int i = 0; i < hand.size(); i++) { // plays a numbered blue card
 						if (hand.get(i).getColor() == color && hand.get(i).getNum() != MainCard.Numbers.NONE) {
 							playCard(hand.get(i), discard);
 							i = hand.size();
 						}
 					}
-					if (preSize == hand.size()) {
+					if (preSize == hand.size()) { // checks if the hand size changed indicating a move was made
+						// plays action card if it didn't happen
 						for (int i = 0; i < hand.size(); i++) {
 							if (hand.get(i).getColor() == color) {
 								playCard(hand.get(i), discard);
 								i = hand.size();
 							}
 						}
-						if (preSize == hand.size()) {
-							for (int i = 0; i < hand.size(); i++) {
+						if (preSize == hand.size()) { // check again for change in hand size
+							for (int i = 0; i < hand.size(); i++) { // tries to match number to get color to blue
 								if (hand.get(i).getNum() == mostRecent.getNum() && mostRecent.getNum() != MainCard.Numbers.NONE) {
 									playCard(hand.get(i), discard);
 									i = hand.size();
@@ -82,17 +83,17 @@ public class Bot extends Player {
 						}
 					}
 				}
-			} else if (regRed > regGreen && regRed > regYellow) {
+			} else if (regRed > regGreen && regRed > regYellow) { // largest amount of cards in hand are red
 				
-			} else if (regGreen > regYellow) {
+			} else if (regGreen > regYellow) { // largest amount of cards in hand are Green
 				
-			} else {
+			} else { // largest amount of cards in hand are Yellow
 				
 			}
 		} 
 	}
 	
-	public int cardAmount(MainCard.Color color) {
+	public int cardAmount(MainCard.Color color) { // returns a number, allows other players to see how many cards opponents have
 		int amount = 0;
 		for (MainCard c : hand) {
 			if (c.getColor() == color && c.getNum() != MainCard.Numbers.NONE) {

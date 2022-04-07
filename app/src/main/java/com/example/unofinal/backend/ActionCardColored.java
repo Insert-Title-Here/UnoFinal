@@ -1,9 +1,10 @@
 package com.example.unofinal.backend;
 
+// enum for special actions
 enum Action {
 	DRAW2, SKIP, REVERSE, NONE
 }
-public class ActionCardColored extends MainCard {
+public class ActionCardColored extends MainCard { // inherits from the Main Card class
 	Action ability;
 	Color color;
     public ActionCardColored(Action ability, Color color) {
@@ -43,13 +44,13 @@ public class ActionCardColored extends MainCard {
     }
 
      */
-    
+    // according to offical uno rules action cards can be played regardless of color
     public boolean actionMatch(ActionCardColored other) {
     	return true;
     }
 
 
-
+	// this method is to help distingush during sub class parking
 	public boolean hasAction(){
 		return true;
 	}
