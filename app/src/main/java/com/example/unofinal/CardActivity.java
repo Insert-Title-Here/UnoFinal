@@ -34,28 +34,30 @@ public class CardActivity extends AppCompatActivity {
 
         ListView lv = findViewById(R.id.cardList);
         //TextView tv = findViewById(R.id.listText);
-
-        button = findViewById(R.id.draw);
-        list = new ArrayList<>();
-
-        //List<MainCard> cardList = new ArrayList<>(haha it's too god);
+        if(!(data.gameTest.get(data.getCurrentPlayer()).isBot())) {
 
 
-        for(int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++){
-            list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
-            //cardList.add(data.game.get(0).get(i));
+            button = findViewById(R.id.draw);
+            list = new ArrayList<>();
+
+            //List<MainCard> cardList = new ArrayList<>(haha it's too god);
+
+
+            for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
+                list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+                //cardList.add(data.game.get(0).get(i));
+            }
+
+
+            ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+
+
+            lv.setAdapter(adapter);
+
+            listButtonListener(lv, list);
+        }else{
+            botPlay();
         }
-
-
-
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
-
-
-        lv.setAdapter(adapter);
-
-        listButtonListener(lv, list);
 
 
 
@@ -75,6 +77,29 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
+    public void botPlay(){
+        int intCard = data.gameTest.get(data.getCurrentPlayer()).move(data.previousCard.getColor(), data.previousCard);
+        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(intCard);
+
+        System.out.println("botCurrentCard: " + data.currentCard);
+
+        if (data.previousCard.matches(data.currentCard) || actionMatches()) {
+
+            //list.remove(listPosition);
+
+            if (data.gameTest.get(data.getCurrentPlayer()).size() == 0) {
+                System.out.println("Bot win!!!");
+                Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                startActivity(intent);
+            }
+
+            if (data.currentCard.hasAction()) {
+                completeAction();
+            }
+        }
+
+    }
+
     public void draw(View view){
         if(data.reloadAmt == 0) {
             data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
@@ -91,33 +116,37 @@ public class CardActivity extends AppCompatActivity {
 
     public void backToPlay(View view){
 
+        if(!(data.gameTest.get(data.getCurrentPlayer()).isBot())){
+            data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(listPosition);
+            System.out.println("currentCard: " + data.currentCard);
 
-        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(listPosition);
-        System.out.println("currentCard: " + data.currentCard);
+            if (data.previousCard.matches(data.currentCard) || actionMatches()) {
 
-        if(data.previousCard.matches(data.currentCard) || actionMatches()) {
+                list.remove(listPosition);
 
-            list.remove(listPosition);
+                if (list.size() == 0) {
+                    System.out.println("You win!!!");
+                    Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                    startActivity(intent);
+                }
 
-            if(list.size() == 0){
-                System.out.println("You win!!!");
-                Intent intent = new Intent(CardActivity.this, Leaderboard.class);
-                startActivity(intent);
+                if (data.currentCard.hasAction()) {
+                    completeAction();
+                }
+
+
+                data.gameTest.get(data.getCurrentPlayer()).remove(listPosition);
+                data.previousCard = data.currentCard;
+                data.discard.push(data.previousCard);
+                data.currentCard = null;
+
+
+                if (data.previousCard.getAbility() != ActionCardColored.Action.REVERSE) {
+                    switchScreens();
+                }
             }
+        }else{
 
-            if(data.currentCard.hasAction()){
-                completeAction();
-            }
-
-
-            data.gameTest.get(data.getCurrentPlayer()).remove(listPosition);
-            data.previousCard = data.currentCard;
-            data.currentCard = null;
-
-
-            if(data.previousCard.getAbility() != ActionCardColored.Action.REVERSE) {
-                switchScreens();
-            }
         }
 
     }
@@ -193,6 +222,8 @@ public class CardActivity extends AppCompatActivity {
         return false;
     }
 
+
+    //TODO: add bot version for complete action
     public void completeAction(){
 
 

@@ -143,6 +143,8 @@ public class Play  extends AppCompatActivity {
 
         if(data.players == 1){
             data.gameTest.add(new Bot());
+            data.players = 2;
+            System.out.println("has bot");
         }
 
     }

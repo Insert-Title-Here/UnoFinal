@@ -20,6 +20,15 @@ public class Player {
 		}
 	}
 
+	public int move(MainCard.Color color, MainCard mostRecent) {
+		return -1;
+	}
+
+
+	public boolean isBot(){
+		return false;
+	}
+
 	/*
 	public player(int number){
 		for(int i = 0; i < 7; i++){
