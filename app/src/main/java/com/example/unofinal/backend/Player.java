@@ -29,6 +29,36 @@ public class Player {
 		return false;
 	}
 
+
+	public MainCard.Color chooseColor(){
+		int red = 0;
+		int blue = 0;
+		int green = 0;
+		int yellow = 0;
+
+		for(MainCard i: hand){
+			if(i.getColor() == MainCard.Color.RED){
+				red++;
+			}else if(i.getColor() == MainCard.Color.BLUE){
+				blue++;
+			}else if(i.getColor() == MainCard.Color.GREEN){
+				green++;
+			}else if(i.getColor() == MainCard.Color.YELLOW) {
+				yellow++;
+			}
+		}
+
+		if(red >= blue && red >= green && red >= yellow){
+			return MainCard.Color.RED;
+		}else if(blue >= green && blue >= yellow && blue > red){
+			return MainCard.Color.BLUE;
+		}else if(green >= yellow && green >= blue && green >= red){
+			return MainCard.Color.GREEN;
+		}else{
+			return MainCard.Color.YELLOW;
+		}
+	}
+
 	/*
 	public player(int number){
 		for(int i = 0; i < 7; i++){

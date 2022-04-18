@@ -79,9 +79,12 @@ public class CardActivity extends AppCompatActivity {
 
     public void botPlay(){
         int intCard = data.gameTest.get(data.getCurrentPlayer()).move(data.previousCard.getColor(), data.previousCard);
-        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(intCard);
+        System.out.println(intCard);
 
-        System.out.println("botCurrentCard: " + data.currentCard);
+        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(intCard);
+        //System.out.println("Current Card: " + data.currentCard.toString());
+
+        //System.out.println("botCurrentCard: " + data.currentCard);
 
         if (data.previousCard.matches(data.currentCard) || actionMatches()) {
 
@@ -95,6 +98,16 @@ public class CardActivity extends AppCompatActivity {
 
             if (data.currentCard.hasAction()) {
                 completeAction();
+            }
+
+            data.gameTest.get(data.getCurrentPlayer()).remove(intCard);
+            data.previousCard = data.currentCard;
+            data.discard.push(data.previousCard);
+            data.currentCard = null;
+
+
+            if (data.previousCard.getAbility() != ActionCardColored.Action.REVERSE) {
+                switchScreens();
             }
         }
 
@@ -226,35 +239,75 @@ public class CardActivity extends AppCompatActivity {
     //TODO: add bot version for complete action
     public void completeAction(){
 
+        if(data.gameTest.get(data.getCurrentPlayer()).isBot()){
+            if (data.currentCard.getAbility() == ActionCardColored.Action.DRAW2) {
 
 
-        if(data.currentCard.getAbility() == ActionCardColored.Action.DRAW2){
+                data.gameTest.get(data.getNextPlayer()).drawCards(2);
+
+            } else if (data.currentCard.getAbility() == ActionCardColored.Action.REVERSE) {
+                if (data.players == 2) {
+                    System.out.println("getting here");
+                    data.skip();
+                    data.reloadAmt = 0;
+                    finish();
+
+                } else {
+
+                    data.reverse = true;
+
+                }
+
+            } else if (data.currentCard.getAction() == ActionCards.Special.DRAW4) {
+                data.gameTest.get(data.getNextPlayer()).drawCards(4);
+                //Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                //startActivity(intent);
+
+                data.previousCard = new MainCard(data.gameTest.get(data.getCurrentPlayer()).chooseColor(), null);
 
 
-            data.gameTest.get(data.getNextPlayer()).drawCards(2);
 
-        }else if(data.currentCard.getAbility() == ActionCardColored.Action.REVERSE){
-            if(data.players == 2){
-                System.out.println("getting here");
-                data.skip();
-                data.reloadAmt = 0;
-                finish();
 
-            }else{
 
-                data.reverse = true;
+            } else if (data.currentCard.getAction() == ActionCards.Special.PICKCOLOR) {
+                //Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                //startActivity(intent);
+                data.previousCard = new MainCard(data.gameTest.get(data.getCurrentPlayer()).chooseColor(), null);
+
 
             }
-
-        }else if(data.currentCard.getAction() == ActionCards.Special.DRAW4){
-            data.gameTest.get(data.getNextPlayer()).drawCards(4);
-            Intent intent = new Intent(CardActivity.this, ColorChange.class);
-            startActivity(intent);
+        }else {
 
 
-        }else if(data.currentCard.getAction() == ActionCards.Special.PICKCOLOR){
-            Intent intent = new Intent(CardActivity.this, ColorChange.class);
-            startActivity(intent);
+            if (data.currentCard.getAbility() == ActionCardColored.Action.DRAW2) {
+
+
+                data.gameTest.get(data.getNextPlayer()).drawCards(2);
+
+            } else if (data.currentCard.getAbility() == ActionCardColored.Action.REVERSE) {
+                if (data.players == 2) {
+                    System.out.println("getting here");
+                    data.skip();
+                    data.reloadAmt = 0;
+                    finish();
+
+                } else {
+
+                    data.reverse = true;
+
+                }
+
+            } else if (data.currentCard.getAction() == ActionCards.Special.DRAW4) {
+                data.gameTest.get(data.getNextPlayer()).drawCards(4);
+                Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                startActivity(intent);
+
+
+            } else if (data.currentCard.getAction() == ActionCards.Special.PICKCOLOR) {
+                Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                startActivity(intent);
+
+            }
 
         }
 

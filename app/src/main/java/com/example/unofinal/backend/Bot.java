@@ -4,14 +4,16 @@ package com.example.unofinal.backend;
 import java.util.*;
 
 public class Bot extends Player {
-	private ArrayList<MainCard> hand;
+	private ArrayList<MainCard> hand = new ArrayList<>();
 	
 	public Bot(Stack<MainCard> drawPile) {
 		super(drawPile);
 	}
 
 	public Bot(){
-		super();
+		for(int i = 0; i < 7; i++){
+			hand.add(data.drawPile.pop());
+		}
 	}
 	
 	// make a move method
@@ -95,6 +97,7 @@ public class Bot extends Player {
 
 
 	public int move(MainCard.Color color, MainCard mostRecent) {
+		System.out.print("Hand: ");
 		printHand();
 
 
@@ -104,6 +107,8 @@ public class Bot extends Player {
 		int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
 		int special = cardAmount(MainCard.Color.NONE); // number of special cards
 		if (canMove(color, mostRecent)) { // checks if a move is possible first
+
+			System.out.println("Can Move");
 			// decision making
 			if (regBlue > regRed && regBlue > regGreen && regBlue > regYellow) { // largest amount of cards in hand are blue
 				if (color == MainCard.Color.BLUE) { // checks if the most recent card played is blue
@@ -208,7 +213,7 @@ public class Bot extends Player {
 	}
 
 	public void printHand(){
-		System.out.println(hand.toString());
+		System.out.println(hand);
 	}
 
 }
