@@ -70,7 +70,7 @@ public class MainCard {
 		return false;
 	}
 
-	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
+	public com.example.unofinal.backend.ActionCardColored.Action getAbility() {
 		return ActionCardColored.Action.NONE;
 	}
 

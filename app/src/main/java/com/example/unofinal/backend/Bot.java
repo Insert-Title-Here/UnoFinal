@@ -105,7 +105,11 @@ public class Bot extends Player {
 		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
 		int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
 		int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
-		int special = cardAmount(MainCard.Color.NONE); // number of special cards
+		int draw2 = cardAmount(com.example.unofinal.backend.ActionCardColored.Action.DRAW2);
+		int reverse = cardAmount(com.example.unofinal.backend.ActionCardColored.Action.REVERSE);
+		int skip = cardAmount(com.example.unofinal.backend.ActionCardColored.Action.SKIP);
+		int draw4 = cardAmount(ActionCards.Special.DRAW4);
+		int wild = cardAmount(ActionCards.Special.PICKCOLOR);
 		if (canMove(color, mostRecent)) { // checks if a move is possible first
 
 			System.out.println("Can Move");
@@ -212,7 +216,28 @@ public class Bot extends Player {
 		return amount;
 	}
 
-	public void printHand(){
+    public int cardAmount(com.example.unofinal.backend.ActionCardColored.Action ability) {
+        int amount = 0;
+        for (MainCard c : hand) {
+            if (c.hasAction() && c.getAbility() == ability) {
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public int cardAmount(com.example.unofinal.backend.ActionCards.Special action) {
+		int amount = 0;
+		for (MainCard c : hand) {
+			if (c.hasAction() && c.getAction() == action) {
+				amount++;
+			}
+		}
+		return amount;
+	}
+
+
+    public void printHand(){
 		System.out.println(hand);
 	}
 
