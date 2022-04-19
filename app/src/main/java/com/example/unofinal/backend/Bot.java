@@ -28,7 +28,6 @@ public class Bot extends Player {
 		System.out.print("Hand: ");
 		printHand();
 
-
 		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
 		int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
@@ -53,6 +52,8 @@ public class Bot extends Player {
 
 			}*/
 
+		} else {
+			drawCards(1);
 		}
 
 		return 2147483647;
