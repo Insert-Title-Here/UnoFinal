@@ -92,6 +92,15 @@ public class Player {
     	return false;
 	}
 
+	public boolean canMove(MainCard.Color color) {
+		for (MainCard c : hand) {
+			if (c.getColor() == color) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
     	for (int i = 0; i < hand.size(); i++) {

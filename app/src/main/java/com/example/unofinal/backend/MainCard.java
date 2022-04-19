@@ -78,6 +78,64 @@ public class MainCard {
 		return ActionCards.Special.NONE;
 	}
 
+	public MainCard largerNum(MainCard other) {
+		int thisNum;
+		int otherNum;
+		if (this.num == Numbers.ZERO) {
+			thisNum = 0;
+		} else if (this.num == Numbers.ONE) {
+			thisNum = 1;
+		} else if (this.num == Numbers.TWO) {
+			thisNum = 2;
+		} else if (this.num == Numbers.THREE) {
+			thisNum = 3;
+		} else if (this.num == Numbers.FOUR) {
+			thisNum = 4;
+		} else if (this.num == Numbers.FIVE) {
+			thisNum = 5;
+		} else if (this.num == Numbers.SIX) {
+			thisNum = 6;
+		} else if (this.num == Numbers.SEVEN) {
+			thisNum = 7;
+		} else if (this.num == Numbers.EIGHT) {
+			thisNum = 8;
+		} else if (this.num == Numbers.NINE) {
+			thisNum = 9;
+		} else {
+			thisNum = -1;
+		}
+
+		if (other.num == Numbers.ZERO) {
+			otherNum = 0;
+		} else if (other.num == Numbers.ONE) {
+			otherNum = 1;
+		} else if (other.num == Numbers.TWO) {
+			otherNum = 2;
+		} else if (other.num == Numbers.THREE) {
+			otherNum = 3;
+		} else if (other.num == Numbers.FOUR) {
+			otherNum = 4;
+		} else if (other.num == Numbers.FIVE) {
+			otherNum = 5;
+		} else if (other.num == Numbers.SIX) {
+			otherNum = 6;
+		} else if (other.num == Numbers.SEVEN) {
+			otherNum = 7;
+		} else if (other.num == Numbers.EIGHT) {
+			otherNum = 8;
+		} else if (other.num == Numbers.NINE) {
+			otherNum = 9;
+		} else {
+			otherNum = -1;
+		}
+
+		if (thisNum >= otherNum) {
+			return this;
+		} else {
+			return other;
+		}
+	}
+
 
 
 

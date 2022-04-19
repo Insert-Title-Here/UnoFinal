@@ -40,19 +40,13 @@ public class Bot extends Player {
 		int draw4 = cardAmount(ActionCards.Special.DRAW4);
 		int wild = cardAmount(ActionCards.Special.PICKCOLOR);
 		if (canMove(color, mostRecent)) { // checks if a move is possible first
-
 			System.out.println("Can Move");
 			// decision making
-			if (regBlue > regRed && regBlue > regGreen && regBlue > regYellow) { // largest amount of cards in hand are blue
-				// what should the bot do if they can't play a blue num card or action card or play a card num blue to change the color to blue
-				// draw cards? or special
-			} else if (regRed > regGreen && regRed > regYellow) { // largest amount of cards in hand are red
-
-			} else if (regGreen > regYellow) { // largest amount of cards in hand are Green
-
-			} /*else { // largest amount of cards in hand are Yellow
-
-			}*/
+			if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
+				drawCards(4);
+			} else if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
+				move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+			}
 
 		} else {
 			drawCards(1);
@@ -60,6 +54,29 @@ public class Bot extends Player {
 
 		return 2147483647;
 
+	}
+
+	private void move(MainCard.Color color, int blue, int red, int green, int yellow, int draw2, int reverse, int skip, int draw4, int wild) {
+		if (canMove(color)) {
+			if (color == MainCard.Color.BLUE && blue > 0) {
+				MainCard temp; // intialize to a blue card
+				for (MainCard c : hand) {
+					if (c.getColor() == MainCard.Color.BLUE) {
+						// use MainCard compare to method
+					}
+				}
+			} else if (color == MainCard.Color.RED) {
+
+			} else if (color == MainCard.Color.GREEN) {
+
+			} else if (color == MainCard.Color.YELLOW) {
+
+			} else {
+
+			}
+		} else {
+			drawCards(1);
+		}
 	}
 
 	public void remove(int i){
