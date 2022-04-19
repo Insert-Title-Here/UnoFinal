@@ -27,6 +27,7 @@ public class Bot extends Player {
 	public int move(MainCard.Color color, MainCard mostRecent) {
 		System.out.print("Hand: ");
 		printHand();
+		// I'll leave the print statements in
 
 		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
