@@ -28,6 +28,7 @@ public class Bot extends Player {
 		System.out.print("Hand: ");
 		printHand();
 		// I'll leave the print statements in
+		// I broke my github help
 
 		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
