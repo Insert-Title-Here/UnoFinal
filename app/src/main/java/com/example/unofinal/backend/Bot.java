@@ -42,40 +42,210 @@ public class Bot extends Player {
 		if (canMove(color, mostRecent)) { // checks if a move is possible first
 			System.out.println("Can Move");
 			// decision making
+			// returns a 1 if a successful move was made
 			if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
 				drawCards(4);
+				return 1;
 			} else if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
-				move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
-			}
-
-		} else {
-			drawCards(1);
-		}
-
-		return 2147483647;
-
-	}
-
-	private void move(MainCard.Color color, int blue, int red, int green, int yellow, int draw2, int reverse, int skip, int draw4, int wild) {
-		if (canMove(color)) {
-			if (color == MainCard.Color.BLUE && blue > 0) {
-				MainCard temp; // intialize to a blue card
-				for (MainCard c : hand) {
-					if (c.getColor() == MainCard.Color.BLUE) {
-						// use MainCard compare to method
+				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
+				drawCards(2);
+			} else if (mostRecent.getColor() == MainCard.Color.BLUE) { // if most recent color is blue
+				if (regBlue > 0) {
+					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+				} else {
+					MainCard temp = new MainCard();
+					for (MainCard c : hand) {
+						if (c.getNum() == mostRecent.getNum()) {
+							temp = c;
+						}
 					}
+					if (temp.getNum() != null) {
+						playCard(temp, data.discard);
+						return 1;
+					} else {
+						if (skip > 0) {
+							temp = new MainCard();
+							for (MainCard c : hand) {
+								if (c.getAbility() == ActionCardColored.Action.SKIP) {
+									temp = c;
+								}
+							}
+							playCard(temp, data.discard);
+							return 1;
+						} else if (reverse > 0) {
+							temp = new MainCard();
+							for (MainCard c : hand) {
+								if (c.getAbility() == ActionCardColored.Action.REVERSE) {
+									temp = c;
+								}
+							}
+							playCard(temp, data.discard);
+							return 1;
+						} else if (draw2 > 1) {
+							temp = new MainCard();
+							for (MainCard c : hand) {
+								if (c.getAbility() == ActionCardColored.Action.DRAW2) {
+									temp = c;
+								}
+							}
+							playCard(temp, data.discard);
+							return 1;
+						} else if (draw4 > 1) {
+							temp = new MainCard();
+							for (MainCard c : hand) {
+								if (c.getAction() == ActionCards.Special.DRAW4) {
+									temp = c;
+								}
+							}
+							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
+								temp.setColor(MainCard.Color.BLUE);
+							} else if (regRed >= regGreen && regRed >= regYellow) {
+								temp.setColor(MainCard.Color.RED);
+							} else if (regGreen >= regYellow) {
+								temp.setColor(MainCard.Color.GREEN);
+							} else {
+								temp.setColor(MainCard.Color.YELLOW);
+							}
+							playCard(temp, data.discard);
+							return 1;
+						} else if (wild > 1) {
+							temp = new MainCard();
+							for (MainCard c : hand) {
+								if (c.getAction() == ActionCards.Special.PICKCOLOR) {
+									temp = c;
+								}
+							}
+							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
+								temp.setColor(MainCard.Color.BLUE);
+							} else if (regRed >= regGreen && regRed >= regYellow) {
+								temp.setColor(MainCard.Color.RED);
+							} else if (regGreen >= regYellow) {
+								temp.setColor(MainCard.Color.GREEN);
+							} else {
+								temp.setColor(MainCard.Color.YELLOW);
+							}
+							playCard(temp, data.discard);
+							return 1;
+						} else {
+							drawCards(1);
+							return 1;
+						}
+					}
+					// need to check if wild/action cards can be played after checking if a identical num card can be played
 				}
-			} else if (color == MainCard.Color.RED) {
+			} else if (mostRecent.getColor() == MainCard.Color.RED) {
 
-			} else if (color == MainCard.Color.GREEN) {
-
-			} else if (color == MainCard.Color.YELLOW) {
+			} else if (mostRecent.getColor() == MainCard.Color.GREEN) {
 
 			} else {
 
 			}
+
+		} else { // assumes this wasn't called after a skip or reverse was played
+			drawCards(1);
+		}
+
+		return 2147483647; // tell you something went wrong
+
+	}
+
+	private int move(MainCard.Color color, int blue, int red, int green, int yellow, int draw2, int reverse, int skip, int draw4, int wild) {
+		if (canMove(color)) {
+			if (color == MainCard.Color.BLUE && blue > 0) {
+				MainCard temp = new MainCard(); // initialize to a blue card
+				for (int i = 0; i < hand.size(); i++) {
+					if (hand.get(i).getColor() == MainCard.Color.BLUE) {
+						temp = hand.get(i);
+						i = hand.size();
+					}
+				}
+				for (MainCard c : hand) {
+					if (c.getColor() == MainCard.Color.BLUE) {
+						temp = c.largerNum(temp);
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (color == MainCard.Color.RED && red > 0) {
+				MainCard temp = new MainCard(); // initialize to a blue card
+				for (int i = 0; i < hand.size(); i++) {
+					if (hand.get(i).getColor() == MainCard.Color.RED) {
+						temp = hand.get(i);
+						i = hand.size();
+					}
+				}
+				for (MainCard c : hand) {
+					if (c.getColor() == MainCard.Color.RED) {
+						temp = c.largerNum(temp);
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (color == MainCard.Color.GREEN && green > 0) {
+				MainCard temp = new MainCard(); // initialize to a blue card
+				for (int i = 0; i < hand.size(); i++) {
+					if (hand.get(i).getColor() == MainCard.Color.GREEN) {
+						temp = hand.get(i);
+						i = hand.size();
+					}
+				}
+				for (MainCard c : hand) {
+					if (c.getColor() == MainCard.Color.GREEN) {
+						temp = c.largerNum(temp);
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (color == MainCard.Color.YELLOW && yellow > 0) {
+				MainCard temp = new MainCard(); // initialize to a blue card
+				for (int i = 0; i < hand.size(); i++) {
+					if (hand.get(i).getColor() == MainCard.Color.YELLOW) {
+						temp = hand.get(i);
+						i = hand.size();
+					}
+				}
+				for (MainCard c : hand) {
+					if (c.getColor() == MainCard.Color.YELLOW) {
+						temp = c.largerNum(temp);
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (draw2 > 1) {
+				MainCard temp = new MainCard();
+				for (MainCard c : hand) {
+					if (c.getAbility() == ActionCardColored.Action.DRAW2) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (reverse > 0) {
+				MainCard temp = new MainCard();
+				for (MainCard c : hand) {
+					if (c.getAbility() == ActionCardColored.Action.REVERSE) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else if (skip > 0) {
+				MainCard temp = new MainCard();
+				for (MainCard c : hand) {
+					if (c.getAbility() == ActionCardColored.Action.SKIP) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+				return 1;
+			} else {
+				drawCards(1);
+				return 1;
+			}
 		} else {
 			drawCards(1);
+			return 1;
 		}
 	}
 
