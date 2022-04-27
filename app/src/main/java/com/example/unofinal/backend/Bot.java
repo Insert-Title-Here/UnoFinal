@@ -42,14 +42,15 @@ public class Bot extends Player {
 		if (canMove(color, mostRecent)) { // checks if a move is possible first
 			System.out.println("Can Move");
 			// decision making
-			// returns a 1 if a successful move was made
+			// returns a 0 if cards were drawn, -1 if no move, other wise it returns the index of the card
 			if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
 				drawCards(4);
-				return 1;
+				return -1;
 			} else if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
 				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
+				return -1;
 			} else if (mostRecent.getColor() == MainCard.Color.BLUE) { // if most recent color is blue
 				if (regBlue > 0) {
 					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
@@ -62,7 +63,7 @@ public class Bot extends Player {
 					}
 					if (temp.getNum() != null) {
 						playCard(temp, data.discard);
-						return 1;
+						return hand.indexOf(temp);
 					} else {
 						if (skip > 0) {
 							temp = new MainCard();
@@ -72,7 +73,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (reverse > 0) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -81,7 +82,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw2 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -90,7 +91,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw4 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -108,7 +109,7 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (wild > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -126,10 +127,10 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else {
 							drawCards(1);
-							return 1;
+							return -1;
 						}
 					}
 				}
@@ -145,7 +146,7 @@ public class Bot extends Player {
 					}
 					if (temp.getNum() != null) {
 						playCard(temp, data.discard);
-						return 1;
+						return hand.indexOf(temp);
 					} else {
 						if (skip > 0) {
 							temp = new MainCard();
@@ -155,7 +156,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (reverse > 0) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -164,7 +165,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw2 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -173,7 +174,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw4 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -191,7 +192,7 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (wild > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -209,10 +210,10 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else {
 							drawCards(1);
-							return 1;
+							return -1;
 						}
 					}
 				}
@@ -228,7 +229,7 @@ public class Bot extends Player {
 					}
 					if (temp.getNum() != null) {
 						playCard(temp, data.discard);
-						return 1;
+						return hand.indexOf(temp);
 					} else {
 						if (skip > 0) {
 							temp = new MainCard();
@@ -238,7 +239,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (reverse > 0) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -247,7 +248,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw2 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -256,7 +257,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw4 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -274,7 +275,7 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (wild > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -292,10 +293,10 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else {
 							drawCards(1);
-							return 1;
+							return -1;
 						}
 					}
 				}
@@ -311,7 +312,7 @@ public class Bot extends Player {
 					}
 					if (temp.getNum() != null) {
 						playCard(temp, data.discard);
-						return 1;
+						return hand.indexOf(temp);
 					} else {
 						if (skip > 0) {
 							temp = new MainCard();
@@ -321,7 +322,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (reverse > 0) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -339,7 +340,7 @@ public class Bot extends Player {
 								}
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (draw4 > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -357,7 +358,7 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else if (wild > 1) {
 							temp = new MainCard();
 							for (MainCard c : hand) {
@@ -375,19 +376,20 @@ public class Bot extends Player {
 								temp.setColor(MainCard.Color.YELLOW);
 							}
 							playCard(temp, data.discard);
-							return 1;
+							return hand.indexOf(temp);
 						} else {
 							drawCards(1);
-							return 1;
+							return -1;
 						}
 					}
 				}
 			}
 		} else { // assumes this wasn't called after a skip or reverse was played
 			drawCards(1);
+			return -1;
 		}
 
-		return 2147483647; // tell you something went wrong
+		// return 2147483647; // tell you something went wrong
 
 	}
 
@@ -407,7 +409,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (color == MainCard.Color.RED && red > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < hand.size(); i++) {
@@ -422,7 +424,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (color == MainCard.Color.GREEN && green > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < hand.size(); i++) {
@@ -437,7 +439,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (color == MainCard.Color.YELLOW && yellow > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < hand.size(); i++) {
@@ -452,7 +454,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (draw2 > 1) {
 				MainCard temp = new MainCard();
 				for (MainCard c : hand) {
@@ -461,7 +463,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (reverse > 0) {
 				MainCard temp = new MainCard();
 				for (MainCard c : hand) {
@@ -470,7 +472,7 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else if (skip > 0) {
 				MainCard temp = new MainCard();
 				for (MainCard c : hand) {
@@ -479,14 +481,14 @@ public class Bot extends Player {
 					}
 				}
 				playCard(temp, data.discard);
-				return 1;
+				return hand.indexOf(temp);
 			} else {
 				drawCards(1);
-				return 1;
+				return -1;
 			}
 		} else {
 			drawCards(1);
-			return 1;
+			return -1;
 		}
 	}
 
