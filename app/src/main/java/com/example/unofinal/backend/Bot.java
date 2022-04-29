@@ -8,6 +8,9 @@ public class Bot extends Player {
 	
 	public Bot(Stack<MainCard> drawPile) {
 		super(drawPile);
+		for(int i = 0; i < 7; i++){
+			hand.add(drawPile.pop());
+		}
 	}
 
 	public Bot(){
