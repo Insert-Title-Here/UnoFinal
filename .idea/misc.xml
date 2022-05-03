@@ -3,10 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_card.xml" value="0.37083333333333335" />
+        <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_card.xml" value="0.33" />
+        <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_card_test.xml" value="0.23505434782608695" />
         <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_color_change.xml" value="0.13247213779128672" />
         <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_play.xml" value="0.33" />
+        <entry key="..\:/Github/UnoFinal/app/src/main/res/layout/activity_play.xml" value="0.2746710526315789" />
         <entry key="..\:/NewGithub/UnoFinal/app/src/main/res/layout/activity_card.xml" value="0.18" />
         <entry key="..\:/NewGithub/UnoFinal/app/src/main/res/layout/activity_leaderboard.xml" value="0.375" />
         <entry key="..\:/NewGithub/UnoFinal/app/src/main/res/layout/activity_main.xml" value="0.18958333333333333" />

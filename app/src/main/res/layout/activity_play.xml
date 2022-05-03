@@ -6,17 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Play">
 
-    <TextView
-        android:id="@+id/playText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-<!--
+    <!--
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -30,16 +20,38 @@
         -->
 
 
-    <ImageButton
-        android:id="@+id/handButton"
-        android:layout_width="185dp"
-        android:layout_height="156dp"
-        android:onClick="imgBtnClick"
-        app:layout_constraintBottom_toTopOf="@+id/playText"
+    <TextView
+        android:id="@+id/playText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/drawing" />
+        app:layout_constraintVertical_bias="0.532" />
+
+    <ImageButton
+        android:id="@+id/handButton"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:adjustViewBounds="false"
+        android:backgroundTint="#000000"
+        android:cropToPadding="false"
+        android:onClick="imgBtnClick"
+        android:scaleX="0.8"
+        android:scaleY="0.9"
+        app:layout_constrainedHeight="false"
+        app:layout_constrainedWidth="false"
+        app:layout_constraintBottom_toTopOf="@+id/playText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+    />
 
     <TextView
         android:id="@+id/player"

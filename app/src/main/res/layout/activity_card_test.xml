@@ -5,15 +5,17 @@
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CardActivity">
+    tools:context=".CardActivityTest">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="216dp"
         tools:layout_editor_absoluteY="96dp">
+
 
         <ListView
             android:id="@+id/cardList"

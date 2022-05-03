@@ -19,7 +19,7 @@ import com.example.unofinal.backend.MainCard;
 
 import java.util.*;
 
-public class CardActivity extends AppCompatActivity {
+public class CardActivityTest extends AppCompatActivity {
 
 
     Data data = new Data();
@@ -92,7 +92,7 @@ public class CardActivity extends AppCompatActivity {
 
             if (data.gameTest.get(data.getCurrentPlayer()).size() == 0) {
                 System.out.println("Bot win!!!");
-                Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                Intent intent = new Intent(CardActivityTest.this, Leaderboard.class);
                 startActivity(intent);
             }
 
@@ -139,7 +139,7 @@ public class CardActivity extends AppCompatActivity {
 
                 if (list.size() == 0) {
                     System.out.println("You win!!!");
-                    Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                    Intent intent = new Intent(CardActivityTest.this, Leaderboard.class);
                     startActivity(intent);
                 }
 
@@ -305,12 +305,12 @@ public class CardActivity extends AppCompatActivity {
 
             } else if (data.currentCard.getAction() == ActionCards.Special.DRAW4) {
                 data.gameTest.get(data.getNextPlayer()).drawCards(4);
-                Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                Intent intent = new Intent(CardActivityTest.this, ColorChange.class);
                 startActivity(intent);
 
 
             } else if (data.currentCard.getAction() == ActionCards.Special.PICKCOLOR) {
-                Intent intent = new Intent(CardActivity.this, ColorChange.class);
+                Intent intent = new Intent(CardActivityTest.this, ColorChange.class);
                 startActivity(intent);
 
             }
