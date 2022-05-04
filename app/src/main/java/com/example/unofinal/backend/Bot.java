@@ -42,7 +42,7 @@ public class Bot extends Player {
 		int skip = cardAmount(com.example.unofinal.backend.ActionCardColored.Action.SKIP);
 		int draw4 = cardAmount(ActionCards.Special.DRAW4);
 		int wild = cardAmount(ActionCards.Special.PICKCOLOR);
-		if (canMove(color, mostRecent)) { // checks if a move is possible first
+		if (canMove(mostRecent, color)) { // checks if a move is possible first
 			System.out.println("Can Move");
 			// decision making
 			// returns a 0 if cards were drawn, -1 if no move, other wise it returns the index of the card
