@@ -86,7 +86,7 @@ public class Player {
 	public boolean canMove(MainCard mostRecent, MainCard.Color color) {
 		for (MainCard c : hand) {
 			if (c.getColor() == color || c.getNum() == mostRecent.getNum() && !mostRecent.hasAction()
-					&& mostRecent.getAction() !=  ActionCards.Special.DRAW4) {
+					&& mostRecent.getAction() !=  ActionCards.Special.DRAW4 || c.hasAction()) {
 				return true;
 			}
 		}
