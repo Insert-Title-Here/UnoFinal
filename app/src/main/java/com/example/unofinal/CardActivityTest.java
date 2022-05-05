@@ -16,6 +16,7 @@ import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
+import com.example.unofinal.backend.SimpleCard;
 
 import java.util.*;
 
@@ -24,27 +25,32 @@ public class CardActivityTest extends AppCompatActivity {
 
     Data data = new Data();
     List<String> list;
+    List<SimpleCard> cardList;
     int listPosition;
     Button button;
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        ListView lv = findViewById(R.id.cardList);
+        lv = findViewById(R.id.cardList);
         //TextView tv = findViewById(R.id.listText);
         if(!(data.gameTest.get(data.getCurrentPlayer()).isBot())) {
 
 
             button = findViewById(R.id.draw);
             list = new ArrayList<>();
+            cardList = new ArrayList<>();
+
 
             //List<MainCard> cardList = new ArrayList<>(haha it's too god);
 
 
             for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
                 list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+                cardList.add(new SimpleCard(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
                 //cardList.add(data.game.get(0).get(i));
             }
 
