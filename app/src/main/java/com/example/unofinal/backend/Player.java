@@ -83,33 +83,27 @@ public class Player {
 	}
 
 	// checks if a move is possible with the current hand
-	public boolean canMove(MainCard.Color color, MainCard mostRecent) {
+	public boolean canMove(MainCard mostRecent, MainCard.Color color) {
 		for (MainCard c : hand) {
-    		if (c.matches(mostRecent) || c.getColor() == color) {
-    			return true;
-    		}
-    	}
-    	return false;
+			if (c.getColor() == color || c.getNum() == mostRecent.getNum() && !mostRecent.hasAction()
+					&& mostRecent.getAction() !=  ActionCards.Special.DRAW4 || c.hasAction()) {
+				return true;
+			}
+		}
+		return false;
 	}
+
 
 	public boolean canMove(MainCard.Color color) {
 		for (MainCard c : hand) {
-			if (c.getColor() == color) {
+			if (c.getColor() == color || c.hasAction()) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean canMove(MainCard mostRecent) {
-		for (MainCard c : hand) {
-			if (c.getColor() == mostRecent.getColor() || c.getNum() == mostRecent.getNum() && !mostRecent.hasAction()
-			&& mostRecent.getAction() != ActionCards.Special.DRAW4) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
