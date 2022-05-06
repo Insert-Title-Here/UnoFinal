@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/image"
-        android:src=""
+        android:src="@drawable/lb_ic_thumb_up"
         android:layout_width="75dp"
         android:layout_height="100dp"
 

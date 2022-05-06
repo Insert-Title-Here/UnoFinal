@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
+import com.example.unofinal.backend.CardAdapter;
 import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.backend.SimpleCard;
@@ -25,7 +26,7 @@ public class CardActivityTest extends AppCompatActivity {
 
     Data data = new Data();
     List<String> list;
-    List<SimpleCard> cardList;
+    ArrayList<SimpleCard> cardList;
     int listPosition;
     Button button;
     ListView lv;
@@ -49,18 +50,18 @@ public class CardActivityTest extends AppCompatActivity {
 
 
             for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
-                list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+                //list.add(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
                 cardList.add(new SimpleCard(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
                 //cardList.add(data.game.get(0).get(i));
             }
 
 
             ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+            CardAdapter cardAdapter = new CardAdapter(this, R.layout.list_row, cardList);
 
+            //lv.setAdapter(adapter);
 
-            lv.setAdapter(adapter);
-
-            listButtonListener(lv, list);
+            //listButtonListener(lv, list);
         }else{
             botPlay();
         }

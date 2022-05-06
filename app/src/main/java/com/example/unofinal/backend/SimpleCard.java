@@ -132,6 +132,11 @@ public class SimpleCard {
 
             //Wild and Draw 4
         }else{
+            if(name.contains("4")){
+                setImage(R.drawable.drawfour);
+            }else{
+                setImage(R.drawable.wild);
+            }
 
         }
     }

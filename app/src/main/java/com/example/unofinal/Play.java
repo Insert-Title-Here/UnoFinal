@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.unofinal.backend.ActionCardColored;
@@ -28,7 +29,7 @@ public class Play  extends AppCompatActivity {
     Data data = new Data();
     TextView playerView;
     TextView card;
-
+    ImageButton image;
 
 
 
@@ -55,6 +56,7 @@ public class Play  extends AppCompatActivity {
 
         playerView = findViewById(R.id.player);
         card = findViewById(R.id.Card);
+        image = findViewById(R.id.handButton);
 
 
         newCardImplementation();
@@ -71,9 +73,128 @@ public class Play  extends AppCompatActivity {
         super.onResume();
         playerView.setText("" + data.currentPlayer);
         card.setText(data.previousCard.toString());
+        setImage(data.previousCard.toString());
 
 
+    }
 
+//TODO: add "zero" cards
+    public void setImage(String name){
+        if(name.contains("RED")){
+            if(name.contains("ONE")){
+                image.setImageResource(R.drawable.redone);
+            }else if(name.contains("TWO")){
+                image.setImageResource(R.drawable.redtwo);
+            }else if(name.contains("THREE")){
+                image.setImageResource(R.drawable.redthree);
+            }else if(name.contains("FOUR")){
+                image.setImageResource(R.drawable.redfour);
+            }else if(name.contains("FIVE")){
+                image.setImageResource(R.drawable.redfive);
+            }else if(name.contains("SIX")){
+                image.setImageResource(R.drawable.redsix);
+            }else if(name.contains("SEVEN")){
+                image.setImageResource(R.drawable.redseven);
+            }else if(name.contains("EIGHT")){
+                image.setImageResource(R.drawable.redeight);
+            }else if(name.contains("NINE")){
+                image.setImageResource(R.drawable.rednine);
+            }else if(name.contains("REVERSE")){
+                image.setImageResource(R.drawable.redreverse);
+            }else if(name.contains("DRAW2")){
+                image.setImageResource(R.drawable.reddrawtwo);
+            }else if(name.contains("SKIP")){
+                image.setImageResource(R.drawable.redskip);
+            }
+
+        }else if(name.contains("BLUE")){
+            if(name.contains("ONE")){
+                image.setImageResource(R.drawable.blueone);
+            }else if(name.contains("TWO")){
+                image.setImageResource(R.drawable.bluetwo);
+            }else if(name.contains("THREE")){
+                image.setImageResource(R.drawable.bluethree);
+            }else if(name.contains("FOUR")){
+                image.setImageResource(R.drawable.bluefour);
+            }else if(name.contains("FIVE")){
+                image.setImageResource(R.drawable.bluefive);
+            }else if(name.contains("SIX")){
+                image.setImageResource(R.drawable.bluesix);
+            }else if(name.contains("SEVEN")){
+                image.setImageResource(R.drawable.blueseven);
+            }else if(name.contains("EIGHT")){
+                image.setImageResource(R.drawable.blueeight);
+            }else if(name.contains("NINE")){
+                image.setImageResource(R.drawable.bluenine);
+            }else if(name.contains("REVERSE")){
+                image.setImageResource(R.drawable.bluereverse);
+            }else if(name.contains("DRAW2")){
+                image.setImageResource(R.drawable.bluedrawtwo);
+            }else if(name.contains("SKIP")){
+                image.setImageResource(R.drawable.blueskip);
+            }
+        }else if(name.contains("GREEN")){
+            if(name.contains("ONE")){
+                image.setImageResource(R.drawable.greenone);
+            }else if(name.contains("TWO")){
+                image.setImageResource(R.drawable.greentwo);
+            }else if(name.contains("THREE")){
+                image.setImageResource(R.drawable.greenthree);
+            }else if(name.contains("FOUR")){
+                image.setImageResource(R.drawable.greenfour);
+            }else if(name.contains("FIVE")){
+                image.setImageResource(R.drawable.greenfive);
+            }else if(name.contains("SIX")){
+                image.setImageResource(R.drawable.greensix);
+            }else if(name.contains("SEVEN")){
+                image.setImageResource(R.drawable.greenseven);
+            }else if(name.contains("EIGHT")){
+                image.setImageResource(R.drawable.greeneight);
+            }else if(name.contains("NINE")){
+                image.setImageResource(R.drawable.greennine);
+            }else if(name.contains("REVERSE")){
+                image.setImageResource(R.drawable.greenreverse);
+            }else if(name.contains("DRAW2")){
+                image.setImageResource(R.drawable.greendrawtwo);
+            }else if(name.contains("SKIP")){
+                image.setImageResource(R.drawable.greenskip);
+            }
+        }else if(name.contains("YELLOW")){
+            if(name.contains("ONE")){
+                image.setImageResource(R.drawable.yellowone);
+            }else if(name.contains("TWO")){
+                image.setImageResource(R.drawable.yellowtwo);
+            }else if(name.contains("THREE")){
+                image.setImageResource(R.drawable.yellowthree);
+            }else if(name.contains("FOUR")){
+                image.setImageResource(R.drawable.yellowfour);
+            }else if(name.contains("FIVE")){
+                image.setImageResource(R.drawable.yellowfive);
+            }else if(name.contains("SIX")){
+                image.setImageResource(R.drawable.yellowsix);
+            }else if(name.contains("SEVEN")){
+                image.setImageResource(R.drawable.yellowseven);
+            }else if(name.contains("EIGHT")){
+                image.setImageResource(R.drawable.yelloweight);
+            }else if(name.contains("NINE")){
+                image.setImageResource(R.drawable.yellownine);
+            } else if(name.contains("REVERSE")){
+                image.setImageResource(R.drawable.yellowreverse);
+            }else if(name.contains("DRAW2")){
+                image.setImageResource(R.drawable.yellowdrawtwo);
+            }else if(name.contains("SKIP")){
+                image.setImageResource(R.drawable.yellowskip);
+            }
+
+            //Wild and Draw 4
+        }else{
+            if(name.contains("4")){
+                image.setImageResource(R.drawable.drawfour);
+            }else{
+                image.setImageResource(R.drawable.wild);
+            }
+
+        }
     }
 
 
@@ -107,7 +228,7 @@ public class Play  extends AppCompatActivity {
     }
 
     public void imgBtnClick(View view){
-        Intent intent = new Intent(Play.this, CardActivity.class);
+        Intent intent = new Intent(Play.this, CardActivityTest.class);
         startActivity(intent);
 
     }
