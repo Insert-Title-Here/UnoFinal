@@ -54,12 +54,22 @@ public class CardActivityTest extends AppCompatActivity {
                 cardList.add(new SimpleCard(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
                 //cardList.add(data.game.get(0).get(i));
             }
+            //System.out.println("Hi");
+
+            /*
+            for(SimpleCard i: cardList){
+                System.out.println("Num: " + i.getName());
+            }
+
+             */
 
 
-            ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+            //ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
             CardAdapter cardAdapter = new CardAdapter(this, R.layout.list_row, cardList);
 
-            //lv.setAdapter(adapter);
+            lv.setAdapter(cardAdapter);
+
+
 
             //listButtonListener(lv, list);
         }else{
