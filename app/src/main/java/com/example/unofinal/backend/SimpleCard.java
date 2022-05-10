@@ -25,7 +25,9 @@ public class SimpleCard {
 
     public void addImage(){
         if(name.contains("RED")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                setImage(R.drawable.redzero);
+            }else if(name.contains("ONE")){
                 setImage(R.drawable.redone);
             }else if(name.contains("TWO")){
                 setImage(R.drawable.redtwo);
@@ -52,7 +54,9 @@ public class SimpleCard {
             }
 
         }else if(name.contains("BLUE")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                setImage(R.drawable.bluezero);
+            }else if(name.contains("ONE")){
                 setImage(R.drawable.blueone);
             }else if(name.contains("TWO")){
                 setImage(R.drawable.bluetwo);
@@ -78,7 +82,9 @@ public class SimpleCard {
                 setImage(R.drawable.blueskip);
             }
         }else if(name.contains("GREEN")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                setImage(R.drawable.greenzero);
+            }else if(name.contains("ONE")){
                 setImage(R.drawable.greenone);
             }else if(name.contains("TWO")){
                 setImage(R.drawable.greentwo);
@@ -104,7 +110,9 @@ public class SimpleCard {
                 setImage(R.drawable.greenskip);
             }
         }else if(name.contains("YELLOW")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                setImage(R.drawable.yellowzero);
+            }else if(name.contains("ONE")){
                 setImage(R.drawable.yellowone);
             }else if(name.contains("TWO")){
                 setImage(R.drawable.yellowtwo);

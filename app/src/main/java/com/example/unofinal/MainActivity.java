@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void leaderboardBtnClick(View view){
-        Intent intent = new Intent(MainActivity.this, Leaderboard.class);
+        Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
         startActivity(intent);
     }
 }
