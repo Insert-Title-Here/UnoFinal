@@ -81,7 +81,9 @@ public class Play  extends AppCompatActivity {
 //TODO: add "zero" cards
     public void setImage(String name){
         if(name.contains("RED")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")) {
+                image.setImageResource(R.drawable.redzero);
+            }else if(name.contains("ONE")){
                 image.setImageResource(R.drawable.redone);
             }else if(name.contains("TWO")){
                 image.setImageResource(R.drawable.redtwo);
@@ -108,7 +110,9 @@ public class Play  extends AppCompatActivity {
             }
 
         }else if(name.contains("BLUE")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                image.setImageResource(R.drawable.bluezero);
+            }else if(name.contains("ONE")){
                 image.setImageResource(R.drawable.blueone);
             }else if(name.contains("TWO")){
                 image.setImageResource(R.drawable.bluetwo);
@@ -134,7 +138,9 @@ public class Play  extends AppCompatActivity {
                 image.setImageResource(R.drawable.blueskip);
             }
         }else if(name.contains("GREEN")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                image.setImageResource(R.drawable.greenzero);
+            }else if(name.contains("ONE")){
                 image.setImageResource(R.drawable.greenone);
             }else if(name.contains("TWO")){
                 image.setImageResource(R.drawable.greentwo);
@@ -160,7 +166,9 @@ public class Play  extends AppCompatActivity {
                 image.setImageResource(R.drawable.greenskip);
             }
         }else if(name.contains("YELLOW")){
-            if(name.contains("ONE")){
+            if(name.contains("ZERO")){
+                image.setImageResource(R.drawable.yellowzero);
+            }else if(name.contains("ONE")){
                 image.setImageResource(R.drawable.yellowone);
             }else if(name.contains("TWO")){
                 image.setImageResource(R.drawable.yellowtwo);

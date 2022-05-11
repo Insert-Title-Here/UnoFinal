@@ -1,5 +1,7 @@
 package com.example.unofinal.backend;
 
+import com.example.unofinal.R;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -105,6 +107,136 @@ public class Data {
 
     public int getCurrentPlayer(){
         return currentPlayer - 1;
+    }
+
+
+    public int getImage(String name) {
+        if (name.contains("RED")) {
+            if (name.contains("ZERO")) {
+                return R.drawable.redzero;
+            } else if (name.contains("ONE")) {
+                return R.drawable.redone;
+            } else if (name.contains("TWO")) {
+                return R.drawable.redtwo;
+            } else if (name.contains("THREE")) {
+                return R.drawable.redthree;
+            } else if (name.contains("FOUR")) {
+                return R.drawable.redfour;
+            } else if (name.contains("FIVE")) {
+                return R.drawable.redfive;
+            } else if (name.contains("SIX")) {
+                return R.drawable.redsix;
+            } else if (name.contains("SEVEN")) {
+                return R.drawable.redseven;
+            } else if (name.contains("EIGHT")) {
+                return R.drawable.redeight;
+            } else if (name.contains("NINE")) {
+                return R.drawable.rednine;
+            } else if (name.contains("REVERSE")) {
+                return R.drawable.redreverse;
+            } else if (name.contains("DRAW2")) {
+                return R.drawable.reddrawtwo;
+            } else if (name.contains("SKIP")) {
+                return R.drawable.redskip;
+            }
+
+        } else if (name.contains("BLUE")) {
+            if (name.contains("ZERO")) {
+                return R.drawable.bluezero;
+            } else if (name.contains("ONE")) {
+                return R.drawable.blueone;
+            } else if (name.contains("TWO")) {
+                return R.drawable.bluetwo;
+            } else if (name.contains("THREE")) {
+                return R.drawable.bluethree;
+            } else if (name.contains("FOUR")) {
+                return R.drawable.bluefour;
+            } else if (name.contains("FIVE")) {
+                return R.drawable.bluefive;
+            } else if (name.contains("SIX")) {
+                return R.drawable.bluesix;
+            } else if (name.contains("SEVEN")) {
+                return R.drawable.blueseven;
+            } else if (name.contains("EIGHT")) {
+                return R.drawable.blueeight;
+            } else if (name.contains("NINE")) {
+                return R.drawable.bluenine;
+            } else if (name.contains("REVERSE")) {
+                return R.drawable.bluereverse;
+            } else if (name.contains("DRAW2")) {
+                return R.drawable.bluedrawtwo;
+            } else if (name.contains("SKIP")) {
+                return R.drawable.blueskip;
+            }
+        } else if (name.contains("GREEN")) {
+            if (name.contains("ZERO")) {
+                return R.drawable.greenzero;
+            } else if (name.contains("ONE")) {
+                return R.drawable.greenone;
+            } else if (name.contains("TWO")) {
+                return R.drawable.greentwo;
+            } else if (name.contains("THREE")) {
+                return R.drawable.greenthree;
+            } else if (name.contains("FOUR")) {
+                return R.drawable.greenfour;
+            } else if (name.contains("FIVE")) {
+                return R.drawable.greenfive;
+            } else if (name.contains("SIX")) {
+                return R.drawable.greensix;
+            } else if (name.contains("SEVEN")) {
+                return R.drawable.greenseven;
+            } else if (name.contains("EIGHT")) {
+                return R.drawable.greeneight;
+            } else if (name.contains("NINE")) {
+                return R.drawable.greennine;
+            } else if (name.contains("REVERSE")) {
+                return R.drawable.greenreverse;
+            } else if (name.contains("DRAW2")) {
+                return R.drawable.greendrawtwo;
+            } else if (name.contains("SKIP")) {
+                return R.drawable.greenskip;
+            }
+        } else if (name.contains("YELLOW")) {
+            if (name.contains("ZERO")) {
+                return R.drawable.yellowzero;
+            } else if (name.contains("ONE")) {
+                return R.drawable.yellowone;
+            } else if (name.contains("TWO")) {
+                return R.drawable.yellowtwo;
+            } else if (name.contains("THREE")) {
+                return R.drawable.yellowthree;
+            } else if (name.contains("FOUR")) {
+                return R.drawable.yellowfour;
+            } else if (name.contains("FIVE")) {
+                return R.drawable.yellowfive;
+            } else if (name.contains("SIX")) {
+                return R.drawable.yellowsix;
+            } else if (name.contains("SEVEN")) {
+                return R.drawable.yellowseven;
+            } else if (name.contains("EIGHT")) {
+                return R.drawable.yelloweight;
+            } else if (name.contains("NINE")) {
+                return R.drawable.yellownine;
+            } else if (name.contains("REVERSE")) {
+                return R.drawable.yellowreverse;
+            } else if (name.contains("DRAW2")) {
+                return R.drawable.yellowdrawtwo;
+            } else if (name.contains("SKIP")) {
+                return R.drawable.yellowskip;
+            }
+
+            //Wild and Draw 4
+        } else {
+            if (name.contains("4")) {
+                return R.drawable.drawfour;
+            } else {
+                return R.drawable.wild;
+            }
+
+        }
+
+        return 0;
+
     }
 
 
