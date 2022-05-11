@@ -112,6 +112,8 @@ public class Player {
     			hand.remove(i);
     		}
     	}
+
+    	data.previousCard = card;
     	discard.push(card);
     }
 

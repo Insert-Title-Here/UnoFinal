@@ -1,8 +1,12 @@
 package com.example.unofinal;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.unofinal.backend.ActionCardColored;
@@ -29,33 +34,47 @@ import java.util.Stack;
 public class CardTestHorizontal extends AppCompatActivity {
 
     Data data = new Data();
-
+    TextView player;
+    LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        System.out.println("First");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_test_horizontal);
 
         ImageView image = findViewById(R.id.discard);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.handlayout);
+        layout = (LinearLayout) findViewById(R.id.handlayout);
+        player = findViewById(R.id.playerNum);
 
         //TODO: remove this later
-        data.players = 2;
-        newCardImplementation();
+        if(!data.initialized) {
+            data.players = 2;
+            newCardImplementation();
+        }
+
+        player.setText("" + data.currentPlayer);
 
 
-        System.out.println(data.gameTest);
+        //System.out.println(data.gameTest);
 
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
             filllayout(layout, new ImageButton(getApplicationContext()), data.getImage(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
+            System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+
         }
 
         //getViewInLayout(layout, 1).setScaleType(ImageView.ScaleType.FIT_XY);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
             ImageButton button = getViewInLayout(layout, i);
             button.setScaleType(ImageView.ScaleType.FIT_XY);
+            button.getLayoutParams().width = 300;
+            button.setTag(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+            cardClick(button);
+
 
 
         }
@@ -63,7 +82,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
 
-        System.out.println("PreviousCard: " + data.previousCard.toString());
+        System.out.println("PreviousCard:  " + data.previousCard);
 
         image.setImageResource(data.getImage(data.previousCard.toString()));
 
@@ -73,6 +92,9 @@ public class CardTestHorizontal extends AppCompatActivity {
         //toast.setDuration(Toast.LENGTH_LONG);
         //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 
+        if(!data.initialized){
+            data.initialized = true;
+        }
 
     }
 
@@ -228,6 +250,292 @@ public class CardTestHorizontal extends AppCompatActivity {
         Collections.shuffle(temp);
         temp.toArray(arr);
 
+    }
+
+    public void draw(View view){
+        if(data.reloadAmt == 0) {
+            data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
+
+            System.out.println("PreviousCard:  " + data.previousCard);
+
+            finish();
+            startActivity(getIntent());
+            data.reloadAmt++;
+        }else{
+            switchScreens();
+        }
+
+
+    }
+
+    private void switchScreens(){
+        //Handling the Skip Action
+        if(!(data.previousCard.getAction() == ActionCards.Special.DRAW4)) {
+            if (data.previousCard.getAbility() == ActionCardColored.Action.SKIP || data.previousCard.getAbility() == ActionCardColored.Action.DRAW2) {
+                data.skip();
+            } else {
+                data.switchPlayer();
+            }
+
+            System.out.println("CurrentPlayer: " + data.currentPlayer);
+        }
+
+        data.reloadAmt = 0;
+        //finish();
+    }
+
+
+    public void cardClick(ImageButton button){
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+
+                System.out.println("Old Hand:");
+                data.gameTest.get(data.getCurrentPlayer()).printHand();
+                System.out.println();
+
+                String card = (String)button.getTag();
+
+                MainCard tempCard = null;
+
+                if(card.contains("PICKCOLOR") || card.contains("DRAW4")){
+                    System.out.println(card + " is really special");
+
+                    if(card.contains("PICKCOLOR")){
+                        tempCard = new ActionCards(ActionCards.Special.PICKCOLOR);
+                    }else {
+                        tempCard = new ActionCards(ActionCards.Special.DRAW4);
+                    }
+
+                }else if(card.contains("REVERSE") || card.contains("SKIP") || card.contains("DRAW2")){
+                    System.out.println(card + " is somewhat special");
+
+                    if(card.substring(0, card.indexOf(" ")).equals("RED")){
+                        if(card.contains("REVERSE")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.RED);
+
+                        }else if(card.contains("SKIP")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.RED);
+
+
+                        }else{
+                            tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.RED);
+
+
+                        }
+
+
+                    }else if(card.substring(0, card.indexOf(" ")).equals("BLUE")){
+
+                        if(card.contains("REVERSE")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.BLUE);
+
+
+                        }else if(card.contains("SKIP")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.BLUE);
+
+
+                        }else{
+                            tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.BLUE);
+
+
+                        }
+
+
+                    }else if(card.substring(0, card.indexOf(" ")).equals("GREEN")){
+
+                        if(card.contains("REVERSE")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.GREEN);
+
+
+                        }else if(card.contains("SKIP")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.GREEN);
+
+
+                        }else{
+                            tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.GREEN);
+
+
+                        }
+
+
+
+                    }else{
+
+                        if(card.contains("REVERSE")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.YELLOW);
+
+
+                        }else if(card.contains("SKIP")){
+                            tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.YELLOW);
+
+
+                        }else{
+                            tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.YELLOW);
+
+
+                        }
+
+
+
+                    }
+
+                }else{
+                    System.out.println(card + " is not special");
+
+                    if(card.substring(0, card.indexOf(" ")).equals("RED")){
+                        if(card.contains("ONE")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.ONE);
+                        }else if(card.contains("TWO")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.TWO);
+
+                        }else if(card.contains("THREE")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.THREE);
+
+                        }else if(card.contains("FOUR")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.FOUR);
+
+                        }else if(card.contains("FIVE")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.FIVE);
+
+                        }else if(card.contains("SIX")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.SIX);
+
+                        }else if(card.contains("SEVEN")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.SEVEN);
+
+                        }else if(card.contains("EIGHT")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.EIGHT);
+
+                        }else if(card.contains("NINE")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.NINE);
+
+                        }
+
+
+
+                    }else if(card.substring(0, card.indexOf(" ")).equals("BLUE")){
+                        if(card.contains("ONE")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.ONE);
+                        }else if(card.contains("TWO")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.TWO);
+
+                        }else if(card.contains("THREE")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.THREE);
+
+                        }else if(card.contains("FOUR")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.FOUR);
+
+                        }else if(card.contains("FIVE")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.FIVE);
+
+                        }else if(card.contains("SIX")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.SIX);
+
+                        }else if(card.contains("SEVEN")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.SEVEN);
+
+                        }else if(card.contains("EIGHT")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.EIGHT);
+
+                        }else if(card.contains("NINE")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.NINE);
+
+                        }
+
+
+
+                    }else if(card.substring(0, card.indexOf(" ")).equals("GREEN")){
+                        if(card.contains("ONE")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.ONE);
+                        }else if(card.contains("TWO")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.TWO);
+
+                        }else if(card.contains("THREE")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.THREE);
+
+                        }else if(card.contains("FOUR")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.FOUR);
+
+                        }else if(card.contains("FIVE")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.FIVE);
+
+                        }else if(card.contains("SIX")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.SIX);
+
+                        }else if(card.contains("SEVEN")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.SEVEN);
+
+                        }else if(card.contains("EIGHT")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.EIGHT);
+
+                        }else if(card.contains("NINE")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.NINE);
+
+                        }
+
+
+
+
+                    }else{
+                        if(card.contains("ONE")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.ONE);
+                        }else if(card.contains("TWO")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.TWO);
+
+                        }else if(card.contains("THREE")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.THREE);
+
+                        }else if(card.contains("FOUR")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.FOUR);
+
+                        }else if(card.contains("FIVE")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.FIVE);
+
+                        }else if(card.contains("SIX")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.SIX);
+
+                        }else if(card.contains("SEVEN")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.SEVEN);
+
+                        }else if(card.contains("EIGHT")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.EIGHT);
+
+                        }else if(card.contains("NINE")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.NINE);
+
+                        }
+
+
+
+                    }
+
+                }
+
+
+                System.out.println(tempCard.toString());
+
+
+
+                data.gameTest.get(data.getCurrentPlayer()).playCard(tempCard, data.discard);
+
+
+
+
+                System.out.println("New Hand:");
+
+                data.gameTest.get(data.getCurrentPlayer()).printHand();
+
+
+
+                Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
+                startActivity(intent);
+
+
+
+            }
+        });
     }
 
 
