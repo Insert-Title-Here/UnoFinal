@@ -31,6 +31,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+
+//TODO: add way to check card if valid playable card (check logic bug of skip/reverse for 2 players)
+
 public class CardTestHorizontal extends AppCompatActivity {
 
     Data data = new Data();
