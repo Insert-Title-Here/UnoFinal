@@ -14,7 +14,7 @@ public class Bot extends Player {
 
 	public void drawCards(int num) {
 		for (int i = 0; i < num; i++) {
-			botHand.add(data.drawPile.pop());
+			botHand.add(Data.drawPile.pop());
 		}
 	}
 
@@ -124,10 +124,7 @@ public class Bot extends Player {
 			System.out.println("Can Move");
 			// decision making
 			// returns a 1 if a successful move was made
-			if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
-				drawCards(4);
-				return 0;
-			} else if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
+			if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
 				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
@@ -464,6 +461,9 @@ public class Bot extends Player {
 					}
 				}
 			}
+		} else if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
+			drawCards(4);
+			return 0;
 		} else { // assumes this wasn't called after a skip or reverse was played
 			drawCards(1);
 		}
