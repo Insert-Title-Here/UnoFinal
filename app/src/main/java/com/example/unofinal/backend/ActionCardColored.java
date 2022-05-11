@@ -59,4 +59,12 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 	public enum Action {
 		DRAW2, SKIP, REVERSE, NONE
 	}
+
+	public boolean equals(MainCard other) {
+		if (color == other.getColor() && ability == other.getAbility()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -34,7 +34,7 @@ public class MainCard {
 	public Numbers getNum() {
 		return num;
 	}
-	
+
 	public String toString() {
 
 		if(color == null && num == null){
@@ -45,6 +45,14 @@ public class MainCard {
 			return(color.name() + "");
 		}
 		return(color.name() + " " + num.name());
+	}
+
+	public boolean equals(MainCard other) {
+		if (color == other.getColor() && num == other.getNum()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// checks if the card matches another either in color or number matching

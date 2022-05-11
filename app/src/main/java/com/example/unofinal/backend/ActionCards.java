@@ -53,4 +53,12 @@ public class ActionCards extends MainCard {
 	public enum Special {
 		DRAW4, PICKCOLOR, NONE
 	}
+
+	public boolean equals(MainCard other) {
+		if (color == other.getColor() && action == other.getAction()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -39,7 +39,7 @@ public class Bot extends Player {
 
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
 		for (int i = 0; i < botHand.size(); i++) {
-			if (botHand.get(i) == card) {
+			if (botHand.get(i).equals(card)) {
 				botHand.remove(i);
 			}
 		}

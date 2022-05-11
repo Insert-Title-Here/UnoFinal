@@ -108,7 +108,7 @@ public class Player {
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
     	for (int i = 0; i < hand.size(); i++) {
-    		if (hand.get(i) == card) {
+    		if (hand.get(i).equals(card)) {
     			hand.remove(i);
     		}
     	}
