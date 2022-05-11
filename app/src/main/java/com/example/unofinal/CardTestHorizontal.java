@@ -526,11 +526,20 @@ public class CardTestHorizontal extends AppCompatActivity {
                 System.out.println("New Hand:");
 
                 data.gameTest.get(data.getCurrentPlayer()).printHand();
+                switchScreens();
 
 
 
-                Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
-                startActivity(intent);
+                //Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
+                //startActivity(intent);
+
+                data.reloadAmt = 0;
+
+                finish();
+                startActivity(getIntent());
+
+
+
 
 
 

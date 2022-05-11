@@ -110,6 +110,7 @@ public class Player {
     	for (int i = 0; i < hand.size(); i++) {
     		if (hand.get(i).equals(card)) {
     			hand.remove(i);
+    			System.out.println("Actually Removing");
     		}
     	}
 
