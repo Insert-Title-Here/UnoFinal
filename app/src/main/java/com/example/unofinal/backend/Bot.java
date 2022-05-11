@@ -124,7 +124,7 @@ public class Bot extends Player {
 			System.out.println("Can Move");
 			// decision making
 			// returns a 1 if a successful move was made
-			if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) {
+			if (mostRecent.getAction() == ActionCards.Special.PICKCOLOR) { // moved shit
 				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
