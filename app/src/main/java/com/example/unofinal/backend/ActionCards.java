@@ -55,10 +55,22 @@ public class ActionCards extends MainCard {
 	}
 
 	public boolean equals(MainCard other) {
+
+		System.out.println("Getting here to compare Draw4 and Wild");
+
+		//System.out.println(other.toString());
+		//System.out.println(this.toString());
 		if (color == other.getColor() && action == other.getAction()) {
+
+			System.out.println("Stuff");
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+
+	public boolean hasColoredAction(){
+		return false;
 	}
 }

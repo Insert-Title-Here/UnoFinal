@@ -78,6 +78,10 @@ public class MainCard {
 		return false;
 	}
 
+	public boolean hasColoredAction(){
+		return false;
+	}
+
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility() {
 		return ActionCardColored.Action.NONE;
 	}

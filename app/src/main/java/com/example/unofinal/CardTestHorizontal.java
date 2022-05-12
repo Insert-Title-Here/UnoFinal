@@ -43,7 +43,7 @@ public class CardTestHorizontal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        System.out.println("First");
+        //System.out.println("First");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_test_horizontal);
 
@@ -65,7 +65,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
             filllayout(layout, new ImageButton(getApplicationContext()), data.getImage(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
-            System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+            //System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
 
         }
 
@@ -85,7 +85,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
 
-        System.out.println("PreviousCard:  " + data.previousCard);
+        //System.out.println("PreviousCard:  " + data.previousCard);
 
         image.setImageResource(data.getImage(data.discard.peek().toString()));
 
@@ -145,7 +145,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         }
         //MainCard topOfDiscard = data.discard.peek();
-        System.out.println(data.discard.peek());
+        //System.out.println(data.discard.peek());
         //ArrayList<MainCard> currentHand = data.game.get(0);
 
     }
@@ -268,6 +268,8 @@ public class CardTestHorizontal extends AppCompatActivity {
             data.reloadAmt++;
         }else{
             switchScreens();
+            finish();
+            startActivity(getIntent());
         }
 
 
@@ -296,9 +298,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
 
-                System.out.println("Old Hand:");
-                data.gameTest.get(data.getCurrentPlayer()).printHand();
-                System.out.println();
+                //System.out.println("Old Hand:");
+                //data.gameTest.get(data.getCurrentPlayer()).printHand();
+                //System.out.println();
 
                 String card = (String)button.getTag();
 
@@ -522,26 +524,36 @@ public class CardTestHorizontal extends AppCompatActivity {
                 //System.out.println(tempCard.toString());
 
 
+                if(data.gameTest.get(data.getCurrentPlayer()).canMove(tempCard)){
+                    data.gameTest.get(data.getCurrentPlayer()).playCard(tempCard, data.discard);
+                    System.out.println("Moved");
 
-                data.gameTest.get(data.getCurrentPlayer()).playCard(tempCard, data.discard);
+                    switchScreens();
+
+                    data.reloadAmt = 0;
+
+                    finish();
+                    startActivity(getIntent());
+
+                }else{
+                    System.out.println("Didn't move");
+                }
 
 
 
 
-                System.out.println("New Hand:");
 
-                data.gameTest.get(data.getCurrentPlayer()).printHand();
-                switchScreens();
+                //System.out.println("New Hand:");
+
+                //data.gameTest.get(data.getCurrentPlayer()).printHand();
+
 
 
 
                 //Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
                 //startActivity(intent);
 
-                data.reloadAmt = 0;
 
-                finish();
-                startActivity(getIntent());
 
 
 

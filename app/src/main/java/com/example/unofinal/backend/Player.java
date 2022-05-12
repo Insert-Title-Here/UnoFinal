@@ -104,6 +104,36 @@ public class Player {
 	}
 
 
+	public boolean canMove(MainCard temp) {
+		MainCard previousCard = data.discard.peek();
+
+		if(previousCard.toString().contains("DRAW4") || previousCard.toString().contains("PICKCOLOR")){
+			return true;
+		}
+
+
+		if(temp.getColor() == previousCard.getColor()){
+
+			return true;
+
+
+		}else if (temp.getNum() == previousCard.getNum()){
+			return true;
+		}else if(temp.toString().contains("DRAW4") || temp.toString().contains("PICKCOLOR")){
+			return true;
+		}else if(temp.hasColoredAction() && previousCard.hasColoredAction()){
+			if(temp.getAbility() == previousCard.getAbility()){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+
+		return false;
+	}
+
+
 
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard

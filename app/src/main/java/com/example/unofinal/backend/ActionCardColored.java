@@ -56,6 +56,11 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 	}
 
 
+	public boolean hasColoredAction(){
+    	return true;
+	}
+
+
 	public enum Action {
 		DRAW2, SKIP, REVERSE, NONE
 	}
