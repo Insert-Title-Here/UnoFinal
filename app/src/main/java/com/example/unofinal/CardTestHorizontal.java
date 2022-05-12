@@ -87,7 +87,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         System.out.println("PreviousCard:  " + data.previousCard);
 
-        image.setImageResource(data.getImage(data.previousCard.toString()));
+        image.setImageResource(data.getImage(data.discard.peek().toString()));
 
 
         //image.setImageResource(R.drawable.drawfour);
@@ -136,14 +136,16 @@ public class CardTestHorizontal extends AppCompatActivity {
         //setUpGame(data.deck, data.drawPile, data.game);
 
         //First Card
-        data.previousCard = data.discard.push(data.drawPile.pop());
+        //data.previousCard = data.discard.push(data.drawPile.pop());
+        data.discard.push(data.drawPile.pop());
 
-        while (data.previousCard.getNum() == MainCard.Numbers.NONE) {
-            data.previousCard = data.discard.push(data.drawPile.pop());
+        while (data.discard.peek().getNum() == MainCard.Numbers.NONE) {
+            //data.previousCard = data.discard.push(data.drawPile.pop());
+            data.discard.push(data.drawPile.pop());
 
         }
         //MainCard topOfDiscard = data.discard.peek();
-        System.out.println(data.previousCard);
+        System.out.println(data.discard.peek());
         //ArrayList<MainCard> currentHand = data.game.get(0);
 
     }
@@ -273,8 +275,8 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     private void switchScreens(){
         //Handling the Skip Action
-        if(!(data.previousCard.getAction() == ActionCards.Special.DRAW4)) {
-            if (data.previousCard.getAbility() == ActionCardColored.Action.SKIP || data.previousCard.getAbility() == ActionCardColored.Action.DRAW2) {
+        if(!(data.discard.peek().getAction() == ActionCards.Special.DRAW4)) {
+            if (data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2) {
                 data.skip();
             } else {
                 data.switchPlayer();
@@ -517,7 +519,7 @@ public class CardTestHorizontal extends AppCompatActivity {
                 }
 
 
-                System.out.println(tempCard.toString());
+                //System.out.println(tempCard.toString());
 
 
 

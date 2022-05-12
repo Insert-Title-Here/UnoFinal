@@ -114,7 +114,7 @@ public class Player {
     		}
     	}
 
-    	data.previousCard = card;
+    	//data.previousCard = card;
     	discard.push(card);
     }
 
