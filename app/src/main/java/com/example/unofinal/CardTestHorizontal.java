@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Notification;
 import android.content.Intent;
-import android.media.Image;
-import android.os.Build;
+
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,7 +59,15 @@ public class CardTestHorizontal extends AppCompatActivity {
             newCardImplementation();
         }
 
-        player.setText("" + data.currentPlayer);
+        player.setText("Player " + data.currentPlayer);
+
+        if(data.getCurrentPlayer() == 1){
+            player.setTextColor(Color.RED);
+        }else{
+            player.setTextColor(Color.YELLOW);
+        }
+
+
 
 
         //System.out.println(data.gameTest);
@@ -294,6 +301,11 @@ public class CardTestHorizontal extends AppCompatActivity {
                 nextType = Data.SwitchPlayer.SKIP;
             } else {
                 //data.switchPlayer();
+
+                if(data.discard.peek().getAction() == ActionCards.Special.PICKCOLOR){
+                    Intent intent = new Intent(CardTestHorizontal.this, ColorChange.class);
+                    startActivity(intent);
+                }
                 nextType = Data.SwitchPlayer.NORMAL;
 
             }
@@ -302,7 +314,15 @@ public class CardTestHorizontal extends AppCompatActivity {
         }else{
             data.gameTest.get(data.getNextPlayer()).drawCards(4);
             //data.skip();
+
             nextType = Data.SwitchPlayer.SKIP;
+
+            System.out.println("Getting here asldkjflskdjf");
+
+            Intent intent = new Intent(CardTestHorizontal.this, ColorChange.class);
+            startActivity(intent);
+
+            System.out.println("new intent");
         }
 
         data.nextPlayer(nextType);

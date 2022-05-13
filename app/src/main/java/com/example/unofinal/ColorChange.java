@@ -50,24 +50,32 @@ public class ColorChange extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(position == 0){
-                    data.previousCard = new MainCard(MainCard.Color.YELLOW, null);
+                    //data.previousCard = new MainCard(MainCard.Color.YELLOW, null);
+                    data.discard.push(new MainCard(MainCard.Color.YELLOW, null));
+
 
                     //tv.setText(list.get(0));
 
                 }else if(position == 1){
-                    data.previousCard = new MainCard(MainCard.Color.GREEN, null);
+                    //data.previousCard = new MainCard(MainCard.Color.GREEN, null);
+                    data.discard.push(new MainCard(MainCard.Color.GREEN, null));
+
 
                     //tv.setText(list.get(1));
 
 
                 }else if(position == 2){
-                    data.previousCard = new MainCard(MainCard.Color.RED, null);
+                    //data.previousCard = new MainCard(MainCard.Color.RED, null);
+                    data.discard.push(new MainCard(MainCard.Color.RED, null));
+
 
                     //tv.setText(list.get(2));
 
 
                 }else {
-                    data.previousCard = new MainCard(MainCard.Color.BLUE, null);
+                    //data.previousCard = new MainCard(MainCard.Color.BLUE, null);
+                    data.discard.push(new MainCard(MainCard.Color.BLUE, null));
+
 
                     //tv.setText(list.get(3));
                 }
