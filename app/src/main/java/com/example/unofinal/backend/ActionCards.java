@@ -54,6 +54,8 @@ public class ActionCards extends MainCard {
 		DRAW4, PICKCOLOR, NONE
 	}
 
+
+	//TODO: Figure out why draw4 and wild/pickcolor aren't removing & make next player draw 4 cards
 	public boolean equals(MainCard other) {
 
 		System.out.println("Getting here to compare Draw4 and Wild");
@@ -65,6 +67,7 @@ public class ActionCards extends MainCard {
 			System.out.println("Stuff");
 			return true;
 		} else {
+			System.out.println("Isn't actually removing");
 			return false;
 		}
 	}
