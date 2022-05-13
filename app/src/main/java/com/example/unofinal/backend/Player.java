@@ -134,15 +134,36 @@ public class Player {
 	}
 
 
+	//TODO: Make sure that cards are drawn for next player when it is draw4 or draw2
 
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
-    	for (int i = 0; i < hand.size(); i++) {
-    		if (hand.get(i).equals(card)) {
-    			hand.remove(i);
-    			System.out.println("Actually Removing");
-    		}
-    	}
+
+		if(card.toString().contains("DRAW4")){
+			for(int i = 0; i < hand.size(); i++) {
+				if (hand.get(i).toString().contains("DRAW4")) {
+					hand.remove(i);
+					System.out.println("Actually Removing DRAW4");
+					break;
+				}
+			}
+		}else if(card.toString().contains("PICKCOLOR")){
+			for(int i = 0; i < hand.size(); i++){
+				if (hand.get(i).toString().contains("PICKCOLOR")) {
+					hand.remove(i);
+					System.out.println("Actually Removing WILD");
+					break;
+				}
+			}
+		}else{
+			for (int i = 0; i < hand.size(); i++) {
+				if (hand.get(i).equals(card)) {
+					hand.remove(i);
+					System.out.println("Actually Removing");
+					break;
+				}
+			}
+		}
 
     	//data.previousCard = card;
     	discard.push(card);

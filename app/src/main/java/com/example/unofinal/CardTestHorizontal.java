@@ -33,12 +33,14 @@ import java.util.Stack;
 
 
 //TODO: add way to check card if valid playable card (check logic bug of skip/reverse for 2 players)
+//TODO: if there are two of the same cards then might remove wrong one
 
 public class CardTestHorizontal extends AppCompatActivity {
 
     Data data = new Data();
     TextView player;
     LinearLayout layout;
+    Data.SwitchPlayer nextType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class CardTestHorizontal extends AppCompatActivity {
         ImageView image = findViewById(R.id.discard);
         layout = (LinearLayout) findViewById(R.id.handlayout);
         player = findViewById(R.id.playerNum);
+        nextType = Data.SwitchPlayer.NORMAL;
 
         //TODO: remove this later
         if(!data.initialized) {
@@ -267,7 +270,7 @@ public class CardTestHorizontal extends AppCompatActivity {
             startActivity(getIntent());
             data.reloadAmt++;
         }else{
-            switchScreens();
+            switchScreens(Data.SwitchPlayer.NORMAL);
             finish();
             startActivity(getIntent());
         }
@@ -275,20 +278,44 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
+
+    //TODO: fix skip, reverse, draw2, draw4
+    //This is only for 2 players currently, need to make the reverse dynamic later
     private void switchScreens(){
         //Handling the Skip Action
         if(!(data.discard.peek().getAction() == ActionCards.Special.DRAW4)) {
-            if (data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2) {
-                data.skip();
+            if (data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2 || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE) {
+
+                if(data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2){
+                    data.gameTest.get(data.getNextPlayer()).drawCards(2);
+                }
+
+                //data.skip();
+                nextType = Data.SwitchPlayer.SKIP;
             } else {
-                data.switchPlayer();
+                //data.switchPlayer();
+                nextType = Data.SwitchPlayer.NORMAL;
+
             }
 
             System.out.println("CurrentPlayer: " + data.currentPlayer);
+        }else{
+            data.gameTest.get(data.getNextPlayer()).drawCards(4);
+            //data.skip();
+            nextType = Data.SwitchPlayer.SKIP;
         }
+
+        data.nextPlayer(nextType);
+
+
+
 
         data.reloadAmt = 0;
         //finish();
+    }
+
+    public void switchScreens(Data.SwitchPlayer next){
+        data.nextPlayer(next);
     }
 
 

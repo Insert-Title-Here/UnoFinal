@@ -91,6 +91,15 @@ public class Data {
 
     }
 
+    public void nextPlayer(SwitchPlayer next){
+        if(next == SwitchPlayer.SKIP){
+            skip();
+        }else if(next == SwitchPlayer.NORMAL){
+            switchPlayer();
+        }
+
+    }
+
     public int getNextPlayer() {
         if (!reverse) {
             if (!(currentPlayer + 1 > players)) {
@@ -241,6 +250,13 @@ public class Data {
 
     }
 
+    public enum SwitchPlayer {
+        SKIP, NORMAL
+    }
+
 
 
 }
+
+
+
