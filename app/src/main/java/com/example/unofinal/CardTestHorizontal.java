@@ -31,9 +31,7 @@ import java.util.List;
 import java.util.Stack;
 
 
-//TODO: add way to check card if valid playable card (check logic bug of skip/reverse for 2 players)
-//TODO: if there are two of the same cards then might remove wrong one
-//TODO: keep draw4 card on discard or put in color
+//TODO: Have Connor take a look at drawPile cuz wont go past 69 cards
 
 public class CardTestHorizontal extends AppCompatActivity {
 
@@ -97,8 +95,40 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
         //System.out.println("PreviousCard:  " + data.previousCard);
+        if(data.discard.peek().hasAction() || data.discard.peek().getNum() != null) {
+            image.setImageResource(data.getImage(data.discard.peek().toString()));
+        }else{
+            /*if(data.discard.peek().getColor() == MainCard.Color.RED){
+                image.setBackgroundColor(Color.RED);
+                System.out.println("Red Background");
+            }else if(data.discard.peek().getColor() == MainCard.Color.YELLOW){
+                image.setBackgroundColor(Color.YELLOW);
+                System.out.println("Yellow Background");
 
-        image.setImageResource(data.getImage(data.discard.peek().toString()));
+
+            }else if(data.discard.peek().getColor() == MainCard.Color.BLUE){
+                image.setBackgroundColor(Color.BLUE);
+                System.out.println("Blue Background");
+
+
+            }else{
+                image.setBackgroundColor(Color.GREEN);
+                System.out.println("Green Background");
+
+
+            }
+
+             */
+
+            MainCard tempCard = data.discard.pop();
+            MainCard neededCard = data.discard.peek();
+
+            data.discard.push(tempCard);
+
+            image.setImageResource(data.getImage(neededCard.toString()));
+
+            System.out.println("Top Card: " + data.discard.peek().toString());
+        }
 
 
         //image.setImageResource(R.drawable.drawfour);
@@ -654,10 +684,6 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         }
     }
-
-
-
-
 
 }
 
