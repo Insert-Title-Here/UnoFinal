@@ -33,7 +33,7 @@ import java.util.Stack;
 
 //TODO: add way to check card if valid playable card (check logic bug of skip/reverse for 2 players)
 //TODO: if there are two of the same cards then might remove wrong one
-//TODO: fix thread stuff
+//TODO: keep draw4 card on discard or put in color
 
 public class CardTestHorizontal extends AppCompatActivity {
 
@@ -284,6 +284,9 @@ public class CardTestHorizontal extends AppCompatActivity {
         }
 
 
+        System.out.println("DrawPile Size: " + data.drawPile.size());
+
+
     }
 
 
@@ -442,7 +445,9 @@ public class CardTestHorizontal extends AppCompatActivity {
                     System.out.println(card + " is not special");
 
                     if(card.substring(0, card.indexOf(" ")).equals("RED")){
-                        if(card.contains("ONE")){
+                        if(card.contains("ZERO")){
+                            tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.ZERO);
+                        }else if(card.contains("ONE")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.TWO);
@@ -473,7 +478,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
                     }else if(card.substring(0, card.indexOf(" ")).equals("BLUE")){
-                        if(card.contains("ONE")){
+                        if(card.contains("ZERO")){
+                            tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.ZERO);
+                        }else if(card.contains("ONE")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.TWO);
@@ -504,7 +511,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
                     }else if(card.substring(0, card.indexOf(" ")).equals("GREEN")){
-                        if(card.contains("ONE")){
+                        if(card.contains("ZERO")){
+                            tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.ZERO);
+                        }else if(card.contains("ONE")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.TWO);
@@ -536,7 +545,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
                     }else{
-                        if(card.contains("ONE")){
+                        if(card.contains("ZERO")){
+                            tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.ZERO);
+                        }else if(card.contains("ONE")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.TWO);
@@ -578,15 +589,23 @@ public class CardTestHorizontal extends AppCompatActivity {
                     data.gameTest.get(data.getCurrentPlayer()).playCard(tempCard, data.discard);
                     System.out.println("Moved");
 
-                    switchScreens();
+
+                    if(data.gameTest.get(data.getCurrentPlayer()).size() == 0){
+                        Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
+                        startActivity(intent);
+
+                    }else {
+
+                        switchScreens();
 
 
-                    //if(!(tempCard.getAction() == ActionCards.Special.DRAW4 || tempCard.getAction() == ActionCards.Special.PICKCOLOR)) {
+                        if (!(tempCard.getAction() == ActionCards.Special.DRAW4 || tempCard.getAction() == ActionCards.Special.PICKCOLOR)) {
+                            data.change = true;
+                        }
 
-                    //}
-
-                    ScreenThread runnable = new ScreenThread();
-                    runnable.start();
+                        ScreenThread runnable = new ScreenThread();
+                        runnable.start();
+                    }
 
 
                     //runnable.stop();

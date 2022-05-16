@@ -111,7 +111,8 @@ public class Player {
 			return true;
 		}
 
-
+		//TODO: fix this cuz it breaks (invoking getColor on null object reference)
+		//don't know whether it is cuz of temp or cuz of previousCard
 		if(temp.getColor() == previousCard.getColor()){
 
 			return true;
