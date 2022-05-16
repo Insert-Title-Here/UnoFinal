@@ -33,6 +33,7 @@ import java.util.Stack;
 
 //TODO: add way to check card if valid playable card (check logic bug of skip/reverse for 2 players)
 //TODO: if there are two of the same cards then might remove wrong one
+//TODO: fix thread stuff
 
 public class CardTestHorizontal extends AppCompatActivity {
 
@@ -52,8 +53,8 @@ public class CardTestHorizontal extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.handlayout);
         player = findViewById(R.id.playerNum);
         nextType = Data.SwitchPlayer.NORMAL;
+        data.change = false;
 
-        //TODO: remove this later
         if(!data.initialized) {
             data.players = 2;
             newCardImplementation();
@@ -303,8 +304,10 @@ public class CardTestHorizontal extends AppCompatActivity {
                 //data.switchPlayer();
 
                 if(data.discard.peek().getAction() == ActionCards.Special.PICKCOLOR){
-                    Intent intent = new Intent(CardTestHorizontal.this, ColorChange.class);
-                    startActivity(intent);
+
+                    System.out.println("WILD Testing");
+                    Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
+                    startActivity(newIntent);
                 }
                 nextType = Data.SwitchPlayer.NORMAL;
 
@@ -317,10 +320,10 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             nextType = Data.SwitchPlayer.SKIP;
 
-            System.out.println("Getting here asldkjflskdjf");
+            System.out.println("Draw4 Testing");
 
-            Intent intent = new Intent(CardTestHorizontal.this, ColorChange.class);
-            startActivity(intent);
+            Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
+            startActivity(newIntent);
 
             System.out.println("new intent");
         }
@@ -577,10 +580,16 @@ public class CardTestHorizontal extends AppCompatActivity {
 
                     switchScreens();
 
-                    data.reloadAmt = 0;
 
-                    finish();
-                    startActivity(getIntent());
+                    //if(!(tempCard.getAction() == ActionCards.Special.DRAW4 || tempCard.getAction() == ActionCards.Special.PICKCOLOR)) {
+
+                    //}
+
+                    ScreenThread runnable = new ScreenThread();
+                    runnable.start();
+
+
+                    //runnable.stop();
 
                 }else{
                     System.out.println("Didn't move");
@@ -611,5 +620,25 @@ public class CardTestHorizontal extends AppCompatActivity {
         });
     }
 
+    class ScreenThread extends Thread {
+
+        @Override
+        public void run() {
+            while(!data.change){
+
+            }
+            finish();
+            startActivity(getIntent());
+
+            data.change = false;
+
+
+        }
+    }
+
+
+
+
 
 }
+

@@ -22,6 +22,7 @@ public class Data {
     public static boolean reverse;
     public static int reloadAmt;
     public static boolean initialized;
+    public static volatile boolean change;
 
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {

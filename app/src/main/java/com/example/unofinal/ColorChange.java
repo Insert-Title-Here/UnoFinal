@@ -85,7 +85,7 @@ public class ColorChange extends AppCompatActivity {
 
 
                 finish();
-
+                data.change = true;
 
             }
         });
