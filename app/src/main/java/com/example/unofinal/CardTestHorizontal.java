@@ -299,6 +299,8 @@ public class CardTestHorizontal extends AppCompatActivity {
     }
 
     public void draw(View view){
+
+        System.out.println("ReloadAmt: " + data.reloadAmt);
         if(data.reloadAmt == 0) {
             data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
 
@@ -372,6 +374,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     public void switchScreens(Data.SwitchPlayer next){
         data.nextPlayer(next);
+        data.reloadAmt = 0;
     }
 
 
