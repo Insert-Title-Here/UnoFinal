@@ -67,49 +67,9 @@ public class Bot extends Player {
 		return botHand.size();
 	}
 
-
-
-
-
-
-	// make a move method
-	// check size of other people botHands
-	// look at their most recent played cards
-	// prioritize getting rid of cards
-	// make decision based off most recent played card
-
-	public int alpha(MainCard topOfDiscard, MainCard.Color color) {
-		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
-		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
-		int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
-		int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
-		int draw2 = cardAmount(ActionCardColored.Action.DRAW2);
-		int reverse = cardAmount(ActionCardColored.Action.REVERSE);
-		int skip = cardAmount(ActionCardColored.Action.SKIP);
-		int draw4 = cardAmount(ActionCards.Special.DRAW4);
-		int wild = cardAmount(ActionCards.Special.PICKCOLOR);
-		if (canMove(topOfDiscard, color)) { // checks if a move is possible first
-			System.out.println("Can Move");
-			// decision making
-			// returns a 1 if a successful move was made
-			if (topOfDiscard.getAction() == ActionCards.Special.DRAW4) {
-				drawCards(4);
-				return -1;
-			}
-		} else {
-			drawCards(1);
-			return -1;
-		}
-		return -2;
-	}
-
-
-
-	public int move(MainCard.Color color, MainCard mostRecent) {
+	public int move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
+		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
 		System.out.print("botHand: ");
-		printBotHand();
-		// I'll leave the print statements in
-		// I broke my github help
 
 		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
