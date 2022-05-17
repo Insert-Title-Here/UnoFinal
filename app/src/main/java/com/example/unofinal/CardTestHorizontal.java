@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Stack;
 
 
-//TODO: Have Connor take a look at drawPile cuz wont go past 69 cards
 
 public class CardTestHorizontal extends AppCompatActivity {
 
@@ -53,51 +52,54 @@ public class CardTestHorizontal extends AppCompatActivity {
         nextType = Data.SwitchPlayer.NORMAL;
         data.change = false;
 
-        if(!data.initialized) {
-            data.players = 2;
+        if (!data.initialized) {
+
+            Intent intent = getIntent();
+            data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
             newCardImplementation();
         }
 
         player.setText("Player " + data.currentPlayer);
 
-        if(data.getCurrentPlayer() == 1){
+        if (data.getCurrentPlayer() == 1) {
             player.setTextColor(Color.RED);
-        }else{
+        } else {
             player.setTextColor(Color.YELLOW);
         }
 
+        //If the current object is a player and not a bot
+
+        if(!(data.gameTest.get(data.getCurrentPlayer()).isBot())) {
+
+            System.out.println("Player");
 
 
-
-        //System.out.println(data.gameTest);
-
-
-        for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
-            filllayout(layout, new ImageButton(getApplicationContext()), data.getImage(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
-            //System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
-
-        }
-
-        //getViewInLayout(layout, 1).setScaleType(ImageView.ScaleType.FIT_XY);
-
-        for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
-            ImageButton button = getViewInLayout(layout, i);
-            button.setScaleType(ImageView.ScaleType.FIT_XY);
-            button.getLayoutParams().width = 300;
-            button.setTag(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
-            cardClick(button);
+            //System.out.println(data.gameTest);
 
 
+            for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
+                filllayout(layout, new ImageButton(getApplicationContext()), data.getImage(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
+                //System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
 
-        }
+            }
+
+            //getViewInLayout(layout, 1).setScaleType(ImageView.ScaleType.FIT_XY);
+
+            for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
+                ImageButton button = getViewInLayout(layout, i);
+                button.setScaleType(ImageView.ScaleType.FIT_XY);
+                button.getLayoutParams().width = 300;
+                button.setTag(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
+                cardClick(button);
 
 
+            }
 
 
-        //System.out.println("PreviousCard:  " + data.previousCard);
-        if(data.discard.peek().hasAction() || data.discard.peek().getNum() != null) {
-            image.setImageResource(data.getImage(data.discard.peek().toString()));
-        }else{
+            //System.out.println("PreviousCard:  " + data.previousCard);
+            if (data.discard.peek().hasAction() || data.discard.peek().getNum() != null) {
+                image.setImageResource(data.getImage(data.discard.peek().toString()));
+            } else {
             /*if(data.discard.peek().getColor() == MainCard.Color.RED){
                 image.setBackgroundColor(Color.RED);
                 System.out.println("Red Background");
@@ -120,25 +122,45 @@ public class CardTestHorizontal extends AppCompatActivity {
 
              */
 
-            MainCard tempCard = data.discard.pop();
-            MainCard neededCard = data.discard.peek();
+                MainCard tempCard = data.discard.pop();
+                MainCard neededCard = data.discard.peek();
 
-            data.discard.push(tempCard);
+                data.discard.push(tempCard);
 
-            image.setImageResource(data.getImage(neededCard.toString()));
+                image.setImageResource(data.getImage(neededCard.toString()));
 
-            System.out.println("Top Card: " + data.discard.peek().toString());
+                System.out.println("Top Card: " + data.discard.peek().toString());
+            }
+
+
+            //image.setImageResource(R.drawable.drawfour);
+            //toast.setView(view1);
+            //toast.setDuration(Toast.LENGTH_LONG);
+            //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
+            if (!data.initialized) {
+                data.initialized = true;
+            }
+
+
+
+        }else{
+
+            System.out.println("Bot");
+
+            if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
+                data.gameTest.get(data.getCurrentPlayer()).playCard(data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek()));
+                //switchScreens();
+
+                //Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
+                //startActivity(newIntent);
+            }else {
+                System.out.println("Can't Move: " + data.discard.peek().toString());
+            }
+
+            System.out.println("Bot Played");
         }
 
-
-        //image.setImageResource(R.drawable.drawfour);
-        //toast.setView(view1);
-        //toast.setDuration(Toast.LENGTH_LONG);
-        //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-
-        if(!data.initialized){
-            data.initialized = true;
-        }
 
     }
 

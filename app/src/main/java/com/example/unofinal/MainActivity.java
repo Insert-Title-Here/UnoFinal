@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(!(players.getText().toString().isEmpty())) {
-            Intent intent = new Intent(MainActivity.this, Play.class);
+            Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
             intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
         }else{
@@ -46,8 +46,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void leaderboardBtnClick(View view){
         Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
+        intent.putExtra("Amt Players", "2");
+
         startActivity(intent);
     }
+
+
 }

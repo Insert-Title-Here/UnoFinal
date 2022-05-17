@@ -46,6 +46,14 @@ public class Bot extends Player {
 		discard.push(card);
 	}
 
+	public void playCard(int index){
+
+
+		MainCard temp = botHand.remove(index);
+
+		System.out.println(temp.toString());
+	}
+
 	public void printHand(){
 		for(MainCard i : botHand){
 			System.out.println(i.toString());

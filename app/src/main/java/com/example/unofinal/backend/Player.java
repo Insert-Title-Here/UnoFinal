@@ -134,6 +134,10 @@ public class Player {
 		return false;
 	}
 
+	public void playCard(int index){
+		System.out.println("Hehe ur bad: " + index);
+	}
+
 
 	//TODO: Make sure that cards are drawn for next player when it is draw4 or draw2
 
