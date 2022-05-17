@@ -69,6 +69,7 @@ public class Bot extends Player {
 
 	public int move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
 		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
+
 		System.out.print("botHand: ");
 
 		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
