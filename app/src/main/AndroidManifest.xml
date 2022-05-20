@@ -24,6 +24,9 @@
         android:theme="@style/Theme.UnoFinal"
         tools:targetApi="31">
         <activity
+            android:name=".MiddleScreen"
+            android:exported="false" />
+        <activity
             android:name=".CardTestHorizontal"
             android:exported="false" />
         <activity

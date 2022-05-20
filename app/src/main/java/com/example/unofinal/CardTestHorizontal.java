@@ -34,33 +34,52 @@ import java.util.Stack;
 
 public class CardTestHorizontal extends AppCompatActivity {
 
+    //Data file
     Data data = new Data();
+
+    //Name of which player is currently taking there turn
     TextView player;
+
+    //Storage container of cards at bottom of screen
     LinearLayout layout;
+
+    //Deciding whether to skip or go to next player normally
     Data.SwitchPlayer nextType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //System.out.println("First");
+        //Creating the activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_test_horizontal);
 
+
+        //Initializing all of the views/layouts
         ImageView image = findViewById(R.id.discard);
         layout = (LinearLayout) findViewById(R.id.handlayout);
         player = findViewById(R.id.playerNum);
+
+        //Setting default switching player type
         nextType = Data.SwitchPlayer.NORMAL;
+
+        //Volatile boolean to decide whether to reload screen
         data.change = false;
 
+
+        //If first time activity is loaded
         if (!data.initialized) {
 
+            //Initialize all the cards for each player
             Intent intent = getIntent();
             data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
             newCardImplementation();
         }
 
+
+        //Show which player is the current player
         player.setText("Player " + data.currentPlayer);
 
+        //Changing text color between players
         if (data.getCurrentPlayer() == 1) {
             player.setTextColor(Color.RED);
         } else {
@@ -68,23 +87,20 @@ public class CardTestHorizontal extends AppCompatActivity {
         }
 
         //If the current object is a player and not a bot
-
         if(!(data.gameTest.get(data.getCurrentPlayer()).isBot())) {
 
             System.out.println("Player");
 
 
-            //System.out.println(data.gameTest);
 
-
+            //Add all the imagebuttons to the linear layout
             for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
                 filllayout(layout, new ImageButton(getApplicationContext()), data.getImage(data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString()));
                 //System.out.println("Card: " + data.gameTest.get(data.getCurrentPlayer()).getIndex(i).toString());
 
             }
 
-            //getViewInLayout(layout, 1).setScaleType(ImageView.ScaleType.FIT_XY);
-
+            //Adjusting all imagebuttons and setting button listener
             for (int i = 0; i < data.gameTest.get(data.getCurrentPlayer()).size(); i++) {
                 ImageButton button = getViewInLayout(layout, i);
                 button.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -95,33 +111,12 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             }
 
-
-            //System.out.println("PreviousCard:  " + data.previousCard);
+            //Checking which card to put on the top of the discard
             if (data.discard.peek().hasAction() || data.discard.peek().getNum() != null) {
                 image.setImageResource(data.getImage(data.discard.peek().toString()));
             } else {
-            /*if(data.discard.peek().getColor() == MainCard.Color.RED){
-                image.setBackgroundColor(Color.RED);
-                System.out.println("Red Background");
-            }else if(data.discard.peek().getColor() == MainCard.Color.YELLOW){
-                image.setBackgroundColor(Color.YELLOW);
-                System.out.println("Yellow Background");
 
-
-            }else if(data.discard.peek().getColor() == MainCard.Color.BLUE){
-                image.setBackgroundColor(Color.BLUE);
-                System.out.println("Blue Background");
-
-
-            }else{
-                image.setBackgroundColor(Color.GREEN);
-                System.out.println("Green Background");
-
-
-            }
-
-             */
-
+                //If card has an action or doesn't have a number than set previous card as discard image
                 MainCard tempCard = data.discard.pop();
                 MainCard neededCard = data.discard.peek();
 
@@ -133,27 +128,26 @@ public class CardTestHorizontal extends AppCompatActivity {
             }
 
 
-            //image.setImageResource(R.drawable.drawfour);
-            //toast.setView(view1);
-            //toast.setDuration(Toast.LENGTH_LONG);
-            //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 
+
+            //Set initialization to true so that no initialization will occur again
             if (!data.initialized) {
                 data.initialized = true;
             }
 
 
-
+        //If a bot is included
         }else{
 
             System.out.println("Bot");
 
+
+            //If there is no skip, or reverse used
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
                 data.gameTest.get(data.getCurrentPlayer()).playCard(data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek()));
-                //switchScreens();
 
-                //Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
-                //startActivity(newIntent);
+
+                //Can't currently move if skip or reverse is played
             }else {
                 System.out.println("Can't Move: " + data.discard.peek().toString());
             }
@@ -164,7 +158,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
-
+    //Accessing the imagebutton in the linear layout
     public ImageButton getViewInLayout(LinearLayout layout, int position) {
 
         //int count = layout.getChildCount();
@@ -183,7 +177,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
-
+    //Populate the linear layout with imagebutton
     public void filllayout(LinearLayout layout, ImageButton button, int image) {
         button.setImageResource(image);
 
@@ -199,30 +193,31 @@ public class CardTestHorizontal extends AppCompatActivity {
         //setUpGame(data.deck, data.drawPile, data.game);
 
         //First Card
-        //data.previousCard = data.discard.push(data.drawPile.pop());
         data.discard.push(data.drawPile.pop());
 
+        //Checking whether top card doesn't have a number the rechoosing top card
         while (data.discard.peek().getNum() == MainCard.Numbers.NONE) {
             //data.previousCard = data.discard.push(data.drawPile.pop());
             data.discard.push(data.drawPile.pop());
 
         }
-        //MainCard topOfDiscard = data.discard.peek();
-        //System.out.println(data.discard.peek());
-        //ArrayList<MainCard> currentHand = data.game.get(0);
 
     }
 
+
     private void newGameInit() {
+        //Creating the drawpile with 108 cards
         for (int i = 0; i < 108; i++) {
             data.drawPile.push(data.deck[i]);
         }
 
 
+        //Creating the creating players
         for (int i = 0; i < data.players; i++) {
             data.gameTest.add(new Player());
         }
 
+        //If only one player then add a bot
         if (data.players == 1) {
             data.gameTest.add(new Bot());
             data.players = 2;
@@ -312,6 +307,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
+    //Shuffles the deck (drawpile)
     public static void shuffleDeck(MainCard[] arr) {
 
         List<MainCard> temp = Arrays.asList(arr);
@@ -320,19 +316,34 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
+    //Drawing a card
     public void draw(View view){
 
+        //If actually drawing a card (first press)
         System.out.println("ReloadAmt: " + data.reloadAmt);
         if(data.reloadAmt == 0) {
+
+            //Actually draw card
             data.gameTest.get(data.getCurrentPlayer()).drawCards(1);
 
             System.out.println("PreviousCard:  " + data.previousCard);
 
+            //Reload screen and change reload amt
+            Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
+            startActivity(intent);
+
             finish();
             startActivity(getIntent());
             data.reloadAmt++;
+
+            //If switching screen (2nd press)
         }else{
+            //Change current player and reload screen
             switchScreens(Data.SwitchPlayer.NORMAL);
+
+            Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
+            startActivity(intent);
+
             finish();
             startActivity(getIntent());
         }
@@ -347,158 +358,130 @@ public class CardTestHorizontal extends AppCompatActivity {
     //TODO: fix skip, reverse, draw2, draw4
     //This is only for 2 players currently, need to make the reverse dynamic later
     private void switchScreens(){
-        //Handling the Skip Action
+
+        //Handling the Skip Action without draw4
         if(!(data.discard.peek().getAction() == ActionCards.Special.DRAW4)) {
+
+            //If skip draw2 or reverse
             if (data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2 || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE) {
 
+                //If it is a draw two then next player gets 2 cards
                 if(data.discard.peek().getAbility() == ActionCardColored.Action.DRAW2){
                     data.gameTest.get(data.getNextPlayer()).drawCards(2);
                 }
 
-                //data.skip();
+                //Change player type is set to skip
                 nextType = Data.SwitchPlayer.SKIP;
-            } else {
-                //data.switchPlayer();
 
+                //If it is not skip draw2 or reverse
+            } else {
+
+                //If it is a wild
                 if(data.discard.peek().getAction() == ActionCards.Special.PICKCOLOR){
 
+                    //Switch to color change screen (to choose new color)
                     System.out.println("WILD Testing");
                     Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
                     startActivity(newIntent);
                 }
+
+                //change player type is normal
                 nextType = Data.SwitchPlayer.NORMAL;
 
             }
 
             System.out.println("CurrentPlayer: " + data.currentPlayer);
-        }else{
-            data.gameTest.get(data.getNextPlayer()).drawCards(4);
-            //data.skip();
 
+            //If it is a draw4
+        }else{
+
+            //Next player draws 4 cards
+            data.gameTest.get(data.getNextPlayer()).drawCards(4);
+
+            //change player type is skip
             nextType = Data.SwitchPlayer.SKIP;
 
             System.out.println("Draw4 Testing");
 
+            //Switch to color change screen (to chooose new color)
             Intent newIntent = new Intent(CardTestHorizontal.this, ColorChange.class);
             startActivity(newIntent);
 
             System.out.println("new intent");
         }
 
+        //decides what type of navigation to use for changing players
         data.nextPlayer(nextType);
 
 
 
-
+        //Reset the draw amt so that drawing will be able to occur again for the next player
         data.reloadAmt = 0;
-        //finish();
     }
 
+    //Overriden method so that we can use special navigation when needed
     public void switchScreens(Data.SwitchPlayer next){
         data.nextPlayer(next);
         data.reloadAmt = 0;
     }
 
 
+    //Button listener for the image buttons
     public void cardClick(ImageButton button){
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-
-                //System.out.println("Old Hand:");
-                //data.gameTest.get(data.getCurrentPlayer()).printHand();
-                //System.out.println();
-
+                //Access the tag of the current tag and initialize a temp card
                 String card = (String)button.getTag();
-
                 MainCard tempCard = null;
 
-                if(card.contains("PICKCOLOR") || card.contains("DRAW4")){
-                    System.out.println(card + " is really special");
 
+                //Separating cards into sections and then setting temp card as the card that was clicked
+                if(card.contains("PICKCOLOR") || card.contains("DRAW4")){
                     if(card.contains("PICKCOLOR")){
                         tempCard = new ActionCards(ActionCards.Special.PICKCOLOR);
                     }else {
                         tempCard = new ActionCards(ActionCards.Special.DRAW4);
                     }
-
                 }else if(card.contains("REVERSE") || card.contains("SKIP") || card.contains("DRAW2")){
                     System.out.println(card + " is somewhat special");
 
                     if(card.substring(0, card.indexOf(" ")).equals("RED")){
                         if(card.contains("REVERSE")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.RED);
-
                         }else if(card.contains("SKIP")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.RED);
-
-
                         }else{
                             tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.RED);
-
-
                         }
-
 
                     }else if(card.substring(0, card.indexOf(" ")).equals("BLUE")){
-
                         if(card.contains("REVERSE")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.BLUE);
-
-
                         }else if(card.contains("SKIP")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.BLUE);
-
-
                         }else{
                             tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.BLUE);
-
-
                         }
-
-
                     }else if(card.substring(0, card.indexOf(" ")).equals("GREEN")){
-
                         if(card.contains("REVERSE")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.GREEN);
-
-
                         }else if(card.contains("SKIP")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.GREEN);
-
-
                         }else{
                             tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.GREEN);
-
-
                         }
-
-
-
                     }else{
 
                         if(card.contains("REVERSE")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.REVERSE, MainCard.Color.YELLOW);
-
-
                         }else if(card.contains("SKIP")){
                             tempCard = new ActionCardColored(ActionCardColored.Action.SKIP, MainCard.Color.YELLOW);
-
-
                         }else{
                             tempCard = new ActionCardColored(ActionCardColored.Action.DRAW2, MainCard.Color.YELLOW);
-
-
                         }
-
-
-
                     }
-
                 }else{
-                    System.out.println(card + " is not special");
-
                     if(card.substring(0, card.indexOf(" ")).equals("RED")){
                         if(card.contains("ZERO")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.ZERO);
@@ -506,32 +489,21 @@ public class CardTestHorizontal extends AppCompatActivity {
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.TWO);
-
                         }else if(card.contains("THREE")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.THREE);
-
                         }else if(card.contains("FOUR")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.FOUR);
-
                         }else if(card.contains("FIVE")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.FIVE);
-
                         }else if(card.contains("SIX")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.SIX);
-
                         }else if(card.contains("SEVEN")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.SEVEN);
-
                         }else if(card.contains("EIGHT")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.EIGHT);
-
                         }else if(card.contains("NINE")){
                             tempCard = new MainCard(MainCard.Color.RED, MainCard.Numbers.NINE);
-
                         }
-
-
-
                     }else if(card.substring(0, card.indexOf(" ")).equals("BLUE")){
                         if(card.contains("ZERO")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.ZERO);
@@ -539,32 +511,21 @@ public class CardTestHorizontal extends AppCompatActivity {
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.TWO);
-
                         }else if(card.contains("THREE")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.THREE);
-
                         }else if(card.contains("FOUR")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.FOUR);
-
                         }else if(card.contains("FIVE")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.FIVE);
-
                         }else if(card.contains("SIX")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.SIX);
-
                         }else if(card.contains("SEVEN")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.SEVEN);
-
                         }else if(card.contains("EIGHT")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.EIGHT);
-
                         }else if(card.contains("NINE")){
                             tempCard = new MainCard(MainCard.Color.BLUE, MainCard.Numbers.NINE);
-
                         }
-
-
-
                     }else if(card.substring(0, card.indexOf(" ")).equals("GREEN")){
                         if(card.contains("ZERO")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.ZERO);
@@ -572,33 +533,21 @@ public class CardTestHorizontal extends AppCompatActivity {
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.TWO);
-
                         }else if(card.contains("THREE")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.THREE);
-
                         }else if(card.contains("FOUR")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.FOUR);
-
                         }else if(card.contains("FIVE")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.FIVE);
-
                         }else if(card.contains("SIX")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.SIX);
-
                         }else if(card.contains("SEVEN")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.SEVEN);
-
                         }else if(card.contains("EIGHT")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.EIGHT);
-
                         }else if(card.contains("NINE")){
                             tempCard = new MainCard(MainCard.Color.GREEN, MainCard.Numbers.NINE);
-
                         }
-
-
-
-
                     }else{
                         if(card.contains("ZERO")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.ZERO);
@@ -606,94 +555,71 @@ public class CardTestHorizontal extends AppCompatActivity {
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.ONE);
                         }else if(card.contains("TWO")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.TWO);
-
                         }else if(card.contains("THREE")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.THREE);
-
                         }else if(card.contains("FOUR")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.FOUR);
-
                         }else if(card.contains("FIVE")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.FIVE);
-
                         }else if(card.contains("SIX")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.SIX);
-
                         }else if(card.contains("SEVEN")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.SEVEN);
-
                         }else if(card.contains("EIGHT")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.EIGHT);
-
                         }else if(card.contains("NINE")){
                             tempCard = new MainCard(MainCard.Color.YELLOW, MainCard.Numbers.NINE);
-
                         }
-
-
-
                     }
 
                 }
 
-
-                //System.out.println(tempCard.toString());
-
-
+                //Check if the clicked card is actually playable
                 if(data.gameTest.get(data.getCurrentPlayer()).canMove(tempCard)){
+
+                    //Play the card
                     data.gameTest.get(data.getCurrentPlayer()).playCard(tempCard, data.discard);
-                    System.out.println("Moved");
 
 
+                    //If there are no cards in the players hand after playing the card then go to the leaderboard (win screen)
                     if(data.gameTest.get(data.getCurrentPlayer()).size() == 0){
                         Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
                         startActivity(intent);
 
+
                     }else {
 
+                        //Otherwise switch to the next player
                         switchScreens();
 
 
+
+
+                        //Special case for draw4 and wild so that navigation doesnt occur at the same time
                         if (!(tempCard.getAction() == ActionCards.Special.DRAW4 || tempCard.getAction() == ActionCards.Special.PICKCOLOR)) {
                             data.change = true;
                         }
 
+                        //TODO: Running before switching the color so need to fix this
+                        Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
+                        startActivity(intent);
+
+                        //Starting a special navigation thread
                         ScreenThread runnable = new ScreenThread();
                         runnable.start();
                     }
 
 
-                    //runnable.stop();
-
+                    //Otherwise if it didn't move (just letting me know if it didn't work)
                 }else{
                     System.out.println("Didn't move");
                 }
-
-
-
-
-
-                //System.out.println("New Hand:");
-
-                //data.gameTest.get(data.getCurrentPlayer()).printHand();
-
-
-
-
-                //Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
-                //startActivity(intent);
-
-
-
-
-
-
-
-
             }
         });
     }
 
+    //Thread to make sure that navigation doesn't occur at the same time based on change player and
+    //color change screen for draw4 / wild
     class ScreenThread extends Thread {
 
         @Override
@@ -701,12 +627,12 @@ public class CardTestHorizontal extends AppCompatActivity {
             while(!data.change){
 
             }
+
+
             finish();
             startActivity(getIntent());
 
             data.change = false;
-
-
         }
     }
 
