@@ -139,18 +139,30 @@ public class CardTestHorizontal extends AppCompatActivity {
         //If a bot is included
         }else{
 
-            System.out.println("Bot");
+            System.out.println("Bot Hand");
+
+            data.gameTest.get(data.getCurrentPlayer()).printHand();
 
 
             //If there is no skip, or reverse used
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
-                data.gameTest.get(data.getCurrentPlayer()).playCard(data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek()));
+                //data.gameTest.get(data.getCurrentPlayer()).playCard(
+                MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+
+                data.discard.push(temp);
 
 
                 //Can't currently move if skip or reverse is played
             }else {
                 System.out.println("Can't Move: " + data.discard.peek().toString());
             }
+
+            switchScreens();
+
+            finish();
+            startActivity(getIntent());
+
+
 
             System.out.println("Bot Played");
         }
@@ -328,9 +340,12 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             System.out.println("PreviousCard:  " + data.previousCard);
 
+            /*
             //Reload screen and change reload amt
             Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
             startActivity(intent);
+
+             */
 
             finish();
             startActivity(getIntent());
@@ -341,8 +356,11 @@ public class CardTestHorizontal extends AppCompatActivity {
             //Change current player and reload screen
             switchScreens(Data.SwitchPlayer.NORMAL);
 
+            /*
             Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
             startActivity(intent);
+
+             */
 
             finish();
             startActivity(getIntent());
@@ -600,9 +618,12 @@ public class CardTestHorizontal extends AppCompatActivity {
                             data.change = true;
                         }
 
+                        /*
+
                         //TODO: Running before switching the color so need to fix this
                         Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
                         startActivity(intent);
+                         */
 
                         //Starting a special navigation thread
                         ScreenThread runnable = new ScreenThread();

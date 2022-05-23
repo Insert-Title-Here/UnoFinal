@@ -95,10 +95,10 @@ public class CardActivityTest extends AppCompatActivity {
     }
 
     public void botPlay(){
-        int intCard = data.gameTest.get(data.getCurrentPlayer()).move(data.previousCard.getColor(), data.previousCard);
-        System.out.println(intCard);
+        //int intCard = data.gameTest.get(data.getCurrentPlayer()).move(data.previousCard.getColor(), data.previousCard);
+        //System.out.println(intCard);
 
-        data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(intCard);
+        //data.currentCard = data.gameTest.get(data.getCurrentPlayer()).getIndex(intCard);
         //System.out.println("Current Card: " + data.currentCard.toString());
 
         //System.out.println("botCurrentCard: " + data.currentCard);
@@ -117,7 +117,7 @@ public class CardActivityTest extends AppCompatActivity {
                 completeAction();
             }
 
-            data.gameTest.get(data.getCurrentPlayer()).remove(intCard);
+            //data.gameTest.get(data.getCurrentPlayer()).remove(intCard);
             data.previousCard = data.currentCard;
             data.discard.push(data.previousCard);
             data.currentCard = null;

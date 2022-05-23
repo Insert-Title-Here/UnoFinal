@@ -20,8 +20,14 @@ public class Player {
 		}
 	}
 
-	public int move(MainCard.Color color, MainCard mostRecent) {
+	/*public int move(MainCard.Color color, MainCard mostRecent) {
 		return -1;
+	}
+
+	 */
+
+	public MainCard move(MainCard.Color color, MainCard mostRecent){
+		return null;
 	}
 
 
