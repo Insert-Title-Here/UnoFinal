@@ -1,12 +1,9 @@
 package com.example.unofinal;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
 import android.content.Intent;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
@@ -24,11 +20,9 @@ import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.backend.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
 
 
@@ -146,9 +140,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             //If there is no skip, or reverse used
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
-                //data.gameTest.get(data.getCurrentPlayer()).playCard(
-                MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
 
+                //play a card
+                MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
                 data.discard.push(temp);
 
 
@@ -164,7 +158,10 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
 
-            System.out.println("Bot Played");
+
+
+
+            System.out.println("Bot Played a " + data.discard.peek().toString());
         }
 
 
@@ -183,7 +180,6 @@ public class CardTestHorizontal extends AppCompatActivity {
         }
 
 
-        //v = (ImageButton) layout.getChildAt(1);
 
         return v;
 
@@ -197,12 +193,10 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
-    //TODO: remove everything past here later
     private void newCardImplementation() {
         buildDeck(data.deck);
         shuffleDeck(data.deck);
         newGameInit();
-        //setUpGame(data.deck, data.drawPile, data.game);
 
         //First Card
         data.discard.push(data.drawPile.pop());
@@ -377,6 +371,7 @@ public class CardTestHorizontal extends AppCompatActivity {
     //This is only for 2 players currently, need to make the reverse dynamic later
     private void switchScreens(){
 
+
         //Handling the Skip Action without draw4
         if(!(data.discard.peek().getAction() == ActionCards.Special.DRAW4)) {
 
@@ -389,7 +384,12 @@ public class CardTestHorizontal extends AppCompatActivity {
                 }
 
                 //Change player type is set to skip
-                nextType = Data.SwitchPlayer.SKIP;
+
+                if(data.gameTest.size() > 2 && data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE){
+                    data.reverse = !data.reverse;
+                }else{
+                    nextType = Data.SwitchPlayer.SKIP;
+                }
 
                 //If it is not skip draw2 or reverse
             } else {
