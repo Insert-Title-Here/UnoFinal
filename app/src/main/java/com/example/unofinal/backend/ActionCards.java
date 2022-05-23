@@ -31,6 +31,7 @@ public class ActionCards extends MainCard {
 	}
 
 
+	// gets action
 	public ActionCardColored.Action getAbility(){
 		return ActionCardColored.Action.NONE;
 	}
@@ -38,12 +39,6 @@ public class ActionCards extends MainCard {
 	public String toString() {
 		return(action.name());
 	}
-	
-	/*public boolean matches(MainCard other) {
-		return true;
-	}
-
-	 */
 
 	// use for changing the current viable color during the game
 	public void changeColor(Color color) {

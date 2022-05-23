@@ -12,12 +12,6 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
     	this.color = color;
     	this.ability = ability;
     }
-    
-
-    
-    //public Action getAbility() {
-    	//return ability;
-    //}
 
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
 		return ability;
@@ -58,14 +52,14 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 
 	public boolean hasColoredAction(){
     	return true;
-	}
+	} // boolean for identification
 
 
 	public enum Action {
 		DRAW2, SKIP, REVERSE, NONE
 	}
 
-	public boolean equals(MainCard other) {
+	public boolean equals(MainCard other) { // checks if card matches and can be played
 		if (color == other.getColor() && ability == other.getAbility()) {
 			return true;
 		} else {

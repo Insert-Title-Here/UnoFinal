@@ -142,8 +142,8 @@ public class CardTestHorizontal extends AppCompatActivity {
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
 
                 //play a card
-                MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
-                data.discard.push(temp);
+                //MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+                //data.discard.push(temp);
 
 
                 //Can't currently move if skip or reverse is played
