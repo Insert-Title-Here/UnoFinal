@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.view.View;
@@ -143,8 +144,9 @@ public class CardTestHorizontal extends AppCompatActivity {
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
 
                 //play a card
-                MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
-                data.discard.push(temp);
+                data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+                //MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+                //data.discard.push(temp);
 
 
                 //Can't currently move if skip or reverse is played
@@ -627,26 +629,25 @@ public class CardTestHorizontal extends AppCompatActivity {
 
                         /*
 
-                        //TODO: Running before switching the color so need to fix this
                         Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
                         startActivity(intent);
                          */
 
-                        System.out.println("1");
 
 
                         //MidThread middle = new MidThread();
                         //middle.start();
 
 
-                        System.out.println("2");
 
 
                         //Starting a special navigation thread
                         ScreenThread runnable = new ScreenThread();
                         runnable.start();
 
-                        System.out.println("3");
+
+                        MediaPlayer backgroundMusic = MediaPlayer.create(CardTestHorizontal.this, R.raw.cardplaced);
+                        backgroundMusic.start();
 
 
 
@@ -690,7 +691,7 @@ public class CardTestHorizontal extends AppCompatActivity {
     }
 
 
-    class MidThread extends Thread {
+    /*class MidThread extends Thread {
 
         @Override
         public void run() {
@@ -706,6 +707,8 @@ public class CardTestHorizontal extends AppCompatActivity {
             data.midScreen = false;
         }
     }
+
+     */
 
 }
 

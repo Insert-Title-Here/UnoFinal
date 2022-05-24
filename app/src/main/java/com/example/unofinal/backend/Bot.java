@@ -176,6 +176,7 @@ public class Bot extends Player {
 							return temp;
 						} else {
 							drawCards(1);
+							System.out.println(1);
 							return null;
 						}
 					}
@@ -259,6 +260,8 @@ public class Bot extends Player {
 							return temp;
 						} else {
 							drawCards(1);
+							System.out.println(2);
+
 							return null;
 						}
 					}
@@ -425,6 +428,8 @@ public class Bot extends Player {
 							return temp;
 						} else {
 							drawCards(1);
+							System.out.println(3);
+
 							return null;
 						}
 					}
@@ -432,6 +437,8 @@ public class Bot extends Player {
 			}
 		} else if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
 			drawCards(4);
+			System.out.println(4);
+
 			return null;
 		} else { // assumes this wasn't called after a skip or reverse was played
 			drawCards(1);
@@ -532,10 +539,14 @@ public class Bot extends Player {
 				return temp;
 			} else {
 				drawCards(1);
+				System.out.println(5);
+
 				return null;
 			}
 		} else {
 			drawCards(1);
+			System.out.println(6);
+
 			return null;
 		}
 	}
