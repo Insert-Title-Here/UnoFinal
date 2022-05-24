@@ -357,8 +357,14 @@ public class CardTestHorizontal extends AppCompatActivity {
 
              */
 
-            finish();
-            startActivity(getIntent());
+            ScreenThread runnable = new ScreenThread();
+            runnable.start();
+
+            data.change = true;
+
+
+            //finish();
+            //startActivity(getIntent());
         }
 
 
@@ -679,7 +685,7 @@ public class CardTestHorizontal extends AppCompatActivity {
             finish();
             startActivity(getIntent());
 
-            //data.change = false;
+            data.change = false;
         }
     }
 

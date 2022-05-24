@@ -10,20 +10,23 @@ import com.example.unofinal.backend.Data;
 
 public class MiddleScreen extends AppCompatActivity {
 
-    TextView playerText;
+    TextView player;
     Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_middle_screen);
-
-        playerText = findViewById(R.id.currentPlayer);
         data = new Data();
 
 
-        playerText.setText("Player turn");
-        playerText.setAlpha(1.0f);
+        player = findViewById(R.id.textView2);
+
+        String text = "Player " + (data.getCurrentPlayer() + 1) + "'s Turn";
+
+
+        player.setText(text);
+        //player.setAlpha(1.0f);
         System.out.println("The Player: " + data.getCurrentPlayer());
 
 
