@@ -10,7 +10,7 @@ import com.example.unofinal.backend.Data;
 
 public class MiddleScreen extends AppCompatActivity {
 
-    TextView player;
+    TextView playerText;
     Data data;
 
     @Override
@@ -18,17 +18,21 @@ public class MiddleScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_middle_screen);
 
-        player = findViewById(R.id.playerText);
+        playerText = findViewById(R.id.currentPlayer);
         data = new Data();
 
 
-        player.setText("Player " + data.getCurrentPlayer() + "'s turn");
+        playerText.setText("Player turn");
+        playerText.setAlpha(1.0f);
+        System.out.println("The Player: " + data.getCurrentPlayer());
 
 
     }
 
 
     public void btnClick(View view){
+
         finish();
+        data.change = true;
     }
 }

@@ -7,14 +7,18 @@
     tools:context=".MiddleScreen">
 
     <TextView
-        android:id="@+id/playerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/currentPlayer"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_marginStart="174dp"
         android:layout_marginTop="292dp"
         android:layout_marginEnd="179dp"
         android:layout_marginBottom="420dp"
+        android:autoText="false"
+        android:gravity="center"
         android:text="Player"
+        android:textColor="@android:color/background_dark"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +33,9 @@
         android:layout_marginEnd="161dp"
         android:layout_marginBottom="184dp"
         android:onClick="btnClick"
-        android:text="Back"
+        android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerText" />
+        app:layout_constraintTop_toBottomOf="@+id/currentPlayer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
