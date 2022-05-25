@@ -49,24 +49,26 @@ public class ActionCards extends MainCard {
 		DRAW4, PICKCOLOR, NONE
 	}
 
-
+	// checking if matching
 	public boolean equals(MainCard other) {
 
+		// debug println
 		System.out.println("Getting here to compare Draw4 and Wild");
 
 		//System.out.println(other.toString());
 		//System.out.println(this.toString());
 		if (color == other.getColor() && action == other.getAction()) {
-
+			// more debug
 			System.out.println("Stuff");
 			return true;
 		} else {
+			// final debug statement
 			System.out.println("Isn't actually removing");
 			return false;
 		}
 	}
 
-
+	// subclass parking method
 	public boolean hasColoredAction(){
 		return false;
 	}

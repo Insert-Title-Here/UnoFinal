@@ -12,12 +12,14 @@ public class Bot extends Player {
 		}
 	}
 
+	// adds cards to the bots hand
 	public void drawCards(int num) {
 		for (int i = 0; i < num; i++) {
 			botHand.add(Data.drawPile.pop());
 		}
 	}
 
+	// checks if the bot can make a move, for use with move method
 	public boolean canMove(MainCard mostRecent, MainCard.Color color) {
 		for (MainCard c : botHand) {
 			if (c.getColor() == color || c.getNum() == mostRecent.getNum() && !mostRecent.hasAction()
@@ -28,6 +30,7 @@ public class Bot extends Player {
 		return false;
 	}
 
+	// alternative canmove method using only color
 	public boolean canMove(MainCard.Color color) {
 		for (MainCard c : botHand) {
 			if (c.getColor() == color || c.hasAction()) {
@@ -37,6 +40,7 @@ public class Bot extends Player {
 		return false;
 	}
 
+	// removes card from hand places it in discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
 		for (int i = 0; i < botHand.size(); i++) {
 			if (botHand.get(i).equals(card)) {
@@ -46,6 +50,7 @@ public class Bot extends Player {
 		discard.push(card);
 	}
 
+	// playcard based off card index
 	public void playCard(int index){
 
 
@@ -54,6 +59,7 @@ public class Bot extends Player {
 		System.out.println(temp.toString());
 	}
 
+	// prints out bot hand
 	public void printHand(){
 		for(MainCard i : botHand){
 			System.out.println(i.toString());

@@ -26,16 +26,18 @@ public class Player {
 
 	 */
 
+	// subclass parking, made so bot can inherit
 	public MainCard move(MainCard.Color color, MainCard mostRecent){
 		return null;
 	}
 
 
+	// for game logic purposes
 	public boolean isBot(){
 		return false;
 	}
 
-
+	// method for wild cards that allow to pick color
 	public MainCard.Color chooseColor(){
 		int red = 0;
 		int blue = 0;
@@ -99,7 +101,7 @@ public class Player {
 		return false;
 	}
 
-
+	// checks if a move is possible specifically for wild card scenarios
 	public boolean canMove(MainCard.Color color) {
 		for (MainCard c : hand) {
 			if (c.getColor() == color || c.hasAction()) {
