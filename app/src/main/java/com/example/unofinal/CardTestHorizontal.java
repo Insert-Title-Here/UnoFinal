@@ -71,6 +71,8 @@ public class CardTestHorizontal extends AppCompatActivity {
             newCardImplementation();
         }
 
+        //TODO: Add reshuffle draw pile if its 0 (using discard)
+
 
         //Show which player is the current player
         player.setText("Player " + data.currentPlayer);

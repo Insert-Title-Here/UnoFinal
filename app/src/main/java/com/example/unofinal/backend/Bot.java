@@ -1,5 +1,11 @@
 package com.example.unofinal.backend;
 
+//BOT NOTES:
+//Bot tried played a red skip when it shouldn't have been able to play (infinite loop)
+//Bot tried played a yellow skip when it shouldn't have been able to play (infinite loop) on a red zero
+//Bot dies if it plays a skip itself
+//Bot couldn't play anything else than blue four when player was drawing card
+//TODO: ask if connor has code to handle skip/draw2/reverse
 
 import java.util.*;
 
@@ -428,6 +434,8 @@ public class Bot extends Player {
 							return temp;
 						} else {
 							drawCards(1);
+
+							//HERE
 							System.out.println(3);
 
 							return null;
