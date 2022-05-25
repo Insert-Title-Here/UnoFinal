@@ -21,9 +21,7 @@ import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.backend.Player;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 
@@ -72,6 +70,13 @@ public class CardTestHorizontal extends AppCompatActivity {
         }
 
         //TODO: Add reshuffle draw pile if its 0 (using discard)
+        if (data.drawPile.size() == 0) {
+            MainCard save = data.discard.pop();
+            for (int i = 0; i < data.discard.size(); i++) {
+                data.drawPile.push(data.discard.pop());
+            }
+            Collections.shuffle(data.drawPile);
+        }
 
 
         //Show which player is the current player
