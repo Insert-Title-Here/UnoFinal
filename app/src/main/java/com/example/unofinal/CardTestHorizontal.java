@@ -76,6 +76,7 @@ public class CardTestHorizontal extends AppCompatActivity {
                 data.drawPile.push(data.discard.pop());
             }
             Collections.shuffle(data.drawPile);
+            data.discard.push(save);
         }
 
 
