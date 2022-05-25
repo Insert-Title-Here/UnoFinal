@@ -58,6 +58,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         //Volatile boolean to decide whether to reload screen
         data.change = false;
+        data.midScreen = false;
 
 
         //If first time activity is loaded
@@ -356,8 +357,14 @@ public class CardTestHorizontal extends AppCompatActivity {
 
              */
 
-            finish();
-            startActivity(getIntent());
+            ScreenThread runnable = new ScreenThread();
+            runnable.start();
+
+            data.change = true;
+
+
+            //finish();
+            //startActivity(getIntent());
         }
 
 
@@ -625,9 +632,25 @@ public class CardTestHorizontal extends AppCompatActivity {
                         startActivity(intent);
                          */
 
+                        System.out.println("1");
+
+
+                        //MidThread middle = new MidThread();
+                        //middle.start();
+
+
+                        System.out.println("2");
+
+
                         //Starting a special navigation thread
                         ScreenThread runnable = new ScreenThread();
                         runnable.start();
+
+                        System.out.println("3");
+
+
+
+
                     }
 
 
@@ -649,11 +672,38 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             }
 
+            Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
+            startActivity(intent);
+
+            data.change = false;
+
+
+            while(!data.change){
+
+            }
 
             finish();
             startActivity(getIntent());
 
             data.change = false;
+        }
+    }
+
+
+    class MidThread extends Thread {
+
+        @Override
+        public void run() {
+            while(!data.midScreen){
+                System.out.println("Getting here to mid");
+
+            }
+
+            Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
+            startActivity(intent);
+
+
+            data.midScreen = false;
         }
     }
 

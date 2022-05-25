@@ -17,18 +17,25 @@ public class MiddleScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_middle_screen);
-
-        player = findViewById(R.id.playerText);
         data = new Data();
 
 
-        player.setText("Player " + data.getCurrentPlayer() + "'s turn");
+        player = findViewById(R.id.textView2);
+
+        String text = "Player " + (data.getCurrentPlayer() + 1) + "'s Turn";
+
+
+        player.setText(text);
+        //player.setAlpha(1.0f);
+        System.out.println("The Player: " + data.getCurrentPlayer());
 
 
     }
 
 
     public void btnClick(View view){
+
         finish();
+        data.change = true;
     }
 }

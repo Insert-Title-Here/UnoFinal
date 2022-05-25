@@ -23,6 +23,7 @@ public class Data {
     public static int reloadAmt;
     public static boolean initialized;
     public static volatile boolean change;
+    public static volatile boolean midScreen;
 
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {
