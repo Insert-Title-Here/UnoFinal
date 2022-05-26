@@ -118,6 +118,24 @@ public class Data {
         }
     }
 
+    public int getPreviousPlayer(){
+        if(!reverse){
+            if(!(currentPlayer - 1 == 0)){
+                return currentPlayer - 2;
+
+            }else{
+                return players - 1;
+            }
+        }else{
+            if(!(currentPlayer + 1 > players)){
+                return currentPlayer;
+            }else{
+                return 0;
+            }
+
+        }
+    }
+
     public int getCurrentPlayer(){
         return currentPlayer - 1;
     }

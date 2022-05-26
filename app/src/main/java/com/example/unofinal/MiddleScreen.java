@@ -11,6 +11,7 @@ import com.example.unofinal.backend.Data;
 public class MiddleScreen extends AppCompatActivity {
 
     TextView player;
+    TextView previousamtCards;
     Data data;
 
     @Override
@@ -21,11 +22,13 @@ public class MiddleScreen extends AppCompatActivity {
 
 
         player = findViewById(R.id.textView2);
+        previousamtCards = findViewById(R.id.amtCards);
 
         String text = "Player " + (data.getCurrentPlayer() + 1) + "'s Turn";
 
 
         player.setText(text);
+        previousamtCards.setText("The Previous Player has " + data.gameTest.get(data.getPreviousPlayer()).size() + " cards");
         //player.setAlpha(1.0f);
         System.out.println("The Player: " + data.getCurrentPlayer());
 
