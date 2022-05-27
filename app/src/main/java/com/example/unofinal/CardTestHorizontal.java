@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.view.View;
@@ -20,9 +21,7 @@ import com.example.unofinal.backend.Data;
 import com.example.unofinal.backend.MainCard;
 import com.example.unofinal.backend.Player;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 
@@ -68,6 +67,16 @@ public class CardTestHorizontal extends AppCompatActivity {
             Intent intent = getIntent();
             data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
             newCardImplementation();
+        }
+
+        //TODO: Add reshuffle draw pile if its 0 (using discard)
+        if (data.drawPile.size() == 0) {
+            MainCard save = data.discard.pop();
+            for (int i = 0; i < data.discard.size(); i++) {
+                data.drawPile.push(data.discard.pop());
+            }
+            Collections.shuffle(data.drawPile);
+            data.discard.push(save);
         }
 
 
@@ -143,6 +152,9 @@ public class CardTestHorizontal extends AppCompatActivity {
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
 
                 //play a card
+
+                data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+
                 //MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
                 //data.discard.push(temp);
 
@@ -627,26 +639,25 @@ public class CardTestHorizontal extends AppCompatActivity {
 
                         /*
 
-                        //TODO: Running before switching the color so need to fix this
                         Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
                         startActivity(intent);
                          */
 
-                        System.out.println("1");
 
 
                         //MidThread middle = new MidThread();
                         //middle.start();
 
 
-                        System.out.println("2");
 
 
                         //Starting a special navigation thread
                         ScreenThread runnable = new ScreenThread();
                         runnable.start();
 
-                        System.out.println("3");
+
+                        MediaPlayer backgroundMusic = MediaPlayer.create(CardTestHorizontal.this, R.raw.cardplaced);
+                        backgroundMusic.start();
 
 
 
@@ -690,7 +701,7 @@ public class CardTestHorizontal extends AppCompatActivity {
     }
 
 
-    class MidThread extends Thread {
+    /*class MidThread extends Thread {
 
         @Override
         public void run() {
@@ -706,6 +717,8 @@ public class CardTestHorizontal extends AppCompatActivity {
             data.midScreen = false;
         }
     }
+
+     */
 
 }
 
