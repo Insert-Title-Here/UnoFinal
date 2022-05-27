@@ -30,11 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/homeText" />
 
     <Button
-        android:id="@+id/leaderboardButton"
+        android:id="@+id/helpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="HelpBtnClick"
-        android:text="Other Better Play"
+        android:text="Help"
         app:layout_constraintBottom_toTopOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

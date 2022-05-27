@@ -3,9 +3,10 @@ package com.example.unofinal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 
-//TODO: add to help menu and maybe include screen shot
+//TODO: add to help menu and maybe include screen shot (make the screen look better and maybe add bot instructions)
 public class Help extends AppCompatActivity {
 
 
@@ -16,5 +17,9 @@ public class Help extends AppCompatActivity {
 
 
 
+    }
+
+    public void back(View v){
+        finish();
     }
 }

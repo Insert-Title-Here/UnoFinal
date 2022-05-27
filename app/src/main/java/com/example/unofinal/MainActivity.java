@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //TODO: Experiment with stopping music from media player
         MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
+        backgroundMusic.setLooping(true);
         backgroundMusic.start();
 
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
             intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
+
 
             MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
             backgroundMusic.start();
