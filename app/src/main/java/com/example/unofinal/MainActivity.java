@@ -58,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void leaderboardBtnClick(View view){
-        Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
-        intent.putExtra("Amt Players", "2");
+    public void HelpBtnClick(View view){
+        Intent intent = new Intent(MainActivity.this, Help.class);
+        //intent.putExtra("Amt Players", "2");
 
-        MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
-        backgroundMusic.start();
+        //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
+        //backgroundMusic.start();
 
         startActivity(intent);
     }

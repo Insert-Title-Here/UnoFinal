@@ -33,7 +33,7 @@
         android:id="@+id/leaderboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="leaderboardBtnClick"
+        android:onClick="HelpBtnClick"
         android:text="Other Better Play"
         app:layout_constraintBottom_toTopOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
