@@ -35,6 +35,7 @@ public class MainCard {
 		return num;
 	}
 
+	// format color number
 	public String toString() {
 
 		if(color == null && num == null){
@@ -47,6 +48,7 @@ public class MainCard {
 		return(color.name() + " " + num.name());
 	}
 
+	// checks if a card is an exact match
 	public boolean equals(MainCard other) {
 		if (color == other.getColor() && num == other.getNum()) {
 			return true;

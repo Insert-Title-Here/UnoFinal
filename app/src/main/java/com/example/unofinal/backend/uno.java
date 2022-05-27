@@ -7,18 +7,19 @@ import java.util.*;
 
 public class uno {
     public static void main(String[] args) {
-        MainCard[] deck = new MainCard[108];
+        MainCard[] deck = new MainCard[108]; // 108 cards in a uno deck
         ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
-        buildDeck(deck);
-        Stack<MainCard> drawPile = new  Stack<>();
-        Stack<MainCard> discard = new Stack<>();
-        shuffleDeck(deck);
-        setUpGame(deck, drawPile, game);
-        discard.push(drawPile.pop());
-        MainCard topOfDiscard = discard.peek();
+        buildDeck(deck); // sets up deck with all the cards
+        Stack<MainCard> drawPile = new  Stack<>(); // intialize a drawpile
+        Stack<MainCard> discard = new Stack<>(); // intialize a discard pile
+        shuffleDeck(deck); // shuffles deck to randomnize cards
+        setUpGame(deck, drawPile, game); // sets up the game, and fills the drawpile
+        discard.push(drawPile.pop()); // finishes game setup by placing the starting card
+        MainCard topOfDiscard = discard.peek(); // for reference and parameter
         ArrayList<MainCard> currentHand = game.get(0);
         int next = 1;
-        boolean isInProgress = gameOver(game);
+        boolean isInProgress = gameOver(game); // flag
+		// manages turn order of the players and bots
         while (isInProgress) {
         	isInProgress = gameOver(game);
         	if (canPlayCard(currentHand, topOfDiscard)) {
@@ -57,6 +58,8 @@ public class uno {
 		ActionCardColored.Action ab;
     	ActionCards.Special special;
     	int startSequence;
+
+		// setup for the following for-loop
     	for (int i = 0; i < 4; i++) {
     		if (i == 0) {
     			card = MainCard.Color.RED;
@@ -72,6 +75,8 @@ public class uno {
     			startSequence = 57;
     		}
         	arr[startSequence] = new MainCard(card, MainCard.Numbers.ZERO);
+
+			// adds all the regular cards
     		for (int k = 1; k <= 9; k++) { 
     			for (int l = 0; l < 2; l++) {
     				if (k == 1) {
@@ -96,6 +101,7 @@ public class uno {
     				arr[(k + l) + (k - 1) + (i * 19)] = new MainCard(card, temp);
     			}
     		}
+			// adds all the action cards of various colours
     		for (int j = 76; j <= 81; j++) {
     			if (j <= 77) {
     				ab = ActionCardColored.Action.SKIP;
@@ -107,6 +113,7 @@ public class uno {
     			arr[j + (i * 6)] = new ActionCardColored(ab, card);
     		}
     	}
+		// adds wild cards
     	for (int g = 100; g < 108; g++) {
     		if (g <= 103) {
     			special = ActionCards.Special.DRAW4;
@@ -119,7 +126,7 @@ public class uno {
     }
 
 
-    // takes a deck and shuffles it "randomnly"
+    // takes a deck and shuffles it
     public static void shuffleDeck(MainCard[] arr) {
     	
     	List<MainCard> temp = Arrays.asList(arr);

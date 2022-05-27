@@ -7,26 +7,24 @@ enum Action {
 public class ActionCardColored extends MainCard { // inherits from the Main Card class
 	Action ability;
 	Color color;
+
     public ActionCardColored(Action ability, Color color) {
     	super(color, Numbers.NONE);
     	this.color = color;
     	this.ability = ability;
     }
-    
 
-    
-    //public Action getAbility() {
-    	//return ability;
-    //}
-
+	// getter for ability
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility(){
 		return ability;
 	}
 
+	// getter for action, subclass parking
 	public ActionCards.Special getAction(){
 		return ActionCards.Special.NONE;
 	}
-    
+
+	// format color ability
     public String toString() {
     	return(color.name() + " " + ability.name());
     }
@@ -44,7 +42,7 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
     }
 
      */
-    // according to offical uno rules action cards can be played regardless of color
+    // according to official uno rules action cards can be played regardless of color
     public boolean actionMatch(ActionCardColored other) {
     	return true;
     }
@@ -58,14 +56,14 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 
 	public boolean hasColoredAction(){
     	return true;
-	}
+	} // boolean for identification
 
 
 	public enum Action {
 		DRAW2, SKIP, REVERSE, NONE
 	}
 
-	public boolean equals(MainCard other) {
+	public boolean equals(MainCard other) { // checks if card matches and can be played
 		if (color == other.getColor() && ability == other.getAbility()) {
 			return true;
 		} else {

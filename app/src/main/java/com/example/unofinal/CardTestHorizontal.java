@@ -152,7 +152,9 @@ public class CardTestHorizontal extends AppCompatActivity {
             if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
 
                 //play a card
+
                 data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
+
                 //MainCard temp = data.gameTest.get(data.getCurrentPlayer()).move(data.discard.peek().getColor(), data.discard.peek());
                 //data.discard.push(temp);
 
