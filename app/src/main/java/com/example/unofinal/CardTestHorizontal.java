@@ -65,11 +65,16 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             //Initialize all the cards for each player
             Intent intent = getIntent();
-            data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
+            if(Integer.parseInt(intent.getStringExtra("Amt Players")) < 6 && Integer.parseInt(intent.getStringExtra("Amt Players")) >= 1) {
+                data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
+            }else if(Integer.parseInt(intent.getStringExtra("Amt Players"))  == 0){
+                data.players = 2;
+            }else{
+                data.players = 5;
+            }
             newCardImplementation();
         }
 
-        //TODO: Add reshuffle draw pile if its 0 (using discard)
         if (data.drawPile.size() == 0) {
             MainCard save = data.discard.pop();
             for (int i = 0; i < data.discard.size(); i++) {
@@ -386,7 +391,6 @@ public class CardTestHorizontal extends AppCompatActivity {
     }
 
 
-    //TODO: fix skip, reverse, draw2, draw4
     //This is only for 2 players currently, need to make the reverse dynamic later
     private void switchScreens(){
 
