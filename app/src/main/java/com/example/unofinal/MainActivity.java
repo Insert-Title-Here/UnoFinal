@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.unofinal.backend.Data;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView error;
+    Data data;
 
     //TODO: Fix music stuff (doesn't play sometimes)
 
@@ -21,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //TODO: Experiment with stopping music from media player
-        MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
-        backgroundMusic.setLooping(true);
-        backgroundMusic.start();
+        data = new Data();
+        //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
+        data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
+
+        data.backgroundMusic.setLooping(true);
+        data.backgroundMusic.start();
 
 
         setContentView(R.layout.activity_main);

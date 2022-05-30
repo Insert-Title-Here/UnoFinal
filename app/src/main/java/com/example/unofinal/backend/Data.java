@@ -15,6 +15,7 @@ public class Data {
     public static ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
     public static MainCard currentCard = new MainCard();
     public static MainCard previousCard = new MainCard();
+    public static MediaPlayer backgroundMusic;
 
 
     public static ArrayList<Player> gameTest = new ArrayList<>();
