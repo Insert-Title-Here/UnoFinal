@@ -1,5 +1,7 @@
 package com.example.unofinal.backend;
 
+import android.media.MediaPlayer;
+
 import com.example.unofinal.R;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class Data {
     public static ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
     public static MainCard currentCard = new MainCard();
     public static MainCard previousCard = new MainCard();
+    public static MediaPlayer backgroundMusic;
 
 
     public static ArrayList<Player> gameTest = new ArrayList<>();
@@ -24,6 +27,7 @@ public class Data {
     public static boolean initialized;
     public static volatile boolean change;
     public static volatile boolean midScreen;
+
 
 
     public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {
@@ -115,6 +119,24 @@ public class Data {
             } else {
                 return players - 1;
             }
+        }
+    }
+
+    public int getPreviousPlayer(){
+        if(!reverse){
+            if(!(currentPlayer - 1 == 0)){
+                return currentPlayer - 2;
+
+            }else{
+                return players - 1;
+            }
+        }else{
+            if(!(currentPlayer + 1 > players)){
+                return currentPlayer;
+            }else{
+                return 0;
+            }
+
         }
     }
 

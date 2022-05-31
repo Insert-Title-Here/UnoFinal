@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.unofinal.backend.Data;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView error;
+    Data data;
 
     //TODO: Fix music stuff (doesn't play sometimes)
 
@@ -20,8 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
-        backgroundMusic.start();
+        //TODO: Experiment with stopping music from media player
+        data = new Data();
+        //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
+        data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
+
+        data.backgroundMusic.setLooping(true);
+        data.backgroundMusic.start();
 
 
         setContentView(R.layout.activity_main);
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
 
+
             MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
             backgroundMusic.start();
         }else{
@@ -58,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void leaderboardBtnClick(View view){
-        Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
-        intent.putExtra("Amt Players", "2");
+    public void HelpBtnClick(View view){
+        Intent intent = new Intent(MainActivity.this, Help.class);
+        //intent.putExtra("Amt Players", "2");
 
-        MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
-        backgroundMusic.start();
+        //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
+        //backgroundMusic.start();
 
         startActivity(intent);
     }
