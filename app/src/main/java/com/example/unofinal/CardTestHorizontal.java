@@ -710,6 +710,13 @@ public class CardTestHorizontal extends AppCompatActivity {
 
     }
 
+    public void help(View v){
+        Intent intent = new Intent(CardTestHorizontal.this, Help.class);
+        startActivity(intent);
+
+    }
+
+
 
     /*class MidThread extends Thread {
 

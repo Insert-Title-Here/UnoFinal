@@ -20,7 +20,6 @@ public class Leaderboard extends AppCompatActivity {
 
 
 
-        //TODO: Change Preview cuz it has person saying stuff in it
         data.backgroundMusic.stop();
         data.backgroundMusic = MediaPlayer.create(Leaderboard.this, R.raw.win);
         data.backgroundMusic.start();
