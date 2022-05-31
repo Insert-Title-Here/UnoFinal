@@ -103,6 +103,10 @@ public class Bot extends Player {
 				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
+			} else if (mostRecent.getAbility() == ActionCardColored.Action.REVERSE) {
+				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+			} else if (mostRecent.getAbility() == ActionCardColored.Action.SKIP) {
+				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
 			} else if (mostRecent.getColor() == MainCard.Color.BLUE) { // if most recent color is blue
 				if (regBlue > 0) {
 					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
