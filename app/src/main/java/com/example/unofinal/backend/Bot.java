@@ -1,4 +1,5 @@
 package com.example.unofinal.backend;
+import com.example.unofinal.backend.MainCard.Numbers;
 
 //BOT NOTES:
 //Bot tried played a red skip when it shouldn't have been able to play (infinite loop)
@@ -11,6 +12,15 @@ import java.util.*;
 
 public class Bot extends Player {
 	private ArrayList<MainCard> botHand = new ArrayList<>();
+	int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
+	int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
+	int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
+	int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
+	int draw2 = cardAmount(ActionCardColored.Action.DRAW2);
+	int reverse = cardAmount(ActionCardColored.Action.REVERSE);
+	int skip = cardAmount(ActionCardColored.Action.SKIP);
+	int draw4 = cardAmount(ActionCards.Special.DRAW4);
+	int wild = cardAmount(ActionCards.Special.PICKCOLOR);
 
 	public Bot(){
 		for(int i = 0; i < 7; i++){
@@ -36,7 +46,7 @@ public class Bot extends Player {
 		return false;
 	}
 
-	// alternative canmove method using only color
+	// alternative can move method using only color
 	public boolean canMove(MainCard.Color color) {
 		for (MainCard c : botHand) {
 			if (c.getColor() == color || c.hasAction()) {
@@ -56,7 +66,7 @@ public class Bot extends Player {
 		discard.push(card);
 	}
 
-	// playcard based off card index
+	// play card based off card index
 	public void playCard(int index){
 
 
@@ -83,8 +93,123 @@ public class Bot extends Player {
 		botHand.remove(i);
 	}
 
+	public MainCard findNumCard(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getNum() == card.getNum()) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
+	public MainCard findCardSkip(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getAbility() == ActionCardColored.Action.SKIP) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
+	public MainCard findCardDraw2(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getAbility() == ActionCardColored.Action.DRAW2) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
+	public MainCard findCardReverse(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getAbility() == ActionCardColored.Action.REVERSE) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
+	public MainCard findCardDraw4(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getAction() == ActionCards.Special.DRAW4) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
+	public MainCard findCardWild(MainCard card) {
+		MainCard save = null;
+		for (MainCard c : botHand) {
+			if (c.getAction() == ActionCards.Special.PICKCOLOR) {
+				save = c;
+			}
+		}
+		return save;
+	}
+
 	public int size(){
 		return botHand.size();
+	}
+
+	public void noRegMove(MainCard mostRecent) {
+		MainCard temp = new MainCard();
+		for (MainCard c : botHand) {
+			if (c.getNum() == mostRecent.getNum()) {
+				temp = c;
+			}
+		}
+		if (temp.getNum() != null) {
+			playCard(temp, data.discard);
+		} else {
+			if (skip > 0) {
+				temp = new MainCard();
+				for (MainCard c : botHand) {
+					if (c.getAbility() == ActionCardColored.Action.SKIP) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+			} else if (reverse > 0) {
+				temp = new MainCard();
+				for (MainCard c : botHand) {
+					if (c.getAbility() == ActionCardColored.Action.REVERSE) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+			} else if (draw2 > 1) {
+				temp = new MainCard();
+				for (MainCard c : botHand) {
+					if (c.getAbility() == ActionCardColored.Action.DRAW2) {
+						temp = c;
+					}
+				}
+				playCard(temp, data.discard);
+			} else if (draw4 > 1) {
+				temp = new MainCard();
+				for (MainCard c : botHand) {
+					if (c.getAction() == ActionCards.Special.DRAW4) {
+						temp = c;
+					}
+				}
+				if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
+					temp.setColor(MainCard.Color.BLUE);
+				} else if (regRed >= regGreen && regRed >= regYellow) {
+					temp.setColor(MainCard.Color.RED);
+				} else if (regGreen >= regYellow) {
+					temp.setColor(MainCard.Color.GREEN);
+				} else {
+					temp.setColor(MainCard.Color.YELLOW);
+				}
+				playCard(temp, data.discard);
+			}
+		}
 	}
 
 	public MainCard move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
@@ -92,366 +217,45 @@ public class Bot extends Player {
 
 		System.out.print("botHand: ");
 
-		int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
-		int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
-		int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
-		int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
-		int draw2 = cardAmount(ActionCardColored.Action.DRAW2);
-		int reverse = cardAmount(ActionCardColored.Action.REVERSE);
-		int skip = cardAmount(ActionCardColored.Action.SKIP);
-		int draw4 = cardAmount(ActionCards.Special.DRAW4);
-		int wild = cardAmount(ActionCards.Special.PICKCOLOR);
+
+		MainCard temp = new MainCard();
 		if (canMove(mostRecent, color)) { // checks if a move is possible first
 			System.out.println("Can Move");
 			// decision making
 			// returns a 1 if a successful move was made
 			if (mostRecent.getNum() == null) { // moved shit
-				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+				return move(mostRecent.getColor());
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.REVERSE) {
-				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+				return move(mostRecent.getColor());
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.SKIP) {
-				return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+				return move(mostRecent.getColor());
 			} else if (mostRecent.getColor() == MainCard.Color.BLUE) { // if most recent color is blue
 				if (regBlue > 0) {
-					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+					return move(mostRecent.getColor());
 				} else {
-					MainCard temp = new MainCard();
-					for (MainCard c : botHand) {
-						if (c.getNum() == mostRecent.getNum()) {
-							temp = c;
-						}
-					}
-					if (temp.getNum() != null) {
-						playCard(temp, data.discard);
-						return temp;
-					} else {
-						if (skip > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.SKIP) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (reverse > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.REVERSE) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw2 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.DRAW2) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw4 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.DRAW4) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (wild > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.PICKCOLOR) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else {
-							drawCards(1);
-							System.out.println(1);
-							return null;
-						}
-					}
+					noRegMove(mostRecent);
 				}
 			} else if (mostRecent.getColor() == MainCard.Color.RED) {
 				if (regRed > 0) {
-					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+					return move(mostRecent.getColor());
 				} else {
-					MainCard temp = new MainCard();
-					for (MainCard c : botHand) {
-						if (c.getNum() == mostRecent.getNum()) {
-							temp = c;
-						}
-					}
-					if (temp.getNum() != null) {
-						playCard(temp, data.discard);
-						return temp;
-					} else {
-						if (skip > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.SKIP) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (reverse > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.REVERSE) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw2 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.DRAW2) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw4 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.DRAW4) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (wild > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.PICKCOLOR) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else {
-							drawCards(1);
-							System.out.println(2);
-
-							return null;
-						}
-					}
+					noRegMove(mostRecent);
 				}
 			} else if (mostRecent.getColor() == MainCard.Color.GREEN) {
 				if (regGreen > 0) {
-					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+					return move(mostRecent.getColor());
 				} else {
-					MainCard temp = new MainCard();
-					for (MainCard c : botHand) {
-						if (c.getNum() == mostRecent.getNum()) {
-							temp = c;
-						}
-					}
-					if (temp.getNum() != null) {
-						playCard(temp, data.discard);
-						return temp;
-					} else {
-						if (skip > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.SKIP) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (reverse > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.REVERSE) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw2 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.DRAW2) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw4 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.DRAW4) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (wild > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.PICKCOLOR) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else {
-							drawCards(1);
-							return temp;
-						}
-					}
+					noRegMove(mostRecent);
 				}
 			} else {
 				if (regYellow > 0) {
-					return move(mostRecent.getColor(), regBlue, regRed, regGreen, regYellow, draw2, reverse, skip, draw4, wild);
+					return move(mostRecent.getColor());
 				} else {
-					MainCard temp = new MainCard();
-					for (MainCard c : botHand) {
-						if (c.getNum() == mostRecent.getNum()) {
-							temp = c;
-						}
-					}
-					if (temp.getNum() != null) {
-						playCard(temp, data.discard);
-						return temp;
-					} else {
-						if (skip > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.SKIP) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (reverse > 0) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.REVERSE) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw2 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAbility() == ActionCardColored.Action.DRAW2) {
-									temp = c;
-								}
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (draw4 > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.DRAW4) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else if (wild > 1) {
-							temp = new MainCard();
-							for (MainCard c : botHand) {
-								if (c.getAction() == ActionCards.Special.PICKCOLOR) {
-									temp = c;
-								}
-							}
-							if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
-								temp.setColor(MainCard.Color.BLUE);
-							} else if (regRed >= regGreen && regRed >= regYellow) {
-								temp.setColor(MainCard.Color.RED);
-							} else if (regGreen >= regYellow) {
-								temp.setColor(MainCard.Color.GREEN);
-							} else {
-								temp.setColor(MainCard.Color.YELLOW);
-							}
-							playCard(temp, data.discard);
-							return temp;
-						} else {
-							drawCards(1);
-
-							//HERE
-							System.out.println(3);
-
-							return null;
-						}
-					}
+					noRegMove(mostRecent);
 				}
+
 			}
 		} else if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
 			drawCards(4);
@@ -466,9 +270,9 @@ public class Bot extends Player {
 
 	}
 
-	private MainCard move(MainCard.Color color, int blue, int red, int green, int yellow, int draw2, int reverse, int skip, int draw4, int wild) {
+	private MainCard move(MainCard.Color color) {
 		if (canMove(color)) {
-			if (color == MainCard.Color.BLUE && blue > 0) {
+			if (color == MainCard.Color.BLUE && regBlue > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < botHand.size(); i++) {
 					if (botHand.get(i).getColor() == MainCard.Color.BLUE) {
@@ -483,7 +287,7 @@ public class Bot extends Player {
 				}
 				playCard(temp, data.discard);
 				return temp;
-			} else if (color == MainCard.Color.RED && red > 0) {
+			} else if (color == MainCard.Color.RED && regRed > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < botHand.size(); i++) {
 					if (botHand.get(i).getColor() == MainCard.Color.RED) {
@@ -498,7 +302,7 @@ public class Bot extends Player {
 				}
 				playCard(temp, data.discard);
 				return temp;
-			} else if (color == MainCard.Color.GREEN && green > 0) {
+			} else if (color == MainCard.Color.GREEN && regGreen > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < botHand.size(); i++) {
 					if (botHand.get(i).getColor() == MainCard.Color.GREEN) {
@@ -513,7 +317,7 @@ public class Bot extends Player {
 				}
 				playCard(temp, data.discard);
 				return temp;
-			} else if (color == MainCard.Color.YELLOW && yellow > 0) {
+			} else if (color == MainCard.Color.YELLOW && regYellow > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < botHand.size(); i++) {
 					if (botHand.get(i).getColor() == MainCard.Color.YELLOW) {
