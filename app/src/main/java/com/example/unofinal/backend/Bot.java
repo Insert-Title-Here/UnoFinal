@@ -178,7 +178,7 @@ public class Bot extends Player {
 				playCard(temp, Data.discard);
 				return temp;
 
-			} else if (draw2 > 1) {
+			} else if (draw2 > 1 || botHand.size() == 1) {
 
 				temp = findCardDraw2();
 				playCard(temp, Data.discard);
