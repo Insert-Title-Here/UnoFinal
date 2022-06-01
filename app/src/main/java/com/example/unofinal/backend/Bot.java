@@ -95,6 +95,7 @@ public class Bot extends Player {
 		botHand.remove(i);
 	}
 
+	// finds card with matching number in the bot hand
 	public MainCard findNumCard(MainCard card) {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -105,6 +106,7 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// finds skip cards in bot hand
 	public MainCard findCardSkip() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -115,6 +117,7 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// finds draw2 cards in bot hand
 	public MainCard findCardDraw2() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -125,6 +128,7 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// finds reverse cards in bot hand
 	public MainCard findCardReverse() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -135,6 +139,7 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// finds +4 cards in bot hand
 	public MainCard findCardDraw4() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -145,6 +150,7 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// finds wild cards in bot hand
 	public MainCard findCardWild() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
@@ -155,10 +161,12 @@ public class Bot extends Player {
 		return save;
 	}
 
+	// returns size of the bot hand
 	public int size(){
 		return botHand.size();
 	}
 
+	// handles moves when a regular card can't be played
 	public MainCard noRegMove(MainCard mostRecent) {
 
 		MainCard temp = findNumCard(mostRecent);
@@ -219,11 +227,12 @@ public class Bot extends Player {
 		return null;
 	}
 
+	// handles which card to play
 	public MainCard move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
 		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
 
 		System.out.print("botHand: ");
-		printBotHand();
+		printHand();
 
 		if (canMove(mostRecent, color)) { // checks if a move is possible first
 			System.out.println("Can Move");
@@ -276,6 +285,7 @@ public class Bot extends Player {
 
 	}
 
+	// handles which card to play when the most recent is a regular card
 	private MainCard move(MainCard.Color color) {
 		if (canMove(color)) {
 			if (color == MainCard.Color.BLUE && regBlue > 0) {
@@ -379,13 +389,12 @@ public class Bot extends Player {
 		}
 	}
 
-
-
-
+	// subclass parking boolean
 	public boolean isBot(){
 		return true;
 	}
 
+	// returns amount of cards of a certain color excluding action cards
 	public int cardAmount(MainCard.Color color) { // returns a number, allows other players to see how many cards opponents have
 		int amount = 0;
 		for (MainCard c : botHand) {
@@ -396,6 +405,7 @@ public class Bot extends Player {
 		return amount;
 	}
 
+	// returns amount of action cards
 	public int cardAmount(ActionCardColored.Action ability) {
 		int amount = 0;
 		for (MainCard c : botHand) {
@@ -406,6 +416,7 @@ public class Bot extends Player {
 		return amount;
 	}
 
+	// returns the amount of special cards
 	public int cardAmount(ActionCards.Special action) {
 		int amount = 0;
 		for (MainCard c : botHand) {
@@ -416,10 +427,4 @@ public class Bot extends Player {
 		return amount;
 	}
 
-
-	public void printBotHand(){
-		for (MainCard c : botHand) {
-			System.out.println(c.toString());
-		}
-	}
 }
