@@ -195,6 +195,7 @@ public class Bot extends Player {
 			} else if (draw4 > 1) {
 
 				temp = findCardDraw4();
+				// picks what color to switch the color too
 				if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
 					temp.setColor(MainCard.Color.BLUE);
 				} else if (regRed >= regGreen && regRed >= regYellow) {
@@ -210,6 +211,7 @@ public class Bot extends Player {
 			} else if (wild > 1) {
 
 				temp = findCardWild();
+				// picks what color to switch the color too
 				if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
 					temp.setColor(MainCard.Color.BLUE);
 				} else if (regRed >= regGreen && regRed >= regYellow) {
