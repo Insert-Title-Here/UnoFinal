@@ -10,7 +10,8 @@ package com.example.unofinal.backend;
 import java.util.*;
 
 public class Bot extends Player {
-	private ArrayList<MainCard> botHand = new ArrayList<>();
+
+	private final ArrayList<MainCard> botHand = new ArrayList<>();
 	int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 	int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
 	int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
@@ -23,7 +24,7 @@ public class Bot extends Player {
 
 	public Bot(){
 		for(int i = 0; i < 7; i++){
-			botHand.add(data.drawPile.pop());
+			botHand.add(Data.drawPile.pop());
 		}
 	}
 
@@ -57,11 +58,13 @@ public class Bot extends Player {
 
 	// removes card from hand places it in discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
+		int index = -1;
 		for (int i = 0; i < botHand.size(); i++) {
 			if (botHand.get(i).equals(card)) {
-				botHand.remove(i);
+				index = i;
 			}
 		}
+		botHand.remove(index);
 		discard.push(card);
 	}
 
@@ -102,7 +105,7 @@ public class Bot extends Player {
 		return save;
 	}
 
-	public MainCard findCardSkip(MainCard card) {
+	public MainCard findCardSkip() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
 			if (c.getAbility() == ActionCardColored.Action.SKIP) {
@@ -112,7 +115,7 @@ public class Bot extends Player {
 		return save;
 	}
 
-	public MainCard findCardDraw2(MainCard card) {
+	public MainCard findCardDraw2() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
 			if (c.getAbility() == ActionCardColored.Action.DRAW2) {
@@ -122,7 +125,7 @@ public class Bot extends Player {
 		return save;
 	}
 
-	public MainCard findCardReverse(MainCard card) {
+	public MainCard findCardReverse() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
 			if (c.getAbility() == ActionCardColored.Action.REVERSE) {
@@ -132,7 +135,7 @@ public class Bot extends Player {
 		return save;
 	}
 
-	public MainCard findCardDraw4(MainCard card) {
+	public MainCard findCardDraw4() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
 			if (c.getAction() == ActionCards.Special.DRAW4) {
@@ -142,7 +145,7 @@ public class Bot extends Player {
 		return save;
 	}
 
-	public MainCard findCardWild(MainCard card) {
+	public MainCard findCardWild() {
 		MainCard save = null;
 		for (MainCard c : botHand) {
 			if (c.getAction() == ActionCards.Special.PICKCOLOR) {
@@ -157,50 +160,33 @@ public class Bot extends Player {
 	}
 
 	public MainCard noRegMove(MainCard mostRecent) {
-		MainCard temp = new MainCard();
-		for (MainCard c : botHand) {
-			if (c.getNum() == mostRecent.getNum()) {
-				temp = c;
-			}
-		}
+
+		MainCard temp = findNumCard(mostRecent);
 		if (temp.getNum() != null) {
-			playCard(temp, data.discard);
+			playCard(temp, Data.discard);
 			return temp;
 		} else {
 			if (skip > 0) {
-				temp = new MainCard();
-				for (MainCard c : botHand) {
-					if (c.getAbility() == ActionCardColored.Action.SKIP) {
-						temp = c;
-					}
-				}
-				playCard(temp, data.discard);
+
+				temp = findCardSkip();
+				playCard(temp, Data.discard);
 				return temp;
+
 			} else if (reverse > 0) {
-				temp = new MainCard();
-				for (MainCard c : botHand) {
-					if (c.getAbility() == ActionCardColored.Action.REVERSE) {
-						temp = c;
-					}
-				}
-				playCard(temp, data.discard);
+
+				temp = findCardReverse();
+				playCard(temp, Data.discard);
 				return temp;
+
 			} else if (draw2 > 1) {
-				temp = new MainCard();
-				for (MainCard c : botHand) {
-					if (c.getAbility() == ActionCardColored.Action.DRAW2) {
-						temp = c;
-					}
-				}
-				playCard(temp, data.discard);
+
+				temp = findCardDraw2();
+				playCard(temp, Data.discard);
 				return temp;
+
 			} else if (draw4 > 1) {
-				temp = new MainCard();
-				for (MainCard c : botHand) {
-					if (c.getAction() == ActionCards.Special.DRAW4) {
-						temp = c;
-					}
-				}
+
+				temp = findCardDraw4();
 				if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
 					temp.setColor(MainCard.Color.BLUE);
 				} else if (regRed >= regGreen && regRed >= regYellow) {
@@ -210,8 +196,24 @@ public class Bot extends Player {
 				} else {
 					temp.setColor(MainCard.Color.YELLOW);
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
+
+			} else if (wild > 1) {
+
+				temp = findCardWild();
+				if (regBlue >= regRed && regBlue >= regYellow && regBlue >= regGreen) {
+					temp.setColor(MainCard.Color.BLUE);
+				} else if (regRed >= regGreen && regRed >= regYellow) {
+					temp.setColor(MainCard.Color.RED);
+				} else if (regGreen >= regYellow) {
+					temp.setColor(MainCard.Color.GREEN);
+				} else {
+					temp.setColor(MainCard.Color.YELLOW);
+				}
+				playCard(temp, Data.discard);
+				return temp;
+
 			}
 		}
 		return null;
@@ -221,9 +223,8 @@ public class Bot extends Player {
 		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
 
 		System.out.print("botHand: ");
+		printBotHand();
 
-
-		MainCard temp = new MainCard();
 		if (canMove(mostRecent, color)) { // checks if a move is possible first
 			System.out.println("Can Move");
 			// decision making
@@ -290,7 +291,7 @@ public class Bot extends Player {
 						temp = c.largerNum(temp);
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (color == MainCard.Color.RED && regRed > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
@@ -305,7 +306,7 @@ public class Bot extends Player {
 						temp = c.largerNum(temp);
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (color == MainCard.Color.GREEN && regGreen > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
@@ -320,7 +321,7 @@ public class Bot extends Player {
 						temp = c.largerNum(temp);
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (color == MainCard.Color.YELLOW && regYellow > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
@@ -335,7 +336,7 @@ public class Bot extends Player {
 						temp = c.largerNum(temp);
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (draw2 > 1) {
 				MainCard temp = new MainCard();
@@ -344,7 +345,7 @@ public class Bot extends Player {
 						temp = c;
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (reverse > 0) {
 				MainCard temp = new MainCard();
@@ -353,7 +354,7 @@ public class Bot extends Player {
 						temp = c;
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else if (skip > 0) {
 				MainCard temp = new MainCard();
@@ -362,7 +363,7 @@ public class Bot extends Player {
 						temp = c;
 					}
 				}
-				playCard(temp, data.discard);
+				playCard(temp, Data.discard);
 				return temp;
 			} else {
 				drawCards(1);
