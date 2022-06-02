@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,42 +21,41 @@ public class MainActivity extends AppCompatActivity {
 
     TextView error;
     Data data;
-    ImageView unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card;
-    ImageView[] images;
+
     RadioGroup radioGroup;
     RadioButton radioButton;
     CheckBox bot;
+    ImageView unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card;
+    ImageView[] images;
     long tempTime;
 
-    //TODO: Fix music stuff (doesn't play sometimes)
+    //TODO: try out image stuff
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        unoCard = findViewById(R.id.uno);
+        uno1Card = findViewById(R.id.uno1);
+        uno2Card = findViewById(R.id.uno2);
+        uno3Card = findViewById(R.id.uno3);
+        uno4Card = findViewById(R.id.uno4);
+        uno5Card = findViewById(R.id.uno5);
+        uno6Card = findViewById(R.id.uno6);
+        uno7Card = findViewById(R.id.uno7);
 
+
+        images = new ImageView[]{unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
 
 
         radioGroup=findViewById(R.id.radioGroup);
         bot = findViewById(R.id.bot);
 
 
-
-
-
-        //TODO: Experiment with stopping music from media player
         data = new Data();
 
 
-
-
-
-
-
-
-
-                //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
         data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
 
         data.backgroundMusic.setLooping(true);
@@ -67,12 +67,24 @@ public class MainActivity extends AppCompatActivity {
 
         error.setAlpha(0.0f);
 
+        for(int i = 0; i < images.length; i++){
+            images[i].setVisibility(View.INVISIBLE);
+        }
+
 
 
         tempTime = System.currentTimeMillis();
 
-        ImageLoadThread runnable = new ImageLoadThread();
-        runnable.start();
+        //ImageLoadThread runnable = new ImageLoadThread();
+        //runnable.start();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                visibility();
+            }
+        }, 1500);
 
 
     }
@@ -81,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    public void visibility(ImageView[] images){
+    public void visibility(){
 
 
         int counter = 0;
@@ -99,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
+
 
     public void onBtnClick(View view){
         //Button button = findViewById(R.id.playButton);
@@ -121,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         if(bot.isChecked()){
             data.bot = true;
         }
+
+
 
 
 /*
@@ -169,37 +188,35 @@ public class MainActivity extends AppCompatActivity {
 
     class ImageLoadThread extends Thread {
 
+
         @Override
         public void run() {
-            unoCard = findViewById(R.id.uno);
-            uno1Card = findViewById(R.id.uno1);
-            uno2Card = findViewById(R.id.uno2);
-            uno3Card = findViewById(R.id.uno3);
-            uno4Card = findViewById(R.id.uno4);
-            uno5Card = findViewById(R.id.uno5);
-            uno6Card = findViewById(R.id.uno6);
-            uno7Card = findViewById(R.id.uno7);
-
-
-            images = new ImageView[]{unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
 
 
 
 
-            for(int i = 0; i < images.length; i++){
-                images[i].setVisibility(View.INVISIBLE);
-            }
+
+
+
+
 
             while(System.currentTimeMillis() - tempTime < 1000){
 
             }
 
-            visibility(images);
+            visibility();
+
+
+
 
 
 
 
         }
+
+
+
+
     }
 
 
