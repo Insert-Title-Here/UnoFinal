@@ -57,7 +57,6 @@ public class CardTestHorizontal extends AppCompatActivity {
 
         //Volatile boolean to decide whether to reload screen
         data.change = false;
-        data.midScreen = false;
 
 
         //If first time activity is loaded
@@ -127,6 +126,7 @@ public class CardTestHorizontal extends AppCompatActivity {
             } else {
 
                 //If card has an action or doesn't have a number than set previous card as discard image
+                //TODO: fix draw pile bug/empty stack exception
                 MainCard tempCard = data.discard.pop();
                 MainCard neededCard = data.discard.peek();
 
@@ -243,9 +243,11 @@ public class CardTestHorizontal extends AppCompatActivity {
         }
 
         //If only one player then add a bot
-        if (data.players == 1) {
+        if (data.bot == true) {
+
             data.gameTest.add(new Bot());
-            data.players = 2;
+            data.players = data.gameTest.size();
+            System.out.println(data.players);
             System.out.println("has bot");
         }
 

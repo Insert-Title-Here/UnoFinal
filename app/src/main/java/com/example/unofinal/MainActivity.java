@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -20,8 +21,11 @@ public class MainActivity extends AppCompatActivity {
     TextView error;
     Data data;
     ImageView unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card;
+    ImageView[] images;
     RadioGroup radioGroup;
     RadioButton radioButton;
+    CheckBox bot;
+    long tempTime;
 
     //TODO: Fix music stuff (doesn't play sometimes)
 
@@ -31,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
         radioGroup=findViewById(R.id.radioGroup);
+        bot = findViewById(R.id.bot);
 
 
 
@@ -40,22 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Experiment with stopping music from media player
         data = new Data();
 
-        unoCard = findViewById(R.id.uno);
-        uno1Card = findViewById(R.id.uno1);
-        uno2Card = findViewById(R.id.uno2);
-        uno3Card = findViewById(R.id.uno3);
-        uno4Card = findViewById(R.id.uno4);
-        uno5Card = findViewById(R.id.uno5);
-        uno6Card = findViewById(R.id.uno6);
-        uno7Card = findViewById(R.id.uno7);
 
-
-        ImageView[] images = {unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
-
-
-        for(int i = 0; i < images.length; i++){
-            images[i].setVisibility(View.INVISIBLE);
-        }
 
 
 
@@ -75,7 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
         error.setAlpha(0.0f);
 
-        //visiblity(images);
+
+
+        tempTime = System.currentTimeMillis();
+
+        ImageLoadThread runnable = new ImageLoadThread();
+        runnable.start();
+
 
     }
 
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void visiblity(ImageView[] images){
+    public void visibility(ImageView[] images){
 
 
         int counter = 0;
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         while(images[images.length - 1].getVisibility() == View.INVISIBLE){
             if(System.currentTimeMillis() - startTime == 1000){
-                System.out.println(counter);
+                System.out.println("counter: " + counter);
                 images[counter].setVisibility(View.VISIBLE);
                 startTime = System.currentTimeMillis();
                 counter++;
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnClick(View view){
         //Button button = findViewById(R.id.playButton);
-        EditText players = findViewById(R.id.playerNumber);
+        //EditText players = findViewById(R.id.playerNumber);
 
         String amtPlayers = "";
                 //= players.getText().toString();
@@ -117,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
             error.setAlpha(1.0f);
         } else {
             amtPlayers = (String)radioButton.getText();
+        }
+
+
+        if(bot.isChecked()){
+            data.bot = true;
         }
 
 
@@ -164,4 +167,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    class ImageLoadThread extends Thread {
+
+        @Override
+        public void run() {
+            unoCard = findViewById(R.id.uno);
+            uno1Card = findViewById(R.id.uno1);
+            uno2Card = findViewById(R.id.uno2);
+            uno3Card = findViewById(R.id.uno3);
+            uno4Card = findViewById(R.id.uno4);
+            uno5Card = findViewById(R.id.uno5);
+            uno6Card = findViewById(R.id.uno6);
+            uno7Card = findViewById(R.id.uno7);
+
+
+            images = new ImageView[]{unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
+
+
+
+
+            for(int i = 0; i < images.length; i++){
+                images[i].setVisibility(View.INVISIBLE);
+            }
+
+            while(System.currentTimeMillis() - tempTime < 1000){
+
+            }
+
+            visibility(images);
+
+
+
+
+        }
+    }
+
+
+
+
+
+
 }
+

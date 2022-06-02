@@ -25,8 +25,9 @@ public class Data {
     public static boolean reverse;
     public static int reloadAmt;
     public static boolean initialized;
+    public static boolean bot;
     public static volatile boolean change;
-    public static volatile boolean midScreen;
+    public static volatile boolean imageLoad;
 
 
 
