@@ -53,12 +53,110 @@
         app:layout_constraintTop_toBottomOf="@+id/playerNumber" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="245dp"
-        android:layout_height="356dp"
+        android:id="@+id/uno"
+        android:layout_width="56dp"
+        android:layout_height="119dp"
         app:layout_constraintBottom_toTopOf="@+id/playerNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno1"
+        android:layout_width="76dp"
+        android:layout_height="177dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno2"
+        android:layout_width="103dp"
+        android:layout_height="209dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno3"
+        android:layout_width="141dp"
+        android:layout_height="238dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno4"
+        android:layout_width="171dp"
+        android:layout_height="268dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno5"
+        android:layout_width="198dp"
+        android:layout_height="297dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno6"
+        android:layout_width="231dp"
+        android:layout_height="324dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <ImageView
+        android:id="@+id/uno7"
+        android:layout_width="292dp"
+        android:layout_height="399dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backofcard" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/onePlayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <RadioButton
+            android:id="@+id/twoPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <RadioButton
+            android:id="@+id/threePlayers"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:text="3" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

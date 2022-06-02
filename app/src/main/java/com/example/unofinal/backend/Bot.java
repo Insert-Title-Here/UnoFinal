@@ -5,13 +5,12 @@ package com.example.unofinal.backend;
 //Bot tried played a yellow skip when it shouldn't have been able to play (infinite loop) on a red zero
 //Bot dies if it plays a skip itself
 //Bot couldn't play anything else than blue four when player was drawing card
-//TODO: ask if connor has code to handle skip/draw2/reverse
 
 import java.util.*;
 
 public class Bot extends Player {
 
-	private final ArrayList<MainCard> botHand = new ArrayList<>();
+	private ArrayList<MainCard> botHand = new ArrayList<>();
 	int regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
 	int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
 	int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
@@ -30,6 +29,8 @@ public class Bot extends Player {
 
 	// adds cards to the bots hand
 	public void drawCards(int num) {
+
+		System.out.println("Drew a card");
 		for (int i = 0; i < num; i++) {
 			botHand.add(Data.drawPile.pop());
 		}
@@ -65,7 +66,7 @@ public class Bot extends Player {
 			}
 		}
 		botHand.remove(index);
-		discard.push(card);
+		Data.discard.push(card);
 	}
 
 	// play card based off card index
@@ -170,7 +171,7 @@ public class Bot extends Player {
 	public MainCard noRegMove(MainCard mostRecent) {
 
 		MainCard temp = findNumCard(mostRecent);
-		if (temp.getNum() != null) {
+		if (temp != null && temp.getNum() != null) {
 			playCard(temp, Data.discard);
 			return temp;
 		} else {
@@ -233,8 +234,7 @@ public class Bot extends Player {
 	public MainCard move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
 		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
 
-		System.out.print("botHand: ");
-		printHand();
+
 
 		if (canMove(mostRecent, color)) { // checks if a move is possible first
 			System.out.println("Can Move");

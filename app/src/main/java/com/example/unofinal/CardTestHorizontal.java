@@ -65,6 +65,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
             //Initialize all the cards for each player
             Intent intent = getIntent();
+
             if(Integer.parseInt(intent.getStringExtra("Amt Players")) < 6 && Integer.parseInt(intent.getStringExtra("Amt Players")) >= 1) {
                 data.players = Integer.parseInt(intent.getStringExtra("Amt Players"));
             }else if(Integer.parseInt(intent.getStringExtra("Amt Players"))  == 0){
@@ -154,7 +155,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
             //If there is no skip, or reverse used
-            if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
+            //if(!(data.discard.peek().getAbility() == ActionCardColored.Action.SKIP || data.discard.peek().getAbility() == ActionCardColored.Action.REVERSE)){
 
                 //play a card
 
@@ -165,9 +166,9 @@ public class CardTestHorizontal extends AppCompatActivity {
 
 
                 //Can't currently move if skip or reverse is played
-            }else {
-                System.out.println("Can't Move: " + data.discard.peek().toString());
-            }
+            //}else {
+                //System.out.println("Can't Move: " + data.discard.peek().toString());
+            //}
 
             switchScreens();
 
