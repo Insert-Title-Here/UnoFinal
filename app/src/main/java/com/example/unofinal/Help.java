@@ -15,6 +15,10 @@ public class Help extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
 
 
     }

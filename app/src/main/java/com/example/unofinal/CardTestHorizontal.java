@@ -46,6 +46,10 @@ public class CardTestHorizontal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_test_horizontal);
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
 
         //Initializing all of the views/layouts
         ImageView image = findViewById(R.id.discard);
@@ -627,7 +631,7 @@ public class CardTestHorizontal extends AppCompatActivity {
 
                     //If there are no cards in the players hand after playing the card then go to the leaderboard (win screen)
                     if(data.gameTest.get(data.getCurrentPlayer()).size() == 0){
-                        Intent intent = new Intent(CardTestHorizontal.this, Leaderboard.class);
+                        Intent intent = new Intent(CardTestHorizontal.this, Win.class);
                         startActivity(intent);
 
 
@@ -718,27 +722,6 @@ public class CardTestHorizontal extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
-
-    /*class MidThread extends Thread {
-
-        @Override
-        public void run() {
-            while(!data.midScreen){
-                System.out.println("Getting here to mid");
-
-            }
-
-            Intent intent = new Intent(CardTestHorizontal.this, MiddleScreen.class);
-            startActivity(intent);
-
-
-            data.midScreen = false;
-        }
-    }
-
-     */
 
 }
 

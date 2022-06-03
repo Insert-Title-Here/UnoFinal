@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.DragAndDropPermissions;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.unofinal.backend.ActionCardColored;
 import com.example.unofinal.backend.ActionCards;
@@ -92,7 +90,7 @@ public class CardActivity extends AppCompatActivity {
 
             if (data.gameTest.get(data.getCurrentPlayer()).size() == 0) {
                 System.out.println("Bot win!!!");
-                Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                Intent intent = new Intent(CardActivity.this, Win.class);
                 startActivity(intent);
             }
 
@@ -139,7 +137,7 @@ public class CardActivity extends AppCompatActivity {
 
                 if (list.size() == 0) {
                     System.out.println("You win!!!");
-                    Intent intent = new Intent(CardActivity.this, Leaderboard.class);
+                    Intent intent = new Intent(CardActivity.this, Win.class);
                     startActivity(intent);
                 }
 

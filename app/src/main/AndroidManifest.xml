@@ -42,7 +42,7 @@
             android:name=".ColorChange"
             android:exported="false" />
         <activity
-            android:name=".Leaderboard"
+            android:name=".Win"
             android:exported="false" />
         <activity
             android:name=".CardActivity"

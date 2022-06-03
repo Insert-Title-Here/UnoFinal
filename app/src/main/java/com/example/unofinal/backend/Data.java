@@ -27,7 +27,6 @@ public class Data {
     public static boolean initialized;
     public static boolean bot;
     public static volatile boolean change;
-    public static volatile boolean imageLoad;
 
 
 
@@ -277,6 +276,28 @@ public class Data {
 
     public enum SwitchPlayer {
         SKIP, NORMAL
+    }
+
+    public void reset(){
+        drawPile = null;
+        discard = new Stack<>();
+        deck = new MainCard[108];
+        game = new ArrayList<ArrayList<MainCard>>();
+        currentCard = new MainCard();
+        previousCard = new MainCard();
+        backgroundMusic = null;
+
+
+        gameTest = new ArrayList<>();
+
+        players = 0;
+        currentPlayer = 0;
+        reverse = false;
+        reloadAmt = 0;
+        initialized = false;
+        bot = false;
+        change = false;
+
     }
 
 

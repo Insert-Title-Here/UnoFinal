@@ -36,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            System.out.println("YAYAYAY");
+            finish();
+        }
+
+        data = new Data();
+
+
+
         unoCard = findViewById(R.id.uno);
         uno1Card = findViewById(R.id.uno1);
         uno2Card = findViewById(R.id.uno2);
@@ -53,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         bot = findViewById(R.id.bot);
 
 
-        data = new Data();
 
 
         data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
@@ -73,18 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        tempTime = System.currentTimeMillis();
 
         //ImageLoadThread runnable = new ImageLoadThread();
         //runnable.start();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                visibility();
-            }
-        }, 1500);
+        visibility();
+
+
+
+
+
 
 
     }
@@ -96,19 +104,40 @@ public class MainActivity extends AppCompatActivity {
     public void visibility(){
 
 
-        int counter = 0;
-        long startTime = System.currentTimeMillis();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            int counter = 0;
+
+            @Override
+            public void run() {
+                if(counter <= 7) {
+                    System.out.println("counter: " + counter);
+                    images[counter].setVisibility(View.VISIBLE);
+                    counter++;
+                    handler.postDelayed(this, 150);
+                }else {
+                    handler.removeCallbacksAndMessages(null);
+                }
+            }
+        }, 150);
+
+
+        //long startTime = System.currentTimeMillis();
+
+        /*
 
         while(images[images.length - 1].getVisibility() == View.INVISIBLE){
-            if(System.currentTimeMillis() - startTime == 1000){
-                System.out.println("counter: " + counter);
-                images[counter].setVisibility(View.VISIBLE);
-                startTime = System.currentTimeMillis();
-                counter++;
+            //if(System.currentTimeMillis() - startTime == 1000){
+
 
 
             }
         }
+
+         */
+
+
     }
 
 

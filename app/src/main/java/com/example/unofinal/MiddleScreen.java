@@ -19,6 +19,10 @@ public class MiddleScreen extends AppCompatActivity {
         setContentView(R.layout.activity_middle_screen);
         data = new Data();
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
 
         player = findViewById(R.id.textView2);
 

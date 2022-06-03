@@ -24,6 +24,10 @@ public class ColorChange extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_change);
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
 
         ListView lv = findViewById(R.id.color);
         //TextView tv = findViewById(R.id.listText);
