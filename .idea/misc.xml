@@ -21,15 +21,16 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/UnoFinal/app/src/main/res/layout/activity_leaderboard.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/UnoFinal/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/UnoFinal/app/src/main/res/layout/activity_play.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_card.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_card_test_horizontal.xml" value="0.23258209228515625" />
         <entry key="app/src/main/res/layout/activity_color_change.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_help.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_leaderboard.xml" value="0.18729705810546882" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_middle_screen.xml" value="0.30783773228742084" />
+        <entry key="app/src/main/res/layout/activity_name.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_play.xml" value="0.2006340579710145" />
-        <entry key="app/src/main/res/layout/activity_player_cards.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/activity_win.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/layout/card.xml" value="0.2006340579710145" />
       </map>
     </option>
   </component>

@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-
-//TODO: add to help menu and maybe include screen shot (make the screen look better and maybe add bot instructions)
+/* The Help screen is the screen that can be navigated from multiple
+screens. The screen features some tips for the playthrough and a description
+of some unique features of this version of UNO.
+ */
 public class Help extends AppCompatActivity {
 
 
@@ -15,14 +17,11 @@ public class Help extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-        }
-
 
 
     }
 
+    //Goes back to previous activity
     public void back(View v){
         finish();
     }

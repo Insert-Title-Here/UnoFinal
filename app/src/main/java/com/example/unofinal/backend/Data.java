@@ -7,44 +7,50 @@ import com.example.unofinal.R;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/* The Data class stores the data that is needed to be
+accessed from multiple classes. It features multiple static variables
+and data structures which can be access from other classes in the form
+of an instance of this object.
+ */
 public class Data {
 
+
+    //Storage of the drawPile, discard and deck
     public static Stack<MainCard> drawPile;
     public static Stack<MainCard> discard = new Stack<>();
     public static MainCard[] deck = new MainCard[108];
-    public static ArrayList<ArrayList<MainCard>> game = new ArrayList<ArrayList<MainCard>>();
-    public static MainCard currentCard = new MainCard();
-    public static MainCard previousCard = new MainCard();
+
+    //Holds all the players/ the bot
+    public static ArrayList<Player> game = new ArrayList<>();
+
+    //Background Music
     public static MediaPlayer backgroundMusic;
 
 
-    public static ArrayList<Player> gameTest = new ArrayList<>();
 
+    //How many players there are
     public static int players;
+
+    //Who is the current player
     public static int currentPlayer;
+
+    //Is the game reversed (3 players or more)
     public static boolean reverse;
+
+    //So that the game doesnt reload more than once after drawing a card
     public static int reloadAmt;
+
+    //So that game doesnt run initialization of deck multiple times
     public static boolean initialized;
+
+    //If a bot is playing
     public static boolean bot;
-    public static boolean played;
+
+    //Determines whether or not to change screens
     public static volatile boolean change;
-    public static boolean tester;
 
 
-
-    public Data(Stack<MainCard> drawPile, Stack<MainCard> discard, MainCard[] deck, ArrayList<ArrayList<MainCard>> game) {
-        this.drawPile = drawPile;
-        this.discard = discard;
-        this.deck = deck;
-        this.game = game;
-
-        currentPlayer = 1;
-        reverse = false;
-        reloadAmt = 0;
-        initialized = false;
-
-    }
-
+    //Constructor
     public Data() {
         if (drawPile == null) {
             drawPile = new Stack<>();
@@ -56,7 +62,7 @@ public class Data {
             deck = new MainCard[108];
         }
         if (game == null) {
-            game = new ArrayList<ArrayList<MainCard>>();
+            game = new ArrayList<>();
         }
 
         if (currentPlayer == 0) {
@@ -66,21 +72,13 @@ public class Data {
 
     }
 
-
-    public void printDeck() {
-        for (MainCard i : deck) {
-            System.out.println(i.toString());
-        }
-    }
-
+    //Switches currentplayer as a skip would
     public void skip() {
-        System.out.println(currentPlayer);
         switchPlayer();
-        System.out.println(currentPlayer);
         switchPlayer();
-        System.out.println(currentPlayer);
     }
 
+    //Goes to next player based on if the order is reversed or not
     public void switchPlayer() {
 
         if (!reverse) {
@@ -99,6 +97,7 @@ public class Data {
 
     }
 
+    //Other easier way to go to next player based on enum
     public void nextPlayer(SwitchPlayer next){
         if(next == SwitchPlayer.SKIP){
             skip();
@@ -108,6 +107,7 @@ public class Data {
 
     }
 
+    //Finding the next player for drawing cards (during +2 or +4)
     public int getNextPlayer() {
         if (!reverse) {
             if (!(currentPlayer + 1 > players)) {
@@ -124,29 +124,12 @@ public class Data {
         }
     }
 
-    public int getPreviousPlayer(){
-        if(!reverse){
-            if(!(currentPlayer - 1 == 0)){
-                return currentPlayer - 2;
-
-            }else{
-                return players - 1;
-            }
-        }else{
-            if(!(currentPlayer + 1 > players)){
-                return currentPlayer;
-            }else{
-                return 0;
-            }
-
-        }
-    }
-
+    //Gets the currentPlayer as they would be 0 indexed
     public int getCurrentPlayer(){
         return currentPlayer - 1;
     }
 
-
+    //Gets an image based on the name of a card
     public int getImage(String name) {
         if (name.contains("RED")) {
             if (name.contains("ZERO")) {
@@ -276,21 +259,20 @@ public class Data {
 
     }
 
+    //Enum to determine which type of navigation is occuring
     public enum SwitchPlayer {
         SKIP, NORMAL
     }
 
+    //Resets data class variables for restart
     public void reset(){
         drawPile = null;
         discard = new Stack<>();
         deck = new MainCard[108];
-        game = new ArrayList<ArrayList<MainCard>>();
-        currentCard = new MainCard();
-        previousCard = new MainCard();
         backgroundMusic = null;
 
 
-        gameTest = new ArrayList<>();
+        game = new ArrayList<>();
 
         players = 0;
         currentPlayer = 0;

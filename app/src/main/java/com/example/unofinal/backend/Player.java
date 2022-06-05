@@ -18,7 +18,13 @@ public class Player {
 		for(int i = 0; i < 7; i++){
 			hand.add(data.drawPile.pop());
 		}
+
+
 	}
+
+
+
+
 
 	/*public int move(MainCard.Color color, MainCard mostRecent) {
 		return -1;

@@ -27,6 +27,8 @@ public class Bot extends Player {
 		}
 	}
 
+
+
 	// adds cards to the bots hand
 	public void drawCards(int num) {
 

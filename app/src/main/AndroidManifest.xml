@@ -33,22 +33,13 @@
             android:name=".MiddleScreen"
             android:exported="false" />
         <activity
-            android:name=".CardTestHorizontal"
-            android:exported="false" />
-        <activity
-            android:name=".CardActivityTest"
+            android:name=".Card"
             android:exported="false" />
         <activity
             android:name=".ColorChange"
             android:exported="false" />
         <activity
             android:name=".Win"
-            android:exported="false" />
-        <activity
-            android:name=".CardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Play"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

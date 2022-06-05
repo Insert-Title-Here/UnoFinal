@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,36 +16,42 @@ import android.widget.TextView;
 
 import com.example.unofinal.backend.Data;
 
+
+//TODO: comment all of the classes used
+//TODO: see if I can spice up win screen
+
+/* The MainActivity screen is the launching screen and it features a
+short card animation along with options to start off the game. It includes radio
+buttons and a checkbox instead of a text Input as a failsafe for user input (along with
+an error message that pops up)
+ */
 public class MainActivity extends AppCompatActivity {
 
+    //Error message
     TextView error;
+
+    //Data storage class
     Data data;
 
+    //Radio button and group for amt of players
     RadioGroup radioGroup;
     RadioButton radioButton;
+
+    //Checkbox to add bot
     CheckBox bot;
+
+    //Stores the multiple image view of the uno card logo (growing in size)
     ImageView unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card;
     ImageView[] images;
-    long tempTime;
-
-    //TODO: try out image stuff
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //Initializing all the data object, imageViews, checkbox, textView and radiogroup
         data = new Data();
-
-
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-
-
-            finish();
-            System.out.println("YAYAYAY");
-
-        }
-
 
         unoCard = findViewById(R.id.uno);
         uno1Card = findViewById(R.id.uno1);
@@ -57,170 +62,104 @@ public class MainActivity extends AppCompatActivity {
         uno6Card = findViewById(R.id.uno6);
         uno7Card = findViewById(R.id.uno7);
 
-
         images = new ImageView[]{unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
 
-
+        error = findViewById(R.id.errorMessage);
         radioGroup = findViewById(R.id.radioGroup);
         bot = findViewById(R.id.bot);
 
 
+        //Starting background music and setting it to looping
         data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
-
         data.backgroundMusic.setLooping(true);
         data.backgroundMusic.start();
 
-
-        error = findViewById(R.id.errorMessage);
-
+        //setting error text to invisible
         error.setAlpha(0.0f);
 
+        //Setting all of the images to invisible
         for (int i = 0; i < images.length; i++) {
             images[i].setVisibility(View.INVISIBLE);
         }
 
-
-        //ImageLoadThread runnable = new ImageLoadThread();
-        //runnable.start();
-
-
+        //Method for starting animation
         visibility();
-
-
-        System.out.println("Completed Create");
-
 
     }
 
-
-
-
+    //Sets all ImageView of variable sizes visible at time increments
     public void visibility() {
 
-
+        //Handler allows a repeated run of the code at a time interval
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
+            //To keep track of how many times the handler tuns
             int counter = 0;
 
             @Override
             public void run() {
+
+                //Sets images visible 8 times
                 if (counter <= 7) {
-                    System.out.println("counter: " + counter);
                     images[counter].setVisibility(View.VISIBLE);
                     counter++;
                     handler.postDelayed(this, 150);
+
+                    //Exits handler
                 } else {
                     handler.removeCallbacksAndMessages(null);
                 }
             }
         }, 150);
 
-
-        //long startTime = System.currentTimeMillis();
-
-        /*
-
-        while(images[images.length - 1].getVisibility() == View.INVISIBLE){
-            //if(System.currentTimeMillis() - startTime == 1000){
-
-
-
-            }
-        }
-
-         */
-
-
     }
 
 
+    //Play button click
     public void onBtnClick(View view) {
-        //Button button = findViewById(R.id.playButton);
-        //EditText players = findViewById(R.id.playerNumber);
 
+        //String to store the amount of players that will be playing
         String amtPlayers = "";
-        //= players.getText().toString();
 
-        //int tempamtPlayers = Integer.parseInt(amtPlayers);
-
+        //Takes radiogroup and checks which radiobutton is selected
         int clickedRadioButton = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(clickedRadioButton);
+
+        //If nothing is selected then make the error text visible
         if (clickedRadioButton == -1) {
             error.setAlpha(1.0f);
+
+            //Otherwise get the text from the radiobutton and assign it to the player that will play
         } else {
             amtPlayers = (String) radioButton.getText();
         }
 
-
+        //If the checkbox for a bot is checked then assign data.bot to true (used in CardTestHorizontal)
         if (bot.isChecked()) {
             data.bot = true;
         }
 
+        //If amtPlayers holds a value then
+        if (!(amtPlayers.isEmpty())) {
 
-
-
-/*
-        if(tempamtPlayers <= 0){
-            amtPlayers = "2";
-        }else if(tempamtPlayers >= 6){
-            amtPlayers = "5";
-        }
-
- */
-
-
-        if (!(/*players.getText().toString().isEmpty()*/ amtPlayers.isEmpty())) {
-            Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
+            //Navigate to the CardTestHorizontal Activity while passing amtPlayers to CardTestHorizontal
+            Intent intent = new Intent(MainActivity.this, Card.class);
             intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
 
-
+            //Plays card shuffle sound effect
             MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
             backgroundMusic.start();
         }
 
-        /*else{
-            //players.setHint("Please enter the number of players");
-            error.setAlpha(1.0f);
-
-
-        }
-
-         */
     }
 
 
+    //If the help button is clicked then navigate to the help menu
     public void HelpBtnClick(View view) {
         Intent intent = new Intent(MainActivity.this, Help.class);
-        //intent.putExtra("Amt Players", "2");
-
-        //MediaPlayer backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.cardshuffle);
-        //backgroundMusic.start();
-
         startActivity(intent);
     }
-
-
-    class ImageLoadThread extends Thread {
-
-
-        @Override
-        public void run() {
-
-
-            while (System.currentTimeMillis() - tempTime < 1000) {
-
-            }
-
-            visibility();
-
-
-        }
-
-
-    }
-
-
 }
 
