@@ -26,7 +26,9 @@ public class Data {
     public static int reloadAmt;
     public static boolean initialized;
     public static boolean bot;
+    public static boolean played;
     public static volatile boolean change;
+    public static boolean tester;
 
 
 

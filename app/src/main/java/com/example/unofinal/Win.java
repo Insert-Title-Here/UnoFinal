@@ -35,14 +35,17 @@ public class Win extends AppCompatActivity {
 
 
     public void restart(View v){
+
+        //TODO:later check if too many intents running at once
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         data.backgroundMusic.stop();
 
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("EXIT", true);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.putExtra("EXIT", true);
 
         data.reset();
+        data.played = true;
 
         startActivity(intent);
 
@@ -53,4 +56,6 @@ public class Win extends AppCompatActivity {
 
 
     }
+
+
 }

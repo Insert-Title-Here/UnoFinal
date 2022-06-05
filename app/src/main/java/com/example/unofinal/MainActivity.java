@@ -36,15 +36,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        data = new Data();
 
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
-            System.out.println("YAYAYAY");
+
+
             finish();
+            System.out.println("YAYAYAY");
+
         }
-
-        data = new Data();
-
 
 
         unoCard = findViewById(R.id.uno);
@@ -60,10 +61,8 @@ public class MainActivity extends AppCompatActivity {
         images = new ImageView[]{unoCard, uno1Card, uno2Card, uno3Card, uno4Card, uno5Card, uno6Card, uno7Card};
 
 
-        radioGroup=findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
         bot = findViewById(R.id.bot);
-
-
 
 
         data.backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.sleepycat);
@@ -72,27 +71,23 @@ public class MainActivity extends AppCompatActivity {
         data.backgroundMusic.start();
 
 
-
         error = findViewById(R.id.errorMessage);
 
         error.setAlpha(0.0f);
 
-        for(int i = 0; i < images.length; i++){
+        for (int i = 0; i < images.length; i++) {
             images[i].setVisibility(View.INVISIBLE);
         }
-
-
 
 
         //ImageLoadThread runnable = new ImageLoadThread();
         //runnable.start();
 
+
         visibility();
 
 
-
-
-
+        System.out.println("Completed Create");
 
 
     }
@@ -100,8 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    public void visibility(){
+    public void visibility() {
 
 
         Handler handler = new Handler();
@@ -111,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                if(counter <= 7) {
+                if (counter <= 7) {
                     System.out.println("counter: " + counter);
                     images[counter].setVisibility(View.VISIBLE);
                     counter++;
                     handler.postDelayed(this, 150);
-                }else {
+                } else {
                     handler.removeCallbacksAndMessages(null);
                 }
             }
@@ -141,30 +135,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-    public void onBtnClick(View view){
+    public void onBtnClick(View view) {
         //Button button = findViewById(R.id.playButton);
         //EditText players = findViewById(R.id.playerNumber);
 
         String amtPlayers = "";
-                //= players.getText().toString();
+        //= players.getText().toString();
 
         //int tempamtPlayers = Integer.parseInt(amtPlayers);
 
-        int clickedRadioButton=radioGroup.getCheckedRadioButtonId();
-        radioButton=findViewById(clickedRadioButton);
-        if(clickedRadioButton ==-1){
+        int clickedRadioButton = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(clickedRadioButton);
+        if (clickedRadioButton == -1) {
             error.setAlpha(1.0f);
         } else {
-            amtPlayers = (String)radioButton.getText();
+            amtPlayers = (String) radioButton.getText();
         }
 
 
-        if(bot.isChecked()){
+        if (bot.isChecked()) {
             data.bot = true;
         }
 
@@ -181,9 +170,7 @@ public class MainActivity extends AppCompatActivity {
  */
 
 
-
-
-        if(!(/*players.getText().toString().isEmpty()*/ amtPlayers.isEmpty())) {
+        if (!(/*players.getText().toString().isEmpty()*/ amtPlayers.isEmpty())) {
             Intent intent = new Intent(MainActivity.this, CardTestHorizontal.class);
             intent.putExtra("Amt Players", amtPlayers);
             startActivity(intent);
@@ -204,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void HelpBtnClick(View view){
+    public void HelpBtnClick(View view) {
         Intent intent = new Intent(MainActivity.this, Help.class);
         //intent.putExtra("Amt Players", "2");
 
@@ -222,35 +209,17 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
 
-
-
-
-
-
-
-
-            while(System.currentTimeMillis() - tempTime < 1000){
+            while (System.currentTimeMillis() - tempTime < 1000) {
 
             }
 
             visibility();
 
 
-
-
-
-
-
         }
 
 
-
-
     }
-
-
-
-
 
 
 }
