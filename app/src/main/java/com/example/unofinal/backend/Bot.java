@@ -1,3 +1,8 @@
+// This class is the bot as such it handles the bot moves
+// and behavior
+// has 10 fields, a Arraylist hand and then ints telling composition of said hand
+// it extends the player class so it contains all the same methods
+
 package com.example.unofinal.backend;
 
 //BOT NOTES:

@@ -1,3 +1,8 @@
+// This card manages wild cards such as draw 4s and pick color cards
+// again it extends the MainCard class
+// two fields action, and color
+// has 1 constructors, one takes in the special
+
 package com.example.unofinal.backend;
 
 
@@ -9,16 +14,6 @@ public class ActionCards extends MainCard {
 		super(Color.NONE, Numbers.NONE);
 		this.action = action;
 	}
-
-	public ActionCards(MainCard other) {
-		super(other.getColor(), other.getNum());
-		this.color = other.getColor();
-	}
-
-
-
-
-
 
 	// can be played regardless of color
 	public Special getAction() {

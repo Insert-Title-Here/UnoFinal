@@ -1,3 +1,11 @@
+// This class is for the regular cards
+// that are just a number + color so a Blue 3
+// it has just 2 fields, a color enum, and a num enum
+// it has 2 constructors one takes in two parameters for
+// both color and num, the other creates a null card
+
+
+
 package com.example.unofinal.backend;
 
 

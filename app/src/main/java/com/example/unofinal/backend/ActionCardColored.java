@@ -1,3 +1,8 @@
+// This class extends the mainCard class and is responsible
+// for colored action cards so that's your draw 2, skip, and reverse cards
+// has two fields ability, and color
+// it has only 1 constructor that takes in two parameters
+
 package com.example.unofinal.backend;
 
 import androidx.annotation.NonNull;

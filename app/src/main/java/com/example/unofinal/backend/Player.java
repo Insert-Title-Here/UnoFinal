@@ -1,3 +1,10 @@
+// this class is the player class as such it is
+// the object created for a player
+// contains methods for the player to well play the game
+// can play cards, and draw cards
+// only two fields data for accessing drawpile etc.
+// and ArrayList for the hand
+
 package com.example.unofinal.backend;
 
 import java.util.*;
