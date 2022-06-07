@@ -15,11 +15,11 @@ public class Bot extends Player {
 	int regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
 	int regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
 	int regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
-	int draw2 = cardAmount(ActionCardColored.Action.DRAW2);
-	int reverse = cardAmount(ActionCardColored.Action.REVERSE);
-	int skip = cardAmount(ActionCardColored.Action.SKIP);
-	int draw4 = cardAmount(ActionCards.Special.DRAW4);
-	int wild = cardAmount(ActionCards.Special.PICKCOLOR);
+	int draw2 = cardAmount(ActionCardColored.Action.DRAW2); // amount of draw2 cards in hand
+	int reverse = cardAmount(ActionCardColored.Action.REVERSE); // amount of reverse cards in hand
+	int skip = cardAmount(ActionCardColored.Action.SKIP); // amount of skips in hand
+	int draw4 = cardAmount(ActionCards.Special.DRAW4); // amount of draw4 cards in hand
+	int wild = cardAmount(ActionCards.Special.PICKCOLOR); // number of color pick cards in hand
 
 	public Bot(){
 		for(int i = 0; i < 7; i++){

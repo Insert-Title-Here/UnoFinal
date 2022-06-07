@@ -206,6 +206,7 @@ public class Player {
 		hand.remove(i);
 	}
 
+	// returns size of hand (card amount)
 	public int size(){
 		return hand.size();
 	}

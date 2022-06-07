@@ -249,7 +249,7 @@ public class Card extends AppCompatActivity {
     }
 
 
-    //TODO: Connor comment this
+    // This method sets up the deck with all the cards found in a uno game
     public static void buildDeck(MainCard[] arr) {
         // every color has 1 0 and 2 of each number 1-9
         // every color has two of each action card (6)

@@ -80,18 +80,22 @@ public class MainCard {
 		return false;
 	}
 
+	// subclass parking
 	public boolean hasColoredAction(){
 		return false;
 	}
 
+	// getter for ability for subclass parking and bot movement
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility() {
 		return ActionCardColored.Action.NONE;
 	}
 
+	// getter for cards Special ability for subclass parking
 	public ActionCards.Special getAction(){
 		return ActionCards.Special.NONE;
 	}
 
+	// used for card comparisons
 	public MainCard largerNum(MainCard other) {
 		int thisNum;
 		int otherNum;

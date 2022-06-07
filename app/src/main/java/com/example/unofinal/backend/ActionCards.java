@@ -25,7 +25,7 @@ public class ActionCards extends MainCard {
 		return action;
 	}
 
-	// helps with distiniction between card types with respect to subclass parking
+	// helps with distinction between card types with respect to subclass parking
 	public boolean hasAction(){
 		return true;
 	}
@@ -38,11 +38,6 @@ public class ActionCards extends MainCard {
 	
 	public String toString() {
 		return(action.name());
-	}
-
-	// use for changing the current viable color during the game
-	public void changeColor(Color color) {
-		this.color = color;
 	}
 
 	public enum Special {
