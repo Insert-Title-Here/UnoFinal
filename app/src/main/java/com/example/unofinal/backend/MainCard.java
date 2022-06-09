@@ -1,3 +1,11 @@
+// This class is for the regular cards
+// that are just a number + color so a Blue 3
+// it has just 2 fields, a color enum, and a num enum
+// it has 2 constructors one takes in two parameters for
+// both color and num, the other creates a null card
+
+
+
 package com.example.unofinal.backend;
 
 
@@ -80,18 +88,22 @@ public class MainCard {
 		return false;
 	}
 
+	// subclass parking
 	public boolean hasColoredAction(){
 		return false;
 	}
 
+	// getter for ability for subclass parking and bot movement
 	public com.example.unofinal.backend.ActionCardColored.Action getAbility() {
 		return ActionCardColored.Action.NONE;
 	}
 
+	// getter for cards Special ability for subclass parking
 	public ActionCards.Special getAction(){
 		return ActionCards.Special.NONE;
 	}
 
+	// used for card comparisons
 	public MainCard largerNum(MainCard other) {
 		int thisNum;
 		int otherNum;

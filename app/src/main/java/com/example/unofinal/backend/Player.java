@@ -1,3 +1,10 @@
+// this class is the player class as such it is
+// the object created for a player
+// contains methods for the player to well play the game
+// can play cards, and draw cards
+// only two fields data for accessing drawpile etc.
+// and ArrayList for the hand
+
 package com.example.unofinal.backend;
 
 import java.util.*;
@@ -18,7 +25,13 @@ public class Player {
 		for(int i = 0; i < 7; i++){
 			hand.add(data.drawPile.pop());
 		}
+
+
 	}
+
+
+
+
 
 	/*public int move(MainCard.Color color, MainCard mostRecent) {
 		return -1;
@@ -200,6 +213,7 @@ public class Player {
 		hand.remove(i);
 	}
 
+	// returns size of hand (card amount)
 	public int size(){
 		return hand.size();
 	}
