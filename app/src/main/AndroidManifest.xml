@@ -24,22 +24,25 @@
         android:theme="@style/Theme.UnoFinal"
         tools:targetApi="31">
         <activity
-            android:name=".Help"
-            android:exported="false" />
-        <activity
-            android:name=".PlayerCards"
-            android:exported="false" />
-        <activity
             android:name=".MiddleScreen"
             android:exported="false" />
         <activity
-            android:name=".Card"
+            android:name=".CardTestHorizontal"
+            android:exported="false" />
+        <activity
+            android:name=".CardActivityTest"
             android:exported="false" />
         <activity
             android:name=".ColorChange"
             android:exported="false" />
         <activity
-            android:name=".Win"
+            android:name=".Leaderboard"
+            android:exported="false" />
+        <activity
+            android:name=".CardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Play"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

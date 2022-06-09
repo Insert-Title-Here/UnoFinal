@@ -1,11 +1,4 @@
-// This class extends the mainCard class and is responsible
-// for colored action cards so that's your draw 2, skip, and reverse cards
-// has two fields ability, and color
-// it has only 1 constructor that takes in two parameters
-
 package com.example.unofinal.backend;
-
-import androidx.annotation.NonNull;
 
 // enum for special actions
 enum Action {
@@ -32,13 +25,30 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 	}
 
 	// format color ability
-    @NonNull
-	public String toString() {
+    public String toString() {
     	return(color.name() + " " + ability.name());
+    }
+    
+    /*public boolean matches(MainCard other) {
+    	ActionCardColored temp = new ActionCardColored(other);
+    	if (temp.getColor() != color) {
+    		return false;
+    	} else if (temp.getNum() != this.getNum()) {
+    		return false;
+    	} else {
+    		return actionMatch(temp);
+    	}
+    	
+    }
+
+     */
+    // according to official uno rules action cards can be played regardless of color
+    public boolean actionMatch(ActionCardColored other) {
+    	return true;
     }
 
 
-	// this method is to help distinguish during sub class parking
+	// this method is to help distingush during sub class parking
 	public boolean hasAction(){
 		return true;
 	}
@@ -54,6 +64,10 @@ public class ActionCardColored extends MainCard { // inherits from the Main Card
 	}
 
 	public boolean equals(MainCard other) { // checks if card matches and can be played
-		return color == other.getColor() && ability == other.getAbility();
+		if (color == other.getColor() && ability == other.getAbility()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
