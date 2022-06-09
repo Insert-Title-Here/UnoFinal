@@ -11,7 +11,6 @@ import java.util.*;
 
 public class Player {
 	private ArrayList<MainCard> hand = new ArrayList<>();
-	//private int playerNumber;
 	Data data = new Data();
 
 	// draws 7 cards from the top of the deck into the players hand
@@ -33,11 +32,6 @@ public class Player {
 
 
 
-	/*public int move(MainCard.Color color, MainCard mostRecent) {
-		return -1;
-	}
-
-	 */
 
 	// subclass parking, made so bot can inherit
 	public MainCard move(MainCard.Color color, MainCard mostRecent){
@@ -80,16 +74,7 @@ public class Player {
 		}
 	}
 
-	/*
-	public player(int number){
-		for(int i = 0; i < 7; i++){
-			hand.add(data.drawPile.pop());
-		}
 
-		playerNumber = number;
-	}
-
-	 */
 	
 	// used to display data to other players (bots later take it into consideration)
 	public int handSize() {
@@ -132,7 +117,6 @@ public class Player {
 			return true;
 		}
 
-		//TODO: fix this cuz it breaks (invoking getColor on null object reference)
 		//don't know whether it is cuz of temp or cuz of previousCard
 		if(temp.getColor() == previousCard.getColor()){
 
@@ -155,12 +139,9 @@ public class Player {
 		return false;
 	}
 
-	public void playCard(int index){
-		System.out.println("Hehe ur bad: " + index);
-	}
 
 
-	//TODO: Make sure that cards are drawn for next player when it is draw4 or draw2
+
 
 	// removes card from hand and adds it to discard
 	public void playCard(MainCard card, Stack<MainCard> discard) { // plays the card i.e. discard
@@ -169,7 +150,6 @@ public class Player {
 			for(int i = 0; i < hand.size(); i++) {
 				if (hand.get(i).toString().contains("DRAW4")) {
 					hand.remove(i);
-					System.out.println("Actually Removing DRAW4");
 					break;
 				}
 			}
@@ -177,7 +157,6 @@ public class Player {
 			for(int i = 0; i < hand.size(); i++){
 				if (hand.get(i).toString().contains("PICKCOLOR")) {
 					hand.remove(i);
-					System.out.println("Actually Removing WILD");
 					break;
 				}
 			}
@@ -185,7 +164,6 @@ public class Player {
 			for (int i = 0; i < hand.size(); i++) {
 				if (hand.get(i).equals(card)) {
 					hand.remove(i);
-					System.out.println("Actually Removing");
 					break;
 				}
 			}
@@ -198,7 +176,6 @@ public class Player {
     // prints out hand
 	public void printHand(){
 		for(MainCard i: hand){
-			System.out.println(i.toString());
 		}
 	}
 
@@ -209,7 +186,6 @@ public class Player {
 
 	// removes cards from a hand
 	public void remove(int i){
-		System.out.println(hand.get(i));
 		hand.remove(i);
 	}
 

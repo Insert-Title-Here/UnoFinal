@@ -32,12 +32,23 @@ public class Bot extends Player {
 		}
 	}
 
+	private void reload() {
+		regBlue = cardAmount(MainCard.Color.BLUE); // amount of numerical/action blue cards
+		regRed = cardAmount(MainCard.Color.RED); // amount of numerical/action red cards
+		regGreen = cardAmount(MainCard.Color.GREEN); // amount of numerical/action Green cards
+		regYellow = cardAmount(MainCard.Color.YELLOW); // amount of numerical/action Yellow cards
+		draw2 = cardAmount(ActionCardColored.Action.DRAW2); // amount of draw2 cards in hand
+		reverse = cardAmount(ActionCardColored.Action.REVERSE); // amount of reverse cards in hand
+		skip = cardAmount(ActionCardColored.Action.SKIP); // amount of skips in hand
+		draw4 = cardAmount(ActionCards.Special.DRAW4); // amount of draw4 cards in hand
+		wild = cardAmount(ActionCards.Special.PICKCOLOR); // number of
+	}
+
 
 
 	// adds cards to the bots hand
 	public void drawCards(int num) {
 
-		System.out.println("Drew a card");
 		for (int i = 0; i < num; i++) {
 			botHand.add(Data.drawPile.pop());
 		}
@@ -82,13 +93,11 @@ public class Bot extends Player {
 
 		MainCard temp = botHand.remove(index);
 
-		System.out.println(temp.toString());
 	}
 
 	// prints out bot hand
 	public void printHand(){
 		for(MainCard i : botHand){
-			System.out.println(i.toString());
 		}
 	}
 
@@ -99,7 +108,6 @@ public class Bot extends Player {
 
 	// removes cards from a hand
 	public void remove(int i){
-		System.out.println(botHand.get(i));
 		botHand.remove(i);
 	}
 
@@ -240,50 +248,72 @@ public class Bot extends Player {
 	// handles which card to play
 	public MainCard move(MainCard.Color color, MainCard mostRecent) { // assumes not called following a skip or reverse
 		// additionally after a player plays a +4 or +2 should just call bot.drawCards(2)
+		reload();
 
 
 
 		if (canMove(mostRecent, color)) { // checks if a move is possible first
-			System.out.println("Can Move");
 			// decision making
 			// returns a 1 if a successful move was made
 			if (mostRecent.getNum() == null) { // moved shit
+
 				return move(mostRecent.getColor());
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.DRAW2) {
 				drawCards(2);
+
+
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.REVERSE) {
+
 				return move(mostRecent.getColor());
 			} else if (mostRecent.getAbility() == ActionCardColored.Action.SKIP) {
+
 				return move(mostRecent.getColor());
 			} else if (mostRecent.getColor() == MainCard.Color.BLUE) { // if most recent color is blue
 				if (regBlue > 0) {
+
+
 					return move(mostRecent.getColor());
 				} else {
+
+
 					return noRegMove(mostRecent);
+
+
 				}
 			} else if (mostRecent.getColor() == MainCard.Color.RED) {
 				if (regRed > 0) {
+
+
 					return move(mostRecent.getColor());
 				} else {
 					noRegMove(mostRecent);
+
+
 				}
 			} else if (mostRecent.getColor() == MainCard.Color.GREEN) {
 				if (regGreen > 0) {
+
+
 					return move(mostRecent.getColor());
 				} else {
+
+
 					noRegMove(mostRecent);
 				}
 			} else {
 				if (regYellow > 0) {
+
+
+
 					return move(mostRecent.getColor());
 				} else {
 					noRegMove(mostRecent);
+
 				}
 
 			}
 		} else if (mostRecent.getAction() == ActionCards.Special.DRAW4) {
 			drawCards(4);
-			System.out.println(4);
 
 			return null;
 		} else { // assumes this wasn't called after a skip or reverse was played
@@ -297,6 +327,8 @@ public class Bot extends Player {
 	// handles which card to play when the most recent is a regular card
 	private MainCard move(MainCard.Color color) {
 		if (canMove(color)) {
+
+
 			if (color == MainCard.Color.BLUE && regBlue > 0) {
 				MainCard temp = new MainCard(); // initialize to a blue card
 				for (int i = 0; i < botHand.size(); i++) {
@@ -343,7 +375,7 @@ public class Bot extends Player {
 				playCard(temp, Data.discard);
 				return temp;
 			} else if (color == MainCard.Color.YELLOW && regYellow > 0) {
-				MainCard temp = new MainCard(); // initialize to a blue card
+				MainCard temp = new MainCard();
 				for (int i = 0; i < botHand.size(); i++) {
 					if (botHand.get(i).getColor() == MainCard.Color.YELLOW) {
 						temp = botHand.get(i);
@@ -386,13 +418,11 @@ public class Bot extends Player {
 				return temp;
 			} else {
 				drawCards(1);
-				System.out.println(5);
 
 				return null;
 			}
 		} else {
 			drawCards(1);
-			System.out.println(6);
 
 			return null;
 		}

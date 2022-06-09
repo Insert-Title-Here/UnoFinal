@@ -161,8 +161,7 @@ public class Card extends AppCompatActivity {
             //If a bot is included
         } else {
 
-            //TODO: remove this
-            data.game.get(data.getCurrentPlayer()).printHand();
+
 
 
             //bot plays a card
@@ -174,8 +173,7 @@ public class Card extends AppCompatActivity {
             startActivity(getIntent());
 
 
-            //TODO: remove this
-            System.out.println("Bot Played a " + data.discard.peek().toString());
+
         }
     }
 
@@ -226,7 +224,6 @@ public class Card extends AppCompatActivity {
             data.drawPile.push(data.deck[i]);
         }
 
-        System.out.println("Got here");
 
 
         //Creating the creating players
@@ -344,7 +341,6 @@ public class Card extends AppCompatActivity {
     public void draw(View view) {
 
         //If actually drawing a card (first press)
-        System.out.println("ReloadAmt: " + data.reloadAmt);
         if (data.reloadAmt == 0) {
 
             //Actually draw card
@@ -370,8 +366,7 @@ public class Card extends AppCompatActivity {
 
         }
 
-        //TODO: remove this
-        System.out.println("DrawPile Size: " + data.drawPile.size());
+
 
 
     }
@@ -407,7 +402,6 @@ public class Card extends AppCompatActivity {
                 if (data.discard.peek().getAction() == ActionCards.Special.PICKCOLOR) {
 
                     //Switch to color change screen (to choose new color)
-                    System.out.println("WILD Testing");
                     Intent newIntent = new Intent(Card.this, ColorChange.class);
                     startActivity(newIntent);
                 }
@@ -417,7 +411,6 @@ public class Card extends AppCompatActivity {
 
             }
 
-            System.out.println("CurrentPlayer: " + data.currentPlayer);
 
             //If it is a draw4
         } else {
@@ -428,13 +421,11 @@ public class Card extends AppCompatActivity {
             //change player type is skip
             nextType = Data.SwitchPlayer.SKIP;
 
-            System.out.println("Draw4 Testing");
 
             //Switch to color change screen (to chooose new color)
             Intent newIntent = new Intent(Card.this, ColorChange.class);
             startActivity(newIntent);
 
-            System.out.println("new intent");
         }
 
         //decides what type of navigation to use for changing players
@@ -462,7 +453,6 @@ public class Card extends AppCompatActivity {
                 return new ActionCards(ActionCards.Special.DRAW4);
             }
         } else if (card.contains("REVERSE") || card.contains("SKIP") || card.contains("DRAW2")) {
-            System.out.println(card + " is somewhat special");
 
             if (card.substring(0, card.indexOf(" ")).equals("RED")) {
                 if (card.contains("REVERSE")) {
